@@ -1,6 +1,6 @@
-﻿@model IEnumerable< Property.Entity.PropertyModel>
+﻿@model Rajpal.Helpers.PagedData<Rajpal.Models.PropertyModell>
 <section>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Data)
     {
         <div class="item-grid__container">
             <div class="listing listing--v2">
@@ -21,7 +21,7 @@
                                 <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
                                 <p class="listing__price listing__price--open-houses">@item.ListPrice</p>
                             </div><!-- .listing__header-primary -->
-                            <img src="images/uploads/listing_logo_1.png" alt="Real Estate" class="listing__logo">
+                            <img src="~/content/images/uploads/listing_logo_1.png" alt="Real Estate" class="listing__logo">
                         </div><!-- .listing__header -->
                         <div class="listing__details">
                             <ul class="listing__stats">

@@ -2,10 +2,12 @@ E:\Rajpal\Rajpal\bin\Rajpal.dll.config
 E:\Rajpal\Rajpal\bin\Rajpal.dll
 E:\Rajpal\Rajpal\bin\Rajpal.pdb
 E:\Rajpal\Rajpal\bin\Antlr3.Runtime.dll
+E:\Rajpal\Rajpal\bin\AutoMapper.dll
 E:\Rajpal\Rajpal\bin\Common.Logging.Core.dll
 E:\Rajpal\Rajpal\bin\Common.Logging.dll
 E:\Rajpal\Rajpal\bin\Dapper.dll
 E:\Rajpal\Rajpal\bin\Microsoft.Web.Infrastructure.dll
+E:\Rajpal\Rajpal\bin\MvcPaging.dll
 E:\Rajpal\Rajpal\bin\Newtonsoft.Json.dll
 E:\Rajpal\Rajpal\bin\Ninject.dll
 E:\Rajpal\Rajpal\bin\Ninject.Web.Common.dll
@@ -16,6 +18,7 @@ E:\Rajpal\Rajpal\bin\Property.Entity.dll
 E:\Rajpal\Rajpal\bin\Property.Service.dll
 E:\Rajpal\Rajpal\bin\Quartz.dll
 E:\Rajpal\Rajpal\bin\System.Net.Http.Formatting.dll
+E:\Rajpal\Rajpal\bin\System.ValueTuple.dll
 E:\Rajpal\Rajpal\bin\System.Web.Helpers.dll
 E:\Rajpal\Rajpal\bin\System.Web.Http.dll
 E:\Rajpal\Rajpal\bin\System.Web.Http.WebHost.dll
@@ -27,11 +30,14 @@ E:\Rajpal\Rajpal\bin\System.Web.WebPages.dll
 E:\Rajpal\Rajpal\bin\System.Web.WebPages.Razor.dll
 E:\Rajpal\Rajpal\bin\WebActivatorEx.dll
 E:\Rajpal\Rajpal\bin\WebGrease.dll
+E:\Rajpal\Rajpal\bin\AutoMapper.pdb
+E:\Rajpal\Rajpal\bin\AutoMapper.xml
 E:\Rajpal\Rajpal\bin\Common.Logging.pdb
 E:\Rajpal\Rajpal\bin\Common.Logging.xml
 E:\Rajpal\Rajpal\bin\Common.Logging.Core.pdb
 E:\Rajpal\Rajpal\bin\Common.Logging.Core.xml
 E:\Rajpal\Rajpal\bin\Dapper.xml
+E:\Rajpal\Rajpal\bin\MvcPaging.xml
 E:\Rajpal\Rajpal\bin\Newtonsoft.Json.xml
 E:\Rajpal\Rajpal\bin\Ninject.xml
 E:\Rajpal\Rajpal\bin\Ninject.Web.Common.xml
@@ -39,6 +45,7 @@ E:\Rajpal\Rajpal\bin\Ninject.Web.Common.WebHost.xml
 E:\Rajpal\Rajpal\bin\Quartz.pdb
 E:\Rajpal\Rajpal\bin\Quartz.xml
 E:\Rajpal\Rajpal\bin\System.Net.Http.Formatting.xml
+E:\Rajpal\Rajpal\bin\System.ValueTuple.xml
 E:\Rajpal\Rajpal\bin\System.Web.Helpers.xml
 E:\Rajpal\Rajpal\bin\System.Web.Http.xml
 E:\Rajpal\Rajpal\bin\System.Web.Http.WebHost.xml
@@ -49,6 +56,6 @@ E:\Rajpal\Rajpal\bin\System.Web.WebPages.Deployment.xml
 E:\Rajpal\Rajpal\bin\System.Web.WebPages.Razor.xml
 E:\Rajpal\Rajpal\bin\System.Web.Optimization.xml
 E:\Rajpal\Rajpal\bin\Antlr3.Runtime.pdb
-E:\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache
 E:\Rajpal\Rajpal\obj\Debug\Rajpal.dll
 E:\Rajpal\Rajpal\obj\Debug\Rajpal.pdb
+E:\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache

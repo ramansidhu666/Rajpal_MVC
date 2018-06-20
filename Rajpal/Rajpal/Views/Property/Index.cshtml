@@ -1,4 +1,4 @@
-﻿@model IEnumerable< Property.Entity.PropertyModel>
+﻿@model Rajpal.Helpers.PagedData<Rajpal.Models.PropertyModell>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layoutproperty.cshtml";
@@ -23,8 +23,8 @@
                     <div class="listing-sort listing-sort--main-listing">
                         <div class="listing-sort__inner">
                             <ul class="listing-sort__list">
-                                <li class="listing-sort__item"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                                <li class="listing-sort__item"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
+                                <li id="List" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
+                                <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
                             </ul>
 
                             <span class="listing-sort__result">1-10 of 25 results</span>
@@ -55,13 +55,22 @@
                         <a href="#" class="main-listing__clear">Clear All</a>
                     </div><!-- .main-listing__tags -->
 
-                    @{
-                        Html.RenderPartial("~/Views/Partial/PropertyList.cshtml",Model);
+                    <div id="SearchViewDiv">
+
+                        @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
+                    </div>
+                    @for (int i = 1; i <= Model.NumberOfPages; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            @i
+                        }
+                        else
+                        {
+                            <a id="@ViewBag.ListOrGrid" class="page-number" href="javascript:void(0);">@i</a>
+                        }
                     }
-                    @{
-                        Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model);
-                    }
-                    <ul class="pagination pagination--t-margin">
+                    @*<ul class="pagination pagination--t-margin">
                         <li class="pagination__item">
                             <a href="#" class="pagination__link pagination__link_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                         </li>
@@ -69,10 +78,9 @@
                         <li class="pagination__item"><a href="#" class="pagination__link">2</a></li>
                         <li class="pagination__item"><a href="#" class="pagination__link">3</a></li>
                         <li class="pagination__item"><a href="#" class="pagination__link pagination__link_next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                    </ul><!-- pagination -->
+                    </ul>*@<!-- pagination -->
                 </main><!-- .col -->
             </div><!-- row -->
         </div><!-- .container -->
     </div><!-- .main-listing__main -->
 </section><!-- .main-listing -->
-

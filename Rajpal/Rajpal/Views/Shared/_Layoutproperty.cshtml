@@ -43,5 +43,49 @@
     <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>*@
     @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
+
+    <script>
+    $(function () {
+        $(".ListOrGrid").click(function () {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("Index", "Property")',
+                dataType: "html",
+                type: "POST",
+                cache: false,
+                data: { Type: '', IsList: $(this).attr('id') },
+                success: function (data) {
+                    debugger;
+                    $("#SearchViewDiv").html('');
+                    $("#SearchViewDiv").html(data);
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+
+        $(".page-number").click(function () {
+            debugger;
+            var page = parseInt($(this).html());
+
+            $.ajax({
+                url: '@Url.Action("Index", "Property")',
+                dataType: "html",
+                type: "POST",
+                cache: false,
+                data: { Type: '', IsList: $(this).attr('id'), page: page },
+                success: function (data) {
+                    debugger;
+                    $("#SearchViewDiv").html('');
+                    $("#SearchViewDiv").html(data);
+                }
+            });
+        });
+    });
+
+
+    </script>
 </body>
 </html>

@@ -1,5 +1,9 @@
-﻿using Property.Entity;
+﻿using AutoMapper;
+using Property.Entity;
 using Property.Service;
+using Rajpal.Data;
+using Rajpal.Helpers;
+using Rajpal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +26,34 @@ namespace Rajpal.Controllers
             this._ResidentialService = ResidentialService;
             this._CondoService = CondoService;
         }
-       
-        public ActionResult Index(string Type)
+        public const int PageSize = 5;
+
+        //public ActionResult Index()
+        //{
+        //    var people = new Paging<PropertyModell>();
+
+        //    using (var ctx = new AjaxPagingContext())
+        //    {
+        //        people.Data = ctx.People.OrderBy(p => p.Surname).Take(PageSize).ToList();
+        //        people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)ctx.People.Count() / PageSize));
+        //    }
+
+        //    return View(people);
+        //}
+        public ActionResult Index(string Type, string IsList, int page = 0)
         {
             var StaticPropertyType = "Residential";
+            var people = new PagedData<PropertyModell>();
             try
             {
+                if(Type!=""&& Type!=null)
+                {
+                    TempData["PropertyType"] = Type;
+                }
+                Type = TempData["PropertyType"].ToString();
+                TempData.Keep("PropertyType");
                 List<PropertyModel> PropertList = new List<PropertyModel>();
+                List<PropertyModell> PropertyModel = new List<PropertyModell>();
                 if (Type ==EnumValue.GetEnumDescription( EnumValue.PropertyType.Residential))
                 {
                     PropertList = _ResidentialService.GetResidentials().Skip(1).Take(14).ToList();
@@ -45,7 +70,49 @@ namespace Rajpal.Controllers
                 {
                     PropertList = null;
                 }
-                return View(PropertList);
+                
+                ViewBag.ListOrGrid= (IsList == "" || IsList == null ? "List" : IsList);
+                
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<PropertyModel, PropertyModell>();
+                });
+
+                IMapper mapper = config.CreateMapper();
+                foreach (var item in PropertList)
+                {
+                    var dest = mapper.Map<PropertyModel, PropertyModell>(item);
+                    PropertyModel.Add(dest);
+                }
+                if (page == 0)
+                {
+                    people.Data = PropertyModel.Take(PageSize).ToList();
+                }
+                else
+                {
+                    people.Data = PropertyModel.Skip(PageSize * (page - 1)).Take(PageSize).ToList();
+                    people.CurrentPage = page;
+                }
+               
+                people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
+                if (IsList == "" || IsList == null)
+                {
+                    return View(people);
+                }
+                else
+                {
+                    if (IsList == "List")
+                    {
+                        return PartialView("~/Views/Partial/PropertyList.cshtml", people);
+                    }
+                    else
+                    {
+                        return PartialView("~/Views/Partial/PropertyGrid.cshtml", people);
+                    }
+
+                }
+                //Mapper.CreateMap<PropertyModel, PropertyModell>();
+               
             }
             catch (Exception ex)
             {

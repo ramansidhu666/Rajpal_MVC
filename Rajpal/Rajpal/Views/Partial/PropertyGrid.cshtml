@@ -1,7 +1,7 @@
-﻿@model IEnumerable< Property.Entity.PropertyModel>
+﻿@model Rajpal.Helpers.PagedData<Rajpal.Models.PropertyModell>
 
 <section class="main-listing__item-grid">
-@foreach (var item in Model)
+@foreach (var item in Model.Data)
     {
 
     <div class="item-grid__container">
