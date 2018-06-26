@@ -1,35 +1,108 @@
-﻿@model Rajpal.Helpers.PagedData<Rajpal.Models.PropertyModell>
+﻿@using MvcPaging
+@model IPagedList<Rajpal.Models.PropertyModell>
 
 <section class="main-listing__item-grid">
-@foreach (var item in Model.Data)
+    @foreach (var item in Model)
     {
 
-    <div class="item-grid__container">
-        <div class="listing">
-            <div class="item-grid__image-container">
-                <a href="single_property_1.html">
-                    <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
-                    <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
-                    <span class="listing__favorite"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                </a>
-            </div>
-            <div class="item-grid__content-container">
-                <div class="listing__content">
-                    <h3 class="listing__title"><a href="single_property_1.html">@item.TypeOwn1Out</a></h3>
-                    <p class="listing__price"><b>MLS:</b> #@item.MLS</p>
-                    <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
-                    <p class="listing__price">@item.ListPrice</p>
-                    <div class="listing__details">
-                        <ul class="listing__stats">
-                            <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
-                            <li><span class="listing__figure">@item.Washrooms</span> Baths</li>
-                            <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
-                        </ul><!-- .listing__stats -->
-                        <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                    </div><!-- .listing__details -->
-                </div><!-- .listing-content -->
-            </div>
-        </div><!-- .listing -->
-    </div><!-- .col -->
-}
+        <div class="item-grid__container">
+            <div class="listing">
+                <div class="item-grid__image-container">
+                    <a href="single_property_1.html">
+                        <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
+                        <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
+                        <span class="listing__favorite"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                    </a>
+                </div>
+                <div class="item-grid__content-container">
+                    <div class="listing__content">
+                        <h3 class="listing__title"><a href="single_property_1.html">@item.TypeOwn1Out</a></h3>
+                        <p class="listing__price"><b>MLS:</b> #@item.MLS</p>
+                        <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
+                        <p class="listing__price">@item.ListPrice</p>
+                        <div class="listing__details">
+                            <ul class="listing__stats">
+                                <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
+                                <li><span class="listing__figure">@item.Washrooms</span> Baths</li>
+                                <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
+                            </ul><!-- .listing__stats -->
+                            <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        </div><!-- .listing__details -->
+                    </div><!-- .listing-content -->
+                </div>
+            </div><!-- .listing -->
+        </div><!-- .col -->
+    }
+    <div class="pager1">
+        @Html.Raw(Ajax.Pager(
+            new Options
+            {
+                PageSize = Model.PageSize,
+                TotalItemCount = Model.TotalItemCount,
+                CurrentPage = Model.PageNumber,
+                ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous", Page = "P" },
+                ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                TooltipTitles = new TooltipTitles() { Next = "Next page", Previous = "Previous page", Page = "Page {0}." },
+                Size = Size.normal,
+                Alignment = Alignment.centered,
+                IsShowControls = true,
+                IsShowFirstLast = true,
+                CssClass = ""
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = "grid-list",
+                OnBegin = "beginPaging",
+                OnSuccess = "successPaging",
+                OnFailure = "failurePaging"
+            }, new { controller = "Property", action = "Index", IsList = "Grid" }))
+        <div class="well">
+            Showing <span class="badge badge-success">@Model.ItemStart</span> to <span class="badge badge-success">@Model.ItemEnd</span>
+            of <span class="badge badge-info">@Model.TotalItemCount</span> entries
+        </div>
+    </div>
 </section><!-- .main-listing__item-grid -->
+
+  
+    @*<script>
+        $(function () {
+            $(".page-number").click(function () {
+                debugger;
+                var page = parseInt($(this).html());
+
+                $.ajax({
+                    url: '@Url.Action("Index", "Property")',
+                    dataType: "html",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: '', IsList: $(this).attr('id'), page: page },
+                    success: function (data) {
+                        debugger;
+                        $("#SearchViewDiv").html('');
+                        $("#SearchViewDiv").html(data);
+                    }
+                });
+            });
+
+            $(".pagination__link_prev").click(function () {
+                debugger;
+                var selectedPage = $('.pagination__link--selected').attr('id');
+                var page = parseInt(selectedPage) - 1;
+                var islist = $('.pagination__link--selected').attr('data-role');
+                $.ajax({
+                    url: '@Url.Action("Index", "Property")',
+                    dataType: "html",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: '', IsList: islist, page: page },
+                    success: function (data) {
+                        debugger;
+                        $("#SearchViewDiv").html('');
+                        $("#SearchViewDiv").html(data);
+                    }
+                });
+            });
+        });
+
+
+    </script>*@

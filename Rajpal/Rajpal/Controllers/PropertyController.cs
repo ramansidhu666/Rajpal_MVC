@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using MvcPaging;
 namespace Rajpal.Controllers
 {
     public class PropertyController : Controller
     {
-//        public PropertyController()
-//{
-//}
+        private const int defaultPageSize = 2;
+        private IList<PropertyModell> allEmployee = new List<PropertyModell>();
         private IIdxCommercialService _CommercialService { get; set; }
         private IIdxResidentialService _ResidentialService { get; set; }
         private IIdxCondoService _CondoService { get; set; }
@@ -26,21 +25,9 @@ namespace Rajpal.Controllers
             this._ResidentialService = ResidentialService;
             this._CondoService = CondoService;
         }
-        public const int PageSize = 5;
-
-        //public ActionResult Index()
-        //{
-        //    var people = new Paging<PropertyModell>();
-
-        //    using (var ctx = new AjaxPagingContext())
-        //    {
-        //        people.Data = ctx.People.OrderBy(p => p.Surname).Take(PageSize).ToList();
-        //        people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)ctx.People.Count() / PageSize));
-        //    }
-
-        //    return View(people);
-        //}
-        public ActionResult Index(string Type, string IsList, int page = 0)
+       
+     
+        public ActionResult Index(string Type, string IsList, int? page )
         {
             var StaticPropertyType = "Residential";
             var people = new PagedData<PropertyModell>();
@@ -56,7 +43,7 @@ namespace Rajpal.Controllers
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();
                 if (Type ==EnumValue.GetEnumDescription( EnumValue.PropertyType.Residential))
                 {
-                    PropertList = _ResidentialService.GetResidentials().Skip(1).Take(14).ToList();
+                    PropertList = _ResidentialService.GetResidentials().Skip(1).Take(10).ToList();
                 }
                 else if (Type == EnumValue.GetEnumDescription( EnumValue.PropertyType.Commercial))
                 {
@@ -82,35 +69,58 @@ namespace Rajpal.Controllers
                 foreach (var item in PropertList)
                 {
                     var dest = mapper.Map<PropertyModel, PropertyModell>(item);
-                    PropertyModel.Add(dest);
+                    allEmployee.Add(dest);
                 }
-                if (page == 0)
-                {
-                    people.Data = PropertyModel.Take(PageSize).ToList();
-                }
-                else
-                {
-                    people.Data = PropertyModel.Skip(PageSize * (page - 1)).Take(PageSize).ToList();
-                    people.CurrentPage = page;
-                }
+
+               // ViewData["employee_name"] = employee_name;
+                int currentPageIndex = page.HasValue ? page.Value : 1;
+                IList<PropertyModell> employees = this.allEmployee;
+
+
+                employees = employees.ToPagedList(currentPageIndex, defaultPageSize);
+
+                //if (page == 0)
+                //{
+                //    people.Data = PropertyModel.Take(PageSize).ToList();
+                //}
+                //else
+                //{
+                //    people.Data = PropertyModel.Skip(PageSize * (page - 1)).Take(PageSize).ToList();
+                //    people.CurrentPage = page;
+                //}
                
-                people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
-                if (IsList == "" || IsList == null)
-                {
-                    return View(people);
-                }
-                else
+                //people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
+
+                if (Request.IsAjaxRequest())
                 {
                     if (IsList == "List")
                     {
-                        return PartialView("~/Views/Partial/PropertyList.cshtml", people);
+                        return PartialView("~/Views/Partial/PropertyList.cshtml", employees);
                     }
                     else
                     {
-                        return PartialView("~/Views/Partial/PropertyGrid.cshtml", people);
+                        return PartialView("~/Views/Partial/PropertyGrid.cshtml", employees);
                     }
-
                 }
+                   
+                else
+                    return View(employees);
+                ////if (IsList == "" || IsList == null)
+                ////{
+                ////    return View(employees);
+                ////}
+                ////else
+                ////{
+                ////    if (IsList == "List")
+                ////    {
+                ////        return PartialView("~/Views/Partial/PropertyList.cshtml", employees);
+                ////    }
+                ////    else
+                ////    {
+                ////        return PartialView("~/Views/Partial/PropertyGrid.cshtml", employees);
+                ////    }
+
+                ////}
                 //Mapper.CreateMap<PropertyModel, PropertyModell>();
                
             }
@@ -123,6 +133,8 @@ namespace Rajpal.Controllers
 
 
         }
+
+       
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

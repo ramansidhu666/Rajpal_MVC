@@ -1,4 +1,5 @@
-﻿@model Rajpal.Helpers.PagedData<Rajpal.Models.PropertyModell>
+﻿@using MvcPaging
+@model IPagedList<Rajpal.Models.PropertyModell>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layoutproperty.cshtml";
@@ -27,7 +28,7 @@
                                 <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
                             </ul>
 
-                            <span class="listing-sort__result">1-10 of 25 results</span>
+                            <span class="listing-sort__result">Total Record Found 18963</span>
 
                             <p class="listing-sort__sort">
                                 <label for="sort-type" class="listing-sort__label"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by </label>
@@ -54,22 +55,15 @@
                         </ul><!-- .main-listing__list -->
                         <a href="#" class="main-listing__clear">Clear All</a>
                     </div><!-- .main-listing__tags -->
-
-                    <div id="SearchViewDiv">
-
-                        @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
-                    </div>
-                    @for (int i = 1; i <= Model.NumberOfPages; i++)
-                    {
-                        if (i == Model.CurrentPage)
-                        {
-                            @i
-                        }
-                        else
-                        {
-                            <a id="@ViewBag.ListOrGrid" class="page-number" href="javascript:void(0);">@i</a>
-                        }
-                    }
+@using (Ajax.BeginForm("Index", "Property",
+                            new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging", OnFailure = "failurePaging" },
+                            new { id = "frm-search" }))
+{
+    <div id="grid-list">
+        @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
+             @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
+    </div>
+}
                     @*<ul class="pagination pagination--t-margin">
                         <li class="pagination__item">
                             <a href="#" class="pagination__link pagination__link_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
@@ -84,3 +78,23 @@
         </div><!-- .container -->
     </div><!-- .main-listing__main -->
 </section><!-- .main-listing -->
+
+
+<script type="text/javascript">
+
+    function beginPaging(args) {
+        // Animate
+        $('#grid-list').fadeOut('normal');
+    }
+
+    function successPaging() {
+        // Animate
+        $('#grid-list').fadeIn('normal');
+        $('a').tooltip();
+    }
+
+    function failurePaging() {
+        alert("Could not retrieve list.");
+    }
+
+</script>

@@ -56,6 +56,6 @@ E:\Rajpal\Rajpal\bin\System.Web.WebPages.Deployment.xml
 E:\Rajpal\Rajpal\bin\System.Web.WebPages.Razor.xml
 E:\Rajpal\Rajpal\bin\System.Web.Optimization.xml
 E:\Rajpal\Rajpal\bin\Antlr3.Runtime.pdb
+E:\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache
 E:\Rajpal\Rajpal\obj\Debug\Rajpal.dll
 E:\Rajpal\Rajpal\obj\Debug\Rajpal.pdb
-E:\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache

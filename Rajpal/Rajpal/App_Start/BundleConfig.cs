@@ -32,7 +32,9 @@ namespace Rajpal
                      "~/Content/css/plugins.css",
                        "~/Content/css/style.css"));
             bundles.Add(new StyleBundle("~/Content/custom").Include(
-                    "~/Content/css/Custom.css"));
+                    "~/Content/css/Custom.css",
+                     "~/Content/css/bootstrap.min.css",
+                       "~/Content/css/paging.css"));
         }
     }
 }

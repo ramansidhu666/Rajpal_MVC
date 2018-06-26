@@ -1,8 +1,9 @@
 ﻿@using MvcPaging
 @model IPagedList<Rajpal.Models.PropertyModell>
-
+@using (Html.BeginForm("Index", "Property", FormMethod.Get))
+{
 <section>
-        @foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <div class="item-grid__container">
             <div class="listing listing--v2">
@@ -42,38 +43,27 @@
             </div><!-- .listing -->
         </div><!-- .item-grid__container -->
     }
-    <div class="pager1">
-        @Html.Raw(Ajax.Pager(
+    <div class="pager">
+        @Html.Raw(Html.Pager(
             new Options
             {
                 PageSize = Model.PageSize,
                 TotalItemCount = Model.TotalItemCount,
                 CurrentPage = Model.PageNumber,
-                ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous", Page = "P" },
+                ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous" },
                 ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
-                TooltipTitles = new TooltipTitles() { Next = "Next page", Previous = "Previous page", Page = "Page {0}." },
+                TooltipTitles = new TooltipTitles() { Next = "Next page {0}", Previous = "Previous page {0}", Page = "Go to page {0}" },
                 Size = Size.normal,
                 Alignment = Alignment.centered,
                 IsShowControls = true,
                 IsShowFirstLast = true,
-                CssClass = ""
-            },
-            new AjaxOptions
-            {
-                UpdateTargetId = "grid-list",
-                OnBegin = "beginPaging",
-                OnSuccess = "successPaging",
-                OnFailure = "failurePaging"
-            }, new { controller = "Property", action = "Index", IsList = "List" }))
-        <div class="well">
-            Showing <span class="badge badge-success">@Model.ItemStart</span> to <span class="badge badge-success">@Model.ItemEnd</span>
-            of <span class="badge badge-info">@Model.TotalItemCount</span> entries
-        </div>
+                IsShowPages = true
+            }, new { employee_name = ViewData["employee_name"] }))
     </div>
 </section>
+}
 
-
-@*<script>
+<script>
     $(function () {
         $(".page-number").click(function () {
             debugger;
@@ -95,4 +85,4 @@
     });
 
 
-</script>*@
+</script>
