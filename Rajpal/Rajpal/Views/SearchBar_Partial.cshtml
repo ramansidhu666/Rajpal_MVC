@@ -25,70 +25,191 @@
                 </div><!-- main-listing__form-select -->
             </div><!-- .main-listing__wrapper -->
             <div class="main-listing__wrapper">
-                <label for="listing-city" class="main-listing__form-title">City</label>
-                <select name="city" id="listing-city" class="ht-field main-listing__form-field">
-                    <option value="All" selected>All City</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                </select><!-- .main-listing__form-field -->
+                <label for="listing-city" class="main-listing__form-title">Home Type</label>
+                @*@Html.DropDownList("EventId", new SelectList(ViewBag.eventss, "Value", "Text", "Select Home Type"), new { @class = "form-control" })*@
+                <select id="ddlCustomers" class="ht-field main-listing__form-field"></select>
+
             </div><!-- .main-listing__wrapper -->
             <div class="main-listing__wrapper">
                 <label for="main-listing-keyword" class="main-listing__form-title">Keyword</label>
                 <input type="text" id="main-listing-keyword" class="main-listing__form-field" placeholder="Enter keywords...">
             </div><!-- .main-listing__wrapper -->
             <div class="main-listing__wrapper">
+                <label for="listing-bathroom" class="main-listing__form-title">Status</label>
+                <select name="bathroom" id="listing-bathroom" class="ht-field main-listing__form-field">
+                    <option value="All" selected>All Status</option>
+                    <option value="Sale">Sale</option>
+                    <option value="Lease">Lease</option>
+                   
+                </select><!-- .main-listing__form-field -->
+            </div><!-- .main-listing__wrapper -->
+            <div class="main-listing__wrapper">
                 <label for="listing-bedroom" class="main-listing__form-title">Bedrooms</label>
                 <select name="bedroom" id="listing-bedroom" class="ht-field main-listing__form-field">
                     <option value="All" selected>All Beds</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                    <option value="7">7+</option>
+                    <option value="8">8+</option>
+                    <option value="9">9+</option>
+                    <option value="10">10+</option>
                 </select><!-- .main-listing__form-field -->
             </div><!-- .main-listing__wrapper -->
             <div class="main-listing__wrapper">
                 <label for="listing-bathroom" class="main-listing__form-title">Bathrooms</label>
                 <select name="bathroom" id="listing-bathroom" class="ht-field main-listing__form-field">
                     <option value="All" selected>All Baths</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                    <option value="7">7+</option>
+                    <option value="8">8+</option>
+                    <option value="9">9+</option>
+                    <option value="10">10+</option>
                 </select><!-- .main-listing__form-field -->
             </div><!-- .main-listing__wrapper -->
             <div class="main-listing__wrapper">
-                <label for="min-area" class="main-listing__form-title">Square Feet (Ft<sup>2</sup>)</label>
+                <label for="min-area" class="main-listing__form-title">Price</label>
                 <div class="main-listing__form-container">
                     <select name="min-area" id="min-area" class="ht-field main-listing__form-field">
                         <option value="0" selected>No min</option>
-                        <option value="1">100</option>
-                        <option value="2">200</option>
-                        <option value="3">300</option>
-                        <option value="4">400</option>
+                        <option value="100000">100000</option>
+                        <option value="125000">125000</option>
+                        <option value="150000">150000</option>
+                        <option value="175000">175000</option>
+                        <option value="200000">200000</option>
+                        <option value="225000">225000</option>
+                        <option value="250000">250000</option>
+                        <option value="275000">275000</option>
+                        <option value="300000">300000</option>
+                        <option value="325000">325000</option>
+                        <option value="350000">350000</option>
+                        <option value="375000">375000</option>
+                        <option value="400000">400000</option>
+                        <option value="425000">425000</option>
+                        <option value="450000">450000</option>
+                        <option value="475000">475000</option>
+                        <option value="500000">500000</option>
+                        <option value="525000">525000</option>
+                        <option value="550000">550000</option>
+                        <option value="575000">575000</option>
+                        <option value="600000">600000</option>
+                        <option value="625000">625000</option>
+                        <option value="650000">650000</option>
+                        <option value="675000">675000</option>
+                        <option value="700000">700000</option>
+                        <option value="725000">725000</option>
+                        <option value="750000">750000</option>
+                        <option value="775000">775000</option>
+                        <option value="800000">800000</option>
+                        <option value="825000">825000</option>
+                        <option value="850000">850000</option>
+                        <option value="875000">875000</option>
+                        <option value="900000">900000</option>
+                        <option value="925000">925000</option>
+                        <option value="950000">950000</option>
+                        <option value="975000">975000</option>
+                        <option value="1000000">1000000</option>
+                        <option value="1050000">1050000</option>
+                        <option value="1100000">1100000</option>
+                        <option value="1150000">1150000</option>
+                        <option value="1200000">1200000</option>
+                        <option value="1250000">1250000</option>
+                        <option value="1300000">1300000</option>
+                        <option value="1350000">1350000</option>
+                        <option value="1400000">1400000</option>
+                        <option value="1450000">1450000</option>
+                        <option value="1500000">1500000</option>
+                        <option value="1550000">1550000</option>
+                        <option value="1600000">1600000</option>
+                        <option value="1650000">1650000</option>
+                        <option value="1700000">1700000</option>
+                        <option value="1750000">1750000</option>
+                        <option value="1800000">1800000</option>
+                        <option value="1850000">1850000</option>
+                        <option value="1900000">1900000</option>
+                        <option value="1950000">1950000</option>
+                        <option value="2000000">2000000</option>
+                        <option value="2500000">2500000</option>
+                        <option value="3000000">3000000</option>
+                        <option value="3500000">3500000</option>
+                        <option value="4000000">4000000</option>
+                        <option value="4500000">4500000</option>
+                        <option value="5000000">5000000</option>
                     </select><!-- .main-listing__form-field -->
                     <select name="max-area" id="max-area" class="ht-field main-listing__form-field">
                         <option value="0" selected>No max</option>
-                        <option value="1">200</option>
-                        <option value="2">300</option>
-                        <option value="3">400</option>
-                        <option value="4">500</option>
+                        <option value="0" selected>No min</option>
+                        <option value="100000">100000</option>
+                        <option value="125000">125000</option>
+                        <option value="150000">150000</option>
+                        <option value="175000">175000</option>
+                        <option value="200000">200000</option>
+                        <option value="225000">225000</option>
+                        <option value="250000">250000</option>
+                        <option value="275000">275000</option>
+                        <option value="300000">300000</option>
+                        <option value="325000">325000</option>
+                        <option value="350000">350000</option>
+                        <option value="375000">375000</option>
+                        <option value="400000">400000</option>
+                        <option value="425000">425000</option>
+                        <option value="450000">450000</option>
+                        <option value="475000">475000</option>
+                        <option value="500000">500000</option>
+                        <option value="525000">525000</option>
+                        <option value="550000">550000</option>
+                        <option value="575000">575000</option>
+                        <option value="600000">600000</option>
+                        <option value="625000">625000</option>
+                        <option value="650000">650000</option>
+                        <option value="675000">675000</option>
+                        <option value="700000">700000</option>
+                        <option value="725000">725000</option>
+                        <option value="750000">750000</option>
+                        <option value="775000">775000</option>
+                        <option value="800000">800000</option>
+                        <option value="825000">825000</option>
+                        <option value="850000">850000</option>
+                        <option value="875000">875000</option>
+                        <option value="900000">900000</option>
+                        <option value="925000">925000</option>
+                        <option value="950000">950000</option>
+                        <option value="975000">975000</option>
+                        <option value="1000000">1000000</option>
+                        <option value="1050000">1050000</option>
+                        <option value="1100000">1100000</option>
+                        <option value="1150000">1150000</option>
+                        <option value="1200000">1200000</option>
+                        <option value="1250000">1250000</option>
+                        <option value="1300000">1300000</option>
+                        <option value="1350000">1350000</option>
+                        <option value="1400000">1400000</option>
+                        <option value="1450000">1450000</option>
+                        <option value="1500000">1500000</option>
+                        <option value="1550000">1550000</option>
+                        <option value="1600000">1600000</option>
+                        <option value="1650000">1650000</option>
+                        <option value="1700000">1700000</option>
+                        <option value="1750000">1750000</option>
+                        <option value="1800000">1800000</option>
+                        <option value="1850000">1850000</option>
+                        <option value="1900000">1900000</option>
+                        <option value="1950000">1950000</option>
+                        <option value="2000000">2000000</option>
+                        <option value="2500000">2500000</option>
+                        <option value="3000000">3000000</option>
+                        <option value="3500000">3500000</option>
+                        <option value="4000000">4000000</option>
+                        <option value="4500000">4500000</option>
+                        <option value="5000000">5000000</option>
                     </select><!-- .main-listing__form-field -->
                 </div><!-- .main-listing__form-container -->
             </div><!-- .main-listing__wrapper -->

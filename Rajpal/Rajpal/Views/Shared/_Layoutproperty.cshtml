@@ -51,7 +51,31 @@
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
-    $(function () {
+      
+        $(function () {
+            debugger;
+            var ddlCustomers = $("#ddlCustomers");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+            $.ajax({
+                type: "POST",
+                url: "/Property/GetPropertyTypes",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    debugger;
+                    ddlCustomers.empty().append('<option selected="selected" value="0">All Home Types</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
         $(".ListOrGrid").click(function () {
             debugger;
             $.ajax({

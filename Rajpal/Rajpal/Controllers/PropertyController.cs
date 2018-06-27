@@ -10,11 +10,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
+using System.Web.Caching;
 namespace Rajpal.Controllers
 {
     public class PropertyController : Controller
     {
-        private const int defaultPageSize = 2;
+        private const int defaultPageSize = 10;
         private IList<PropertyModell> allEmployee = new List<PropertyModell>();
         private IIdxCommercialService _CommercialService { get; set; }
         private IIdxResidentialService _ResidentialService { get; set; }
@@ -25,10 +26,74 @@ namespace Rajpal.Controllers
             this._ResidentialService = ResidentialService;
             this._CondoService = CondoService;
         }
-       
-     
+        public ActionResult GetPropertyTypes(string Type)
+        {
+            var PropertyType = new List< PropertyType>();
+            if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
+            {
+               PropertyType = _ResidentialService.GetPropertyTypes();
+            }
+            else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
+            {
+                PropertyType = _CommercialService.GetPropertyTypes_Comm();
+            }
+            else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Condo))
+            {
+                PropertyType = _CondoService.GetPropertyTypes_Condo();
+            }
+            else
+            {
+                PropertyType = _ResidentialService.GetPropertyTypes();
+            }
+            List<SelectListItem> PropertyTypes = new List<SelectListItem>();
+            foreach (var item in PropertyType)
+            {
+                PropertyTypes.Add(new SelectListItem
+                {
+                    Value = item.typeown1out,
+                    Text = item.typeown1out
+                });            }
+
+            return Json(PropertyTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        private IList<PropertyModell> GetData(string Type)
+        {
+            List<PropertyModel> PropertList = new List<PropertyModel>();
+            if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
+            {
+                PropertList = _ResidentialService.GetResidentials();
+            }
+            else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
+            {
+                PropertList = _CommercialService.GetCommercials();
+            }
+            else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Condo))
+            {
+                PropertList = _ResidentialService.GetResidentials();
+            }
+            else
+            {
+                PropertList = _ResidentialService.GetResidentials();
+            }
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PropertyModel, PropertyModell>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            foreach (var item in PropertList)
+            {
+                var dest = mapper.Map<PropertyModel, PropertyModell>(item);
+                allEmployee.Add(dest);
+            }
+            return allEmployee;
+           
+        }
+    
         public ActionResult Index(string Type, string IsList, int? page )
         {
+           
             var StaticPropertyType = "Residential";
             var people = new PagedData<PropertyModell>();
             try
@@ -39,45 +104,29 @@ namespace Rajpal.Controllers
                 }
                 Type = TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
-                List<PropertyModel> PropertList = new List<PropertyModel>();
+
+                var PropertList = HttpContext.Cache.Get("ThousandsPost") as IList<PropertyModell>;
+
+                if (PropertList == null)
+                {
+                    PropertList = this.GetData(Type);
+                    HttpContext.Cache.Insert("ThousandsPost", PropertList, null, DateTime.Now.AddMinutes(1), Cache.NoSlidingExpiration);  
+                 }  
+
+               
+               // List<PropertyModel> PropertList = new List<PropertyModel>();
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();
-                if (Type ==EnumValue.GetEnumDescription( EnumValue.PropertyType.Residential))
-                {
-                    PropertList = _ResidentialService.GetResidentials().Skip(1).Take(10).ToList();
-                }
-                else if (Type == EnumValue.GetEnumDescription( EnumValue.PropertyType.Commercial))
-                {
-                    PropertList = _CommercialService.GetCommercials();
-                }
-                else if (Type == EnumValue.GetEnumDescription( EnumValue.PropertyType.Condo))
-                {
-                    PropertList = _ResidentialService.GetResidentials();
-                }
-                else
-                {
-                    PropertList = null;
-                }
+               
                 
                 ViewBag.ListOrGrid= (IsList == "" || IsList == null ? "List" : IsList);
                 
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<PropertyModel, PropertyModell>();
-                });
-
-                IMapper mapper = config.CreateMapper();
-                foreach (var item in PropertList)
-                {
-                    var dest = mapper.Map<PropertyModel, PropertyModell>(item);
-                    allEmployee.Add(dest);
-                }
-
+             
                // ViewData["employee_name"] = employee_name;
                 int currentPageIndex = page.HasValue ? page.Value : 1;
-                IList<PropertyModell> employees = this.allEmployee;
+                //IList<PropertyModell> employees = this.allEmployee;
 
 
-                employees = employees.ToPagedList(currentPageIndex, defaultPageSize);
+                PropertList = PropertList.ToPagedList(currentPageIndex, defaultPageSize);
 
                 //if (page == 0)
                 //{
@@ -90,21 +139,21 @@ namespace Rajpal.Controllers
                 //}
                
                 //people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
-
+               
                 if (Request.IsAjaxRequest())
                 {
                     if (IsList == "List")
                     {
-                        return PartialView("~/Views/Partial/PropertyList.cshtml", employees);
+                        return PartialView("~/Views/Partial/PropertyList.cshtml", PropertList);
                     }
                     else
                     {
-                        return PartialView("~/Views/Partial/PropertyGrid.cshtml", employees);
+                        return PartialView("~/Views/Partial/PropertyGrid.cshtml", PropertList);
                     }
                 }
                    
                 else
-                    return View(employees);
+                    return View(PropertList);
                 ////if (IsList == "" || IsList == null)
                 ////{
                 ////    return View(employees);
