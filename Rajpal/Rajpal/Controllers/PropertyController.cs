@@ -28,10 +28,10 @@ namespace Rajpal.Controllers
         }
         public ActionResult GetPropertyTypes(string Type)
         {
-            var PropertyType = new List< PropertyType>();
+            var PropertyType = new List<PropertyType>();
             if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
             {
-               PropertyType = _ResidentialService.GetPropertyTypes();
+                PropertyType = _ResidentialService.GetPropertyTypes();
             }
             else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
             {
@@ -52,7 +52,8 @@ namespace Rajpal.Controllers
                 {
                     Value = item.typeown1out,
                     Text = item.typeown1out
-                });            }
+                });
+            }
 
             return Json(PropertyTypes, JsonRequestBehavior.AllowGet);
         }
@@ -88,40 +89,63 @@ namespace Rajpal.Controllers
                 allEmployee.Add(dest);
             }
             return allEmployee;
-           
+
         }
-    
-        public ActionResult Index(string Type, string IsList, int? page )
+
+        public ActionResult Index(string Type, string IsList, int? page, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "", string MaxPrice = "", int Bedroom = 0, int Bathroom = 0)
         {
-           
+
             var StaticPropertyType = "Residential";
             var people = new PagedData<PropertyModell>();
             try
             {
-                if(Type!=""&& Type!=null)
+                if (Type != "" && Type != null)
                 {
                     TempData["PropertyType"] = Type;
                 }
                 Type = TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
 
-                var PropertList = HttpContext.Cache.Get("ThousandsPost") as IList<PropertyModell>;
+                var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
 
                 if (PropertList == null)
                 {
                     PropertList = this.GetData(Type);
-                    HttpContext.Cache.Insert("ThousandsPost", PropertList, null, DateTime.Now.AddMinutes(1), Cache.NoSlidingExpiration);  
-                 }  
-
-               
-               // List<PropertyModel> PropertList = new List<PropertyModel>();
+                    HttpContext.Cache.Insert(Type, PropertList, null, DateTime.Now.AddMinutes(1), Cache.NoSlidingExpiration);
+                }
+                if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                {
+                    PropertList = PropertList.Where(c => c.TypeOwn1Out.ToLower() == HomeType.ToLower()).ToList();
+                }
+                if (Status != "" && Status != "All")
+                {
+                    PropertList = PropertList.Where(c => c.SaleLease.ToLower() == Status.ToLower()).ToList();
+                }
+                if (Bedroom != 0)
+                {
+                    PropertList = PropertList.Where(c => Convert.ToInt32(c.Bedrooms) >= Bedroom && c.Bedrooms != null).ToList();
+                }
+                if (Bathroom != 0)
+                {
+                    PropertList = PropertList.Where(c => Convert.ToInt32(c.Washrooms) >= Bathroom && c.Washrooms != null).ToList();
+                }
+                if (MinPrice != "" && MaxPrice != "")
+                {
+                    PropertList = PropertList.Where(c => decimal.Parse(c.ListPrice) >= decimal.Parse(MinPrice) && decimal.Parse(c.ListPrice) <= decimal.Parse(MaxPrice)).ToList();
+                }
+                if (Keyword != "")
+                {
+                    PropertList = PropertList.Where(c => c.MLS.ToLower() == Keyword.ToLower() || c.Address.ToLower().Contains(Keyword.ToLower()) || c.Province.ToLower().Contains(Keyword.ToLower()) || c.PostalCode.ToLower().Contains(Keyword.ToLower()) || c.MunicipalityDistrict.ToLower().Contains(Keyword.ToLower())).ToList();
+                }
+              
+                // List<PropertyModel> PropertList = new List<PropertyModel>();
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();
-               
-                
-                ViewBag.ListOrGrid= (IsList == "" || IsList == null ? "List" : IsList);
-                
-             
-               // ViewData["employee_name"] = employee_name;
+
+
+                ViewBag.ListOrGrid = (IsList == "" || IsList == null ? "List" : IsList);
+
+
+                // ViewData["employee_name"] = employee_name;
                 int currentPageIndex = page.HasValue ? page.Value : 1;
                 //IList<PropertyModell> employees = this.allEmployee;
 
@@ -137,9 +161,9 @@ namespace Rajpal.Controllers
                 //    people.Data = PropertyModel.Skip(PageSize * (page - 1)).Take(PageSize).ToList();
                 //    people.CurrentPage = page;
                 //}
-               
+
                 //people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
-               
+                ViewBag.Type = Type;
                 if (Request.IsAjaxRequest())
                 {
                     if (IsList == "List")
@@ -151,7 +175,7 @@ namespace Rajpal.Controllers
                         return PartialView("~/Views/Partial/PropertyGrid.cshtml", PropertList);
                     }
                 }
-                   
+
                 else
                     return View(PropertList);
                 ////if (IsList == "" || IsList == null)
@@ -171,7 +195,7 @@ namespace Rajpal.Controllers
 
                 ////}
                 //Mapper.CreateMap<PropertyModel, PropertyModell>();
-               
+
             }
             catch (Exception ex)
             {
@@ -183,7 +207,7 @@ namespace Rajpal.Controllers
 
         }
 
-       
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

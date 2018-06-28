@@ -21,27 +21,8 @@
                     Html.RenderPartial("~/Views/SearchBar_Partial.cshtml");
                 }
                 <main class="col-md-9">
-                    <div class="listing-sort listing-sort--main-listing">
-                        <div class="listing-sort__inner">
-                            <ul class="listing-sort__list">
-                                <li id="List" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                                <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                            </ul>
-
-                            <span class="listing-sort__result">Total Record Found 18963</span>
-
-                            <p class="listing-sort__sort">
-                                <label for="sort-type" class="listing-sort__label"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by </label>
-                                <select name="sort-type" id="sort-type" class="ht-field listing-sort__field">
-                                    <option value="default">Default</option>
-                                    <option value="low-price">Price (Low to High)</option>
-                                    <option value="high-price">Price (High to Low)</option>
-                                    <option value="featured">Featured</option>
-                                </select>
-                            </p><!-- .listing-sort__sort -->
-                        </div><!-- .listing-sort__inner -->
-                    </div><!-- .listing-sort -->
-                    <div class="main-listing__tags">
+                   
+                    @*<div class="main-listing__tags">
                         <span class="main-listing__result">25 items found</span>
                         <ul class="main-listing__list">
                             <li class="main-listing__tag">
@@ -54,12 +35,13 @@
                             </li><!-- .main-listing__tag -->
                         </ul><!-- .main-listing__list -->
                         <a href="#" class="main-listing__clear">Clear All</a>
-                    </div><!-- .main-listing__tags -->
+                    </div>*@<!-- .main-listing__tags -->
 @using (Ajax.BeginForm("Index", "Property",
                             new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging", OnFailure = "failurePaging" },
                             new { id = "frm-search" }))
 {
     <div id="grid-list">
+
         @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
              @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
     </div>

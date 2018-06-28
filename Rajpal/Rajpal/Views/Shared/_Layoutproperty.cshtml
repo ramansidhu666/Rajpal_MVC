@@ -54,28 +54,59 @@
       
         $(function () {
             debugger;
-            var ddlCustomers = $("#ddlCustomers");
-            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
-            $.ajax({
-                type: "POST",
-                url: "/Property/GetPropertyTypes",
-                data: '{}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    debugger;
-                    ddlCustomers.empty().append('<option selected="selected" value="0">All Home Types</option>');
-                    $.each(response, function () {
-                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
-                    });
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
+            FillDropdown_PropertType("");
+            $('input[name=Type]').change(function () {
+                debugger;
+                
+              
+                var selectedDT = $(this).val();
+                if (selectedDT == "Residential")
+                {
+                    $("#rb1").attr("checked", true);
+                    $("#rb2").attr("checked", false);
+                    $("#rb3").attr("checked", false);
                 }
+                else if (selectedDT == "Commercial") {
+                    $("#rb1").attr("checked", false);
+                    $("#rb2").attr("checked", true);
+                    $("#rb3").attr("checked", false);
+                }
+                else {
+                    $("#rb1").attr("checked", false);
+                    $("#rb2").attr("checked", false);
+                    $("#rb3").attr("checked", true);
+                }
+                FillDropdown_PropertType(selectedDT);
+            
+
             });
+            function FillDropdown_PropertType(Type) {
+                debugger;
+                var ddlCustomers = $("#ddlCustomers");
+                ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+                $.ajax({
+                    url: '@Url.Action("GetPropertyTypes", "Property")',
+                    dataType: "Json",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: Type },
+                    success: function (response) {
+                        debugger;
+                        ddlCustomers.empty().append('<option selected="selected" value="0">All Home Types</option>');
+                        $.each(response, function () {
+                            ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                        });
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+
+
         $(".ListOrGrid").click(function () {
             debugger;
             $.ajax({
@@ -94,6 +125,31 @@
                 }
             });
         });
+
+            $(".Search").click(function () {
+                debugger;
+                var Type = $("input[name='Type']:checked").val();
+                var HomeType = $("#ddlCustomers").val();
+                var Keyword = $('#main-listing-keyword').val();
+                var Status = $('#listing-status').val();
+                var Bedroom = $('#listing-bedroom').val();
+                var Bathroom = $('#listing-bathroom').val();
+                $.ajax({
+                    url: '@Url.Action("Index", "Property")',
+                    dataType: "html",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom },
+                    success: function (data) {
+                        debugger;
+                        $("#grid-list").html('');
+                        $("#grid-list").html(data);
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
 
 
  
