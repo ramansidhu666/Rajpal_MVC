@@ -1,6 +1,101 @@
 ﻿body {
 }
-.h4_font
+
+.h5_font {
+    font-family: Helvetica, Arial, sans-serif !important;
+}
+
+.font-size-18 {
+    font-size: 18px !important;
+}
+
+.color-red {
+    color: red !important;
+}
+
+.width-100 {
+    width: 100% !important;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.margin-bot-10 {
+    margin-bottom: 10px !important;
+}
+
+.error-border {
+    border-color: #ec0f0f;
+    border-width: 1px;
+    border-style: solid;
+}
+.pagination li {
+	float: left;
+	margin: 6px;
+	color: #fff;
+	background: #19c53f;
+	padding: 8px 12px;
+	border-radius: 4px;
+	text-align: center !important;
+}
+
+.pager1 {
+	background: #fff;
+	width: 100%;
+	float: left;
+}
+
+.pagination a {
+	text-align: center;
+	color: #fff;
+}
+
+.pagination .active {
+	color: #fff;
+	margin: 6px;
+	background: #000;
+	text-align: center;
+	float: left;
+}
+
+.pagination ul {
+	text-align: center;
+}
+
+.listing img {
+	height: 100%;
+}
+
+.item-grid__image-container--open-houses {
+	width: 100%;
+	height: 210px;
+}
+
+.item-grid__image-container {
+	height: 225px;
+	width: 100%;
+}
+input[type="radio"] {
+	position: relative;
+	top: 16px;
+}
+
+
+
+
+
+
+.modal-header
 {
-        font-family: Helvetica, Arial, sans-serif !important;
+	
+	text-align:center;
+	font-size:24px;
+	color :#1fc341;
+}
+
+.modal-body
+{
+	
+	padding:0px !important;
 }

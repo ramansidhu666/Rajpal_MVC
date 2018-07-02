@@ -7,6 +7,8 @@ namespace Rajpal
     public class EnumValue
     {
         public enum PropertyType { [Description("Residential")]Residential, [Description("Commercial")] Commercial, [Description("Condo")] Condo }
+        public enum EmailType { [Description("Appointment")]Appointment, [Description("ContactUs")] ContactUs }
+        
         public static string GetEnumDescription(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());

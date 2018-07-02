@@ -20,7 +20,8 @@
 
  
     @Styles.Render("~/Content/home")
-    @Styles.Render("~/Content/custom")
+        @Styles.Render("~/Content/custom")
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
@@ -47,13 +48,21 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-
+  
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script>
       
         $(function () {
-            debugger;
+            $("#txtdatepicker").datepicker();
+            $(".phn").mask("(999) 999-9999");
+            $('.appointment').click(function (event) {
+                debugger;
+                $('#modal-dialog').modal('show')
+            });
+           
             FillDropdown_PropertType("");
             $('input[name=Type]').change(function () {
                 debugger;
@@ -125,6 +134,58 @@
                 }
             });
         });
+
+            $('#btnAppointment').click(function () {
+                debugger;
+                var name =     $("input[name='name']").val();
+                var lastname = $("input[name='lastname']").val();
+                var email =    $("input[name='email']").val();
+                var phone =    $("input[name='phone']").val();
+                var date =     $("input[name='date']").val();
+                var time =     $('#listing-time').val();
+                var comment = $("textarea[name='comment']").val();
+                if (name == "")
+                {
+                    $("input[name='name']").addClass('error-border');
+                    $("input[name='email']").removeClass('error-border');
+                    $("input[name='date']").removeClass('error-border');
+                    return false;
+                }
+                if (email == "")
+                {
+                    $("input[name='email']").addClass('error-border');
+                    $("input[name='name']").removeClass('error-border');
+                    $("input[name='date']").removeClass('error-border');
+                    return false;
+                }
+                if (date == "") {
+                    $("input[name='date']").addClass('error-border');
+                    $("input[name='email']").removeClass('error-border');
+                    $("input[name='name']").removeClass('error-border');
+                    return false;
+                }
+                $.ajax({
+                    url: '@Url.Action("SaveAppointment", "Common")',
+                    dataType: "Json",
+                    type: "POST",
+                    cache: false,
+                    data: { FirstName: name, LastName: lastname, Email: email, PhoneNumber: phone, AppointmentDate: date, AppointmentTime: time, Notes: comment },
+                    success: function (data) {
+                        debugger;
+                        $("input[name='name']").val('');
+                        $("input[name='lastname']").val('');
+                        $("input[name='email']").val('');
+                        $("input[name='phone']").val('');
+                        $("input[name='date']").val('');
+                        $('#listing-time').val('');
+                        $("textarea[name='comment']").val('');
+                        $('#modal-dialog').modal('toggle');
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
 
             $(".Search").click(function () {
                 debugger;

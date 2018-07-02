@@ -34,6 +34,7 @@ namespace Rajpal
             bundles.Add(new StyleBundle("~/Content/custom").Include(
                     "~/Content/css/Custom.css",
                      "~/Content/css/bootstrap.min.css",
+                      "~/Content/css/datepicker.css",
                        "~/Content/css/paging.css"));
         }
     }

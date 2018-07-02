@@ -194,6 +194,8 @@
     <Compile Include="App_Start\NinjectMvcDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonClass.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\AjaxPagingContext.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Appointment.html" />
     <Content Include="App_Readme\readme.txt" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
@@ -264,6 +267,7 @@
     <Content Include="Content\images\Icon_profile.png" />
     <Content Include="Content\images\icon_search.png" />
     <Content Include="Content\images\map_marker.png" />
+    <Content Include="Content\images\month.png" />
     <Content Include="Content\images\rating.png" />
     <Content Include="Content\images\revslider\main_slider_1-2.jpeg" />
     <Content Include="Content\images\revslider\main_slider_1.jpg" />
@@ -340,6 +344,7 @@
     <Content Include="Content\images\uploads\widget_thumbnail_3.jpg" />
     <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\jquery-1.12.4.min.js" />
+    <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\plugins.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -409,6 +414,7 @@
     <Content Include="Views\SearchBar_Partial.cshtml" />
     <Content Include="Views\Partial\PropertyList.cshtml" />
     <Content Include="Views\Partial\PropertyGrid.cshtml" />
+    <Content Include="Views\Appointment_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -137,7 +137,7 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.Where(c => c.MLS.ToLower() == Keyword.ToLower() || c.Address.ToLower().Contains(Keyword.ToLower()) || c.Province.ToLower().Contains(Keyword.ToLower()) || c.PostalCode.ToLower().Contains(Keyword.ToLower()) || c.MunicipalityDistrict.ToLower().Contains(Keyword.ToLower())).ToList();
                 }
-              
+                ViewBag.TotalData = PropertList.Count();
                 // List<PropertyModel> PropertList = new List<PropertyModel>();
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();
 
@@ -221,5 +221,6 @@ namespace Rajpal.Controllers
 
             return View();
         }
+
     }
 }

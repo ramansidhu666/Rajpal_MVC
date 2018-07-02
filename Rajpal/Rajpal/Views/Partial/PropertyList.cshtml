@@ -2,26 +2,7 @@
 @model IPagedList<Rajpal.Models.PropertyModell>
 
 <section>
-    <div class="listing-sort listing-sort--main-listing">
-        <div class="listing-sort__inner">
-            <ul class="listing-sort__list">
-                <li id="List" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-            </ul>
-
-            <span class="listing-sort__result">Total Record Found @Model.TotalItemCount</span>
-
-            <p class="listing-sort__sort">
-                <label for="sort-type" class="listing-sort__label"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by </label>
-                <select name="sort-type" id="sort-type" class="ht-field listing-sort__field">
-                    <option value="default">Default</option>
-                    <option value="low-price">Price (Low to High)</option>
-                    <option value="high-price">Price (High to Low)</option>
-                    <option value="featured">Featured</option>
-                </select>
-            </p><!-- .listing-sort__sort -->
-        </div><!-- .listing-sort__inner -->
-    </div><!-- .listing-sort -->
+ 
         @foreach (var item in Model)
     {
         <div class="item-grid__container">
@@ -37,13 +18,14 @@
                 <div class="item-grid__content-container item-grid__content-container--open-houses">
                     <div class="listing__content--open-houses">
                         <div class="listing__header">
-                            <div class="listing__header-primary">
-                                <span class="listing__type">@item.TypeOwn1Out</span>
-                                <h4 class="listing__title h4_font"><b>MLS:</b> #@item.MLS</h4>
+                            <div class="listing__header-primary width-100">
+                                <span class="listing__type font-size-18">@item.TypeOwn1Out</span>
+                                <a class="appointment float-right"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a>
+                                <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
                                 <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
-                                <p class="listing__price listing__price--open-houses">@item.ListPrice</p>
+                                <p class="listing__price listing__price--open-houses color-red">@item.ListPrice</p>
                             </div><!-- .listing__header-primary -->
-                            <img src="~/content/images/uploads/listing_logo_1.png" alt="Real Estate" class="listing__logo">
+                           
                         </div><!-- .listing__header -->
                         <div class="listing__details">
                             <ul class="listing__stats">

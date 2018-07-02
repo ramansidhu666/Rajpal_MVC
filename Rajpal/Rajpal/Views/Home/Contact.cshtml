@@ -1,17 +1,57 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    Layout = null;
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<style type="text/css">
+    .black_overlay {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        -moz-opacity: 0.8;
+        opacity: .80;
+        filter: alpha(opacity=80);
+    }
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    .white_content {
+        /*display: none;*/
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 300px;
+        height: 250px;
+        padding: 4px;
+        border: 3px solid orange;
+        background-color: white;
+        z-index: 1002;
+        overflow: auto;
+    }
+</style>
+
+<script>
+    $(function () {
+        $("#txtdatepicker").datepicker();
+    });
+</script>
+@using (Html.BeginForm("Index", "Home"))
+{
+
+    <div id="light" class="white_content">
+        @Html.TextBox("Datepicker", "", new { @id = "txtdatepicker", @style = "width:150px;" })
+        <br />
+        <input type="submit" value="Submit" />
+        <input id="btnclose" type="button" value="Close" onclick="javascript:return UserLoginClose();" />
+        <br />
+    </div>
+   
+}
