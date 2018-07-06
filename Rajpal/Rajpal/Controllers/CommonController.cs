@@ -45,6 +45,11 @@ namespace Rajpal.Controllers
             }
         }
 
-
+        [HttpPost]
+        public ActionResult Contact(string username, string lastname, string Email, string phn, string message)
+        {
+            bool isSent = CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription( EnumValue.EmailType.ContactUs),username + " " + lastname, Email, phn,"","", message);
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
     }
 }

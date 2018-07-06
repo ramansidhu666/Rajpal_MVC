@@ -17,6 +17,7 @@ E:\Rajpal\Rajpal\bin\Property.Core.dll
 E:\Rajpal\Rajpal\bin\Property.Entity.dll
 E:\Rajpal\Rajpal\bin\Property.Service.dll
 E:\Rajpal\Rajpal\bin\Quartz.dll
+E:\Rajpal\Rajpal\bin\reCAPTCHA.MVC.dll
 E:\Rajpal\Rajpal\bin\System.Net.Http.Formatting.dll
 E:\Rajpal\Rajpal\bin\System.ValueTuple.dll
 E:\Rajpal\Rajpal\bin\System.Web.Helpers.dll

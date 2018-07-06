@@ -92,7 +92,7 @@ namespace Rajpal.Controllers
 
         }
 
-        public ActionResult Index(string Type, string IsList, int? page, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "", string MaxPrice = "", int Bedroom = 0, int Bathroom = 0)
+        public ActionResult Index(string Type, string IsList, int? page, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "", string MaxPrice = "", int Bedroom = 0, int Bathroom = 0,string Sort="")
         {
 
             var StaticPropertyType = "Residential";
@@ -137,6 +137,15 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.Where(c => c.MLS.ToLower() == Keyword.ToLower() || c.Address.ToLower().Contains(Keyword.ToLower()) || c.Province.ToLower().Contains(Keyword.ToLower()) || c.PostalCode.ToLower().Contains(Keyword.ToLower()) || c.MunicipalityDistrict.ToLower().Contains(Keyword.ToLower())).ToList();
                 }
+                if (Sort == "high-price")
+                {
+                    PropertList = PropertList.OrderByDescending(c => decimal.Parse(c.ListPrice)).ToList();
+                }
+                else if (Sort == "low-price")
+                {
+                    PropertList = PropertList.OrderBy(c => decimal.Parse(c.ListPrice)).ToList();
+                }
+              
                 ViewBag.TotalData = PropertList.Count();
                 // List<PropertyModel> PropertList = new List<PropertyModel>();
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();

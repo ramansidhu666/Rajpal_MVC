@@ -115,7 +115,26 @@
                 });
             }
 
-
+            $("#sort-type").change(function () {
+                var IsList = $('.listing-sort__link--active').parent().attr('id');
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("Index", "Property")',
+                    dataType: "html",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: "", IsList: IsList, Sort: $('option:selected', this).val() },
+                    success: function (data) {
+                        debugger;
+                        $("#grid-list").html('');
+                        $("#grid-list").html(data);
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
+               
+            });
         $(".ListOrGrid").click(function () {
             debugger;
             $.ajax({
@@ -212,8 +231,100 @@
                 });
             });
 
+            //Contact us
+            $('#btnSave').click(function () {
+                debugger;
+              
+                var response = grecaptcha.getResponse();
 
- 
+                if ($("input[name=username]").val() == "") {
+                    $("input[name=username]").addClass('error-txt');
+                    $("input[name=lastname]").removeClass('error-txt');
+                    $("input[name=phn]").removeClass('error-txt');
+                    $("input[name=email]").removeClass('error-txt');
+                    $('#message1').html('This field is required');
+                    $('#message2').html('');
+                    $('#message3').html('');
+                    $('#message4').html('');
+                }
+                else if ($("input[name=lastname]").val() == "") {
+                    $("input[name=lastname]").addClass('error-txt');
+                    $("input[name=username]").removeClass('error-txt');
+                    $("input[name=phn]").removeClass('error-txt');
+                    $("input[name=email]").removeClass('error-txt');
+                    $('#message2').html('This field is required');
+                    $('#message1').html('');
+                    $('#message3').html('');
+                    $('#message4').html('');
+                }
+                else if ($("input[name=phn]").val() == "") {
+                    $("input[name=phn]").addClass('error-txt');
+                    $("input[name=lastname]").removeClass('error-txt');
+                    $("input[name=username]").removeClass('error-txt');
+                    $("input[name=email]").removeClass('error-txt');
+                    $('#message3').html('This field is required');
+                    $('#message1').html('');
+                    $('#message2').html('');
+                    $('#message4').html('');
+                }
+                else if ($("input[name=email]").val() == "") {
+                    $("input[name=email]").addClass('error-txt');
+                    $("input[name=phn]").removeClass('error-txt');
+                    $("input[name=lastname]").removeClass('error-txt');
+                    $("input[name=username]").removeClass('error-txt');
+                    $('#message4').html('This field is required');
+                    $('#message1').html('');
+                    $('#message2').html('');
+                    $('#message3').html('');
+                   
+                }
+                else if (response.length == 0) {
+                    $('#message6').html('The captcha field is required');
+                    $("input[name=email]").removeClass('error-txt');
+                    $("input[name=phn]").removeClass('error-txt');
+                    $("input[name=lastname]").removeClass('error-txt');
+                    $("input[name=username]").removeClass('error-txt');
+                    $('#message4').html('');
+                    $('#message1').html('');
+                    $('#message2').html('');
+                    $('#message3').html('');
+                }
+               
+             
+               
+
+                if ($("input[name=username]").val() != "" && response.length != 0 && $("input[name=lastname]").val() != "" && $("input[name=email]").val() != "" && $("input[name=phn]").val() != "") {
+
+                    $.ajax({
+
+                        url: "/Common/Contact",
+                        data: { 'username': $("input[name=username]").val(), 'lastname': $("input[name=lastname]").val(), 'Email': $("input[name=email]").val(), 'phn': $("input[name=phn]").val(), 'message': $("textarea[name=message]").val() },
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            debugger;
+                            $('#message1').html('');
+                            $('#message3').html('');
+                            $('#message2').html('');
+                            $('#message4').html('');
+                            $('#message5').html('');
+                            $('#message6').html('');
+                            $("input[name=username]").val('');
+                            $("input[name=lastname]").val('');
+                            $("input[name=email]").val('');
+                            $("input[name=phn]").val('');
+                            $("textarea[name=message]").val('');
+                            alert('Mail has been sent to admin. You will be contacted shortly.');
+                            grecaptcha.reset();
+                            return false;
+                        },
+                        error: function () {
+
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                }
+            });
     });
 
 

@@ -103,22 +103,29 @@ namespace Rajpal
                 {
                     mail.Subject = "Appointment";
                 }
+                else if (Type == EnumValue.GetEnumDescription(EnumValue.EmailType.ContactUs))
+                {
+                    mail.Subject = "User has contacted you";
+                }
               
                 string msgbody = "";
                 msgbody = msgbody + "<br />";
                 msgbody = msgbody + "<table style='width:80%'>";
                 msgbody = msgbody + "<tr>";
                 msgbody = msgbody + "<td align='left' style=' font-family:Arial; font-size:15px;'>Hi Admin, <br /></td></tr>";
-                msgbody = msgbody + "<br /><tr><td><font style=' font-family:Arial; font-size:13px;'>You have recently contacted for appointment. Below are details -</font><br /></td></tr>";
+                msgbody = msgbody + "<br /><tr><td><font style=' font-family:Arial; font-size:13px;'>You have recently contacted. Below are details -</font><br /></td></tr>";
                 //msgbody = msgbody + "<br /><tr><td><font style=' font-family:Arial; font-size:13px;'>Please find your password below:</font></td></tr>";
 
                 msgbody = msgbody + "<tr><td align='left'>";
                 msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Name: " + Name + "</font><br /><br />";
                 msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Email: " + Email + "</font><br /><br />";
                 msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Phone Number: " + PhoneNumber + "</font><br /><br />";
-                
-                msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Appointment Date: " + Date + "</font><br /><br />";
-                msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Appointment Time: " +Time + "</font><br /><br />";
+                if (Type == EnumValue.GetEnumDescription(EnumValue.EmailType.Appointment))
+                {
+                    msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Appointment Date: " + Date + "</font><br /><br />";
+                    msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Appointment Time: " + Time + "</font><br /><br />";
+                }
+               
                 msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Comment: " + Comment + "</font>";
                 msgbody = msgbody + "<br /><br />";
                 //msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Thanks,</font><br /><br />";

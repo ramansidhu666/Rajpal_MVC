@@ -82,10 +82,6 @@ input[type="radio"] {
 }
 
 
-
-
-
-
 .modal-header
 {
 	
@@ -98,4 +94,13 @@ input[type="radio"] {
 {
 	
 	padding:0px !important;
+}
+
+.error-txt
+{
+    border: 1px solid #ec0f0f;
+}
+.error
+{
+    color:red;
 }
