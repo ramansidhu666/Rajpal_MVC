@@ -92,7 +92,7 @@ namespace Rajpal.Controllers
 
         }
 
-        public ActionResult Index(string Type, string IsList, int? page, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "", string MaxPrice = "", int Bedroom = 0, int Bathroom = 0,string Sort="")
+        public ActionResult Index(string Type, string IsList, int? page,bool Ishome=false, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "0", string MaxPrice = "0", int Bedroom = 0, int Bathroom = 0,string Sort="")
         {
 
             var StaticPropertyType = "Residential";
@@ -106,6 +106,56 @@ namespace Rajpal.Controllers
                 Type = TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
 
+                if (Sort != "")
+                {
+                    TempData["Sort"] = Sort;
+                }
+                Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
+                TempData.Keep("Sort");
+
+                if (MinPrice != "0" )
+                {
+                    TempData["MinPrice"] = MinPrice;
+                }
+                MinPrice = TempData["MinPrice"]==null?"0":TempData["MinPrice"].ToString();
+                TempData.Keep("MinPrice");
+
+                if (MaxPrice != "0")
+                {
+                    TempData["MaxPrice"] = MaxPrice;
+                }
+                MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
+                TempData.Keep("MaxPrice");
+
+                if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                {
+                    TempData["HomeType"] = HomeType;
+                }
+                HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
+                TempData.Keep("HomeType");
+
+                if (Status != "" && Status != "All")
+                {
+                    TempData["Status"] = Status;
+                }
+                Status = TempData["Status"] == null ? "" : TempData["Status"].ToString();
+                TempData.Keep("Status");
+
+                if (Bedroom != 0)
+                {
+                    TempData["Bedroom"] = Bedroom;
+                }
+                Bedroom = TempData["Bedroom"] == null ? 0 :Convert.ToInt32( TempData["Bedroom"]);
+                TempData.Keep("Bedroom");
+
+                if (Bathroom != 0)
+                {
+                    TempData["Bathroom"] = Bathroom;
+                }
+                Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
+                TempData.Keep("Bathroom");
+
+            
                 var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
 
                 if (PropertList == null)
@@ -129,7 +179,7 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.Where(c => Convert.ToInt32(c.Washrooms) >= Bathroom && c.Washrooms != null).ToList();
                 }
-                if (MinPrice != "" && MaxPrice != "")
+                if (MinPrice != "0" && MaxPrice != "0")
                 {
                     PropertList = PropertList.Where(c => decimal.Parse(c.ListPrice) >= decimal.Parse(MinPrice) && decimal.Parse(c.ListPrice) <= decimal.Parse(MaxPrice)).ToList();
                 }
@@ -173,7 +223,7 @@ namespace Rajpal.Controllers
 
                 //people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
                 ViewBag.Type = Type;
-                if (Request.IsAjaxRequest())
+                if (Request.IsAjaxRequest()&&!Ishome)
                 {
                     if (IsList == "List")
                     {
@@ -186,7 +236,12 @@ namespace Rajpal.Controllers
                 }
 
                 else
-                    return View(PropertList);
+                {
+                   
+                        return View(PropertList);
+                   
+                }
+                   
                 ////if (IsList == "" || IsList == null)
                 ////{
                 ////    return View(employees);

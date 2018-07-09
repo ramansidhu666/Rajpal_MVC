@@ -46,6 +46,35 @@
         $(document).ready(function () {
             debugger;
             $('#header').addClass('header--top');
+
+            $(".Search").click(function () {
+                debugger;
+                var Type = $('#property-type').val();
+                var HomeType = "";
+                var Keyword = $('#keywords').val();
+                var Status = $('#Status').val();
+                var Bedroom = $('#bedrooms').val();
+                var Bathroom = $('#bathrooms').val();
+                var MinPrice = $('#min-price').val();
+                var MaxPrice = $('#max-price').val();
+                window.location.href = "/Property/Index?Type=" + Type + "&IsList=" + $(this).attr('id') + "&Ishome=true&HomeType=" + HomeType + "&Keyword=" + Keyword + "&Status=" + Status + "&Bedroom=" + Bedroom + "&Bathroom=" + Bathroom + "&MaxPrice=" + MaxPrice + "&MinPrice=" + MinPrice;
+                @*$.ajax({
+                    url: '@Url.Action("Index", "Property")',
+                    dataType: "JSON",
+                    type: "POST",
+                    cache: false,
+                    data: { Type: Type, IsList: $(this).attr('id'),Ishome:true, HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom },
+                    success: function (data) {
+                        debugger;
+                        return true;
+                        //$("#grid-list").html('');
+                        //$("#grid-list").html(data);
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });*@
+            });
         });
     </script>
 </body>

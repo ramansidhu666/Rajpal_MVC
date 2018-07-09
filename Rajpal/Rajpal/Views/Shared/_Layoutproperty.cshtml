@@ -214,12 +214,14 @@
                 var Status = $('#listing-status').val();
                 var Bedroom = $('#listing-bedroom').val();
                 var Bathroom = $('#listing-bathroom').val();
+                var MinPrice = $('#min-price').val();
+                var MaxPrice = $('#max-price').val();
                 $.ajax({
                     url: '@Url.Action("Index", "Property")',
                     dataType: "html",
                     type: "POST",
                     cache: false,
-                    data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom },
+                    data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom, MinPrice: MinPrice, MaxPrice: MaxPrice },
                     success: function (data) {
                         debugger;
                         $("#grid-list").html('');
