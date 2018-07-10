@@ -17,7 +17,8 @@
             <ul class="topbar__user">
                 <span class="ion-ios-person-outline topbar__user-icon"></span>
                 <li><a href="#" class="topbar__link">Sign In</a></li>
-                <li><a href="#" class="topbar__link">Join</a></li>
+                <li><button id="login" class="topbar__link login">Sign In</button></li>
+                <li><button id="register"class="topbar__link register">Join</button></li>
             </ul>
         </div><!-- .topbar -->
         <div class="header__main">
@@ -83,4 +84,37 @@
             </div><!-- .header__menu -->
         </div><!-- .header__main -->
     </div><!-- .container -->
+
+    <a href="#modal-dialog" id="md_btn" class="btn btn-sm btn-success" style="display:none" data-toggle="modal">Demo</a>
+    <div class="modal fade reason" id="modal-dialog-register">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Appointment</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                </div>
+                <div class="modal-body">
+                    @*@{
+                        Html.RenderPartial("~/Views/RegisterLogin.cshtml");
+                    }*@
+                    @{
+                        Html.RenderPartial("~/Views/Login.cshtml");
+                    }
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <input type="button" id="btnAppointment" class="contact-form__submit col-md-4" name="submit" value="Send Message">
+                        <div class="col-md-2"></div>
+                        <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
+                        <div class="col-md-1"></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </header><!-- .header -->

@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Photos\RegisteredUsers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CommonClass.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\AjaxPagingContext.cs" />
@@ -236,6 +238,25 @@
   <ItemGroup>
     <Content Include="Appointment.html" />
     <Content Include="App_Readme\readme.txt" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\demo.css" />
+    <Content Include="assets\css\material-bootstrap-wizard.css" />
+    <Content Include="assets\img\apple-icon.png" />
+    <Content Include="assets\img\default-avatar.png" />
+    <Content Include="assets\img\favicon.png" />
+    <Content Include="assets\img\new_logo.png" />
+    <Content Include="assets\img\thumb_list_boat.png" />
+    <Content Include="assets\img\thumb_list_place.png" />
+    <Content Include="assets\img\thumb_register.png" />
+    <Content Include="assets\img\tim_80x80.png" />
+    <Content Include="assets\img\wizard-book.jpg" />
+    <Content Include="assets\img\wizard-city.jpg" />
+    <Content Include="assets\img\wizard-profile.jpg" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\jquery-2.2.4.min.js" />
+    <Content Include="assets\js\jquery.bootstrap.js" />
+    <Content Include="assets\js\jquery.validate.min.js" />
+    <Content Include="assets\js\material-bootstrap-wizard.js" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\Custom.css" />
@@ -351,10 +372,12 @@
     <Content Include="Content\js\jquery-1.12.4.min.js" />
     <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\plugins.js" />
+    <Content Include="documentation\components-documentation.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="index.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\datedropper.eot" />
@@ -377,6 +400,37 @@
     <Content Include="Content\images\default-skin\Thumbs.db" />
     <Content Include="Content\images\Thumbs.db" />
     <Content Include="Content\images\uploads\Thumbs.db" />
+    <Content Include="wizard-book-room.html" />
+    <Content Include="wizard-build-profile.html" />
+    <Content Include="wizard-list-place.html" />
+    <Content Include=".DS_Store" />
+    <Content Include="assets\.DS_Store" />
+    <Content Include="assets\css\.DS_Store" />
+    <Content Include="assets\img\.DS_Store" />
+    <Content Include="assets\js\.DS_Store" />
+    <Content Include="assets\scss\material-bootstrap-wizard.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\mixins\_buttons.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\mixins\_inputs.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\mixins\_vendor-prefixes.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_buttons.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_card.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_checkboxes.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_colors.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_footers.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_inputs-size.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_inputs.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_misc.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_mixins.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_navs-pagination.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_radios.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_responsive.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_ripples.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_shadows.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_tooltips.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_typography.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_variables.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_variables_bootstrap.scss" />
+    <Content Include="assets\scss\material-bootstrap-wizard\_wizard-card.scss" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -422,6 +476,9 @@
     <Content Include="Views\Partial\PropertyList.cshtml" />
     <Content Include="Views\Partial\PropertyGrid.cshtml" />
     <Content Include="Views\Appointment_Partial.cshtml" />
+    <Content Include="Views\RegisterLogin.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -11,6 +13,30 @@ namespace Rajpal
 {
     public class CommonClass
     {
+        public static IDbConnection OpenConnection()
+        {
+            IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString);
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            connection.Open();
+            return connection;
+        }
+        public static string GetURL()
+        {
+            Boolean IsLive = Convert.ToBoolean(ConfigurationManager.AppSettings["IsLive"].ToString());
+            string URL = "";
+            if (IsLive)
+            {
+                URL = ConfigurationManager.AppSettings["LiveURL"].ToString();
+            }
+            else
+            {
+                URL = ConfigurationManager.AppSettings["LocalURL"].ToString();
+            }
+            return URL;
+        }
         public static Boolean SendMailToUser(string Type, string Name, string Email = "", string Date = "", string Time = "")
         {
             try
