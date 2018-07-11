@@ -104,3 +104,6 @@ input[type="radio"] {
 {
     color:red;
 }
+input[type="radio"]{
+    -webkit-appearance: radio;
+}

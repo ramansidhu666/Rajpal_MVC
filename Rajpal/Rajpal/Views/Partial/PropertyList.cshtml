@@ -61,6 +61,11 @@
                                 }
                                 
                             </ul><!-- .listing__stats -->
+
+                        @if(@item.VOX)
+                        {
+                            <button id="btnLocked" value="locked"></button>
+                        }
                             <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                             @*<div class="open-houses">
                                     <a href="single_property_1.html" class="open-houses__btn"><strong>Open House</strong> July 8, 2018 12.00 pm to 6.00 pm</a>

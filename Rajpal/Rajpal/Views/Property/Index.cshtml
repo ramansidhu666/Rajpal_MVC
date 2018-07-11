@@ -8,7 +8,7 @@
 
 <section class="main-listing">
     <div class="container">
-      
+
         <ul class="ht-breadcrumbs ht-breadcrumbs--y-padding">
             <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Home</span></a></li>
             <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Listing</span></a></li>
@@ -19,10 +19,24 @@
         <div class="container">
             <div class="row">
                 <h1 class="section__title section__title--centered section__title--b-margin-40">Open Houses</h1>
-                @{
-                    Html.RenderPartial("~/Views/SearchBar_Partial.cshtml");
-                }
-               
+                <aside class="col-md-3">
+                    @{
+                        Html.RenderPartial("~/Views/SearchBar_Partial.cshtml");
+                    }
+                    @if (Request.RequestContext.HttpContext.Session["UserId"] != "" && Request.RequestContext.HttpContext.Session["UserId"]!=null)
+                    {
+                          <section class="widget main-listing__widget widget__news">
+                            <h3 class="widget__title">Welcome</h3>
+                            <ul class="widget__news-list">
+                                <li class="widget__news-item"><a href="#">Home</a></li>
+                                <li class="widget__news-item"><a href="#">Bookmarked Properties</a></li>
+                                <li class="widget__news-item"><a href="#">Edit Account</a></li>
+                                <li class="widget__news-item"><a href="#">Saved Property Searches</a></li>
+                                <li class="widget__news-item"><a href="#">Log Out</a></li>
+                            </ul>
+                        </section><!-- .widget -->
+                    }
+                </aside><!-- .col -->
                     <main class="col-md-9">
                         <div class="listing-sort listing-sort--main-listing">
                             <div class="listing-sort__inner">
@@ -39,7 +53,7 @@
                                         <option value="default">Default</option>
                                         <option value="low-price">Price (Low to High)</option>
                                         <option value="high-price">Price (High to Low)</option>
-                                       
+
                                     </select>
                                 </p><!-- .listing-sort__sort -->
                             </div><!-- .listing-sort__inner -->
@@ -61,13 +75,13 @@
                         @using (Ajax.BeginForm("Index", "Property",
                             new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging", OnFailure = "failurePaging" },
                             new { id = "frm-search" }))
-{
-                <div id="grid-list">
+                        {
+                            <div id="grid-list">
 
-                    @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
-                    @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
-                </div>
-}
+                                @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
+                                @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
+                            </div>
+                        }
                         @*<ul class="pagination pagination--t-margin">
                     <li class="pagination__item">
                         <a href="#" class="pagination__link pagination__link_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
@@ -99,12 +113,12 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-1"></div>
-                    <input type="button" id="btnAppointment"  class="contact-form__submit col-md-4" name="submit" value="Send Message">
+                    <input type="button" id="btnAppointment" class="contact-form__submit col-md-4 btnAppointment" name="submit" value="Send Message">
                     <div class="col-md-2"></div>
                     <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
                     <div class="col-md-1"></div>
                 </div>
-             
+
 
             </div>
         </div>

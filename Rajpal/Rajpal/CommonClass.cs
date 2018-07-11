@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Configuration;
 
@@ -22,6 +23,52 @@ namespace Rajpal
             }
             connection.Open();
             return connection;
+        }
+        public static string EncryptString(string Message)
+        {
+            byte[] Results;
+            System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+            MD5CryptoServiceProvider HashProvider = new MD5CryptoServiceProvider();
+            byte[] TDESKey = HashProvider.ComputeHash(UTF8.GetBytes("india123"));
+            TripleDESCryptoServiceProvider TDESAlgorithm = new TripleDESCryptoServiceProvider();
+            TDESAlgorithm.Key = TDESKey;
+            TDESAlgorithm.Mode = CipherMode.ECB;
+            TDESAlgorithm.Padding = PaddingMode.PKCS7;
+            byte[] DataToEncrypt = UTF8.GetBytes(Message);
+            try
+            {
+                ICryptoTransform Encryptor = TDESAlgorithm.CreateEncryptor();
+                Results = Encryptor.TransformFinalBlock(DataToEncrypt, 0, DataToEncrypt.Length);
+            }
+            finally
+            {
+                TDESAlgorithm.Clear();
+                HashProvider.Clear();
+            }
+            return Convert.ToBase64String(Results);
+        }
+        public static string DecryptString(string Message)
+        {
+            byte[] Results;
+            System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+            MD5CryptoServiceProvider HashProvider = new MD5CryptoServiceProvider();
+            byte[] TDESKey = HashProvider.ComputeHash(UTF8.GetBytes("india123"));
+            TripleDESCryptoServiceProvider TDESAlgorithm = new TripleDESCryptoServiceProvider();
+            TDESAlgorithm.Key = TDESKey;
+            TDESAlgorithm.Mode = CipherMode.ECB;
+            TDESAlgorithm.Padding = PaddingMode.PKCS7;
+            byte[] DataToDecrypt = Convert.FromBase64String(Message);
+            try
+            {
+                ICryptoTransform Decryptor = TDESAlgorithm.CreateDecryptor();
+                Results = Decryptor.TransformFinalBlock(DataToDecrypt, 0, DataToDecrypt.Length);
+            }
+            finally
+            {
+                TDESAlgorithm.Clear();
+                HashProvider.Clear();
+            }
+            return UTF8.GetString(Results);
         }
         public static string GetURL()
         {
@@ -106,7 +153,7 @@ namespace Rajpal
                 return false;
             }
         }
-        public static Boolean SendMailToAdmin(string Type, string Name, string Email = "", string PhoneNumber = "", string Date = "", string Time = "", string Comment = "")
+        public static Boolean SendMailToAdmin(string Type, string Name, string Email = "", string PhoneNumber = "", string Date = "", string Time = "", string Comment = "", string UserType="")
         {
             try
             {
@@ -153,6 +200,7 @@ namespace Rajpal
                 }
                
                 msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Comment: " + Comment + "</font>";
+                msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>UserType: " + UserType + "</font>";
                 msgbody = msgbody + "<br /><br />";
                 //msgbody = msgbody + "<br /><font style=' font-family:Arial; font-size:13px;'>Thanks,</font><br /><br />";
                 //msgbody = msgbody + "<font style=' font-family:Arial; font-size:13px;'>Sports Photo team.</font>";

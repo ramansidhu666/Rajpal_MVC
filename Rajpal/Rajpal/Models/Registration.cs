@@ -25,6 +25,7 @@ namespace Rajpal.Models
         public string EmailId { get; set; }
         public string Password { get; set; }
         public string ProfileImage { get; set; }
+        public string UserType { get; set; }
         public Nullable<bool> IsVerified { get; set; }
         public Nullable<bool> Role { get; set; }
         public Nullable<bool> IsDelete { get; set; }

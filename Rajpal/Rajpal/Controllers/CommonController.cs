@@ -16,13 +16,13 @@ namespace Rajpal.Controllers
     {
 
 
-        public ActionResult SaveAppointment(string FirstName, string LastName, string Email, string PhoneNumber, string AppointmentDate, string AppointmentTime, string Notes)
+        public ActionResult SaveAppointment(string FirstName, string LastName, string Email, string PhoneNumber, string AppointmentDate, string AppointmentTime, string Notes,string UserType)
         {
             try
             {
                 using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString))
                 {
-                    string sqlQuery = @"Insert Into tbl_ScheduleAppointment (FirstName,LastName,[Email],[PhoneNumber],AppointmentDate,AppointmentTime,Notes) Values (@FirstName,@LastName,@Email,@PhoneNumber,@AppointmentDate,@AppointmentTime,@Notes);SELECT CAST(SCOPE_IDENTITY() as int)";
+                    string sqlQuery = @"Insert Into tbl_ScheduleAppointment (FirstName,LastName,[Email],[PhoneNumber],AppointmentDate,AppointmentTime,Notes,UserType) Values (@FirstName,@LastName,@Email,@PhoneNumber,@AppointmentDate,@AppointmentTime,@Notes,@UserType);SELECT CAST(SCOPE_IDENTITY() as int)";
                     int rowsAffected = db.Query<int>(sqlQuery, new
                     {
                         FirstName,
@@ -31,11 +31,12 @@ namespace Rajpal.Controllers
                         PhoneNumber,
                         AppointmentDate,
                         AppointmentTime,
-                        Notes
+                        Notes,
+                        UserType
                     }).SingleOrDefault();
 
                 }
-                CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription( EnumValue.EmailType.Appointment), FirstName + " " + LastName, Email, PhoneNumber, AppointmentDate, AppointmentTime, Notes);
+                CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription(EnumValue.EmailType.Appointment), FirstName + " " + LastName, Email, PhoneNumber, AppointmentDate, AppointmentTime, Notes, UserType);
                 CommonClass.SendMailToUser(EnumValue.GetEnumDescription( EnumValue.EmailType.Appointment),FirstName + " " + LastName, Email,AppointmentDate, AppointmentTime);
                 return Json("Success", JsonRequestBehavior.AllowGet);
             }
@@ -46,9 +47,9 @@ namespace Rajpal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contact(string username, string lastname, string Email, string phn, string message)
+        public ActionResult Contact(string username, string lastname, string Email, string phn, string message,string UserType)
         {
-            bool isSent = CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription( EnumValue.EmailType.ContactUs),username + " " + lastname, Email, phn,"","", message);
+            bool isSent = CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription(EnumValue.EmailType.ContactUs), username + " " + lastname, Email, phn, "", "", message, UserType);
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
     }

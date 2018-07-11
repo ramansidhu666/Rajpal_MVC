@@ -5,7 +5,7 @@
             <div class="contact-form__body">
                 <input type="text" class="contact-form__field" placeholder="First Name" name="name" required>
                 <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname" required>
-                <input type="email" class="contact-form__field" placeholder="Email" name="email" required>
+                <input type="email" class="contact-form__field" placeholder="Email" name="email_appointment" required>
                 <input type="tel" class="contact-form__field phn" placeholder="Phone number" name="phone">
                 <input type="text" class="contact-form__field" placeholder="Appointment date" name="date" required id="txtdatepicker">
                 <select name="time" id="listing-time" class="ht-field main-listing__form-field">
@@ -18,6 +18,15 @@
 
                 </select><!-- .main-listing__form-field -->
                 <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="comment" required></textarea>
+
+                Please select  I am a
+                @Html.RadioButton("UserType", "Buyer & Seller", new { @id = "UserType1" }) Buyer & Seller
+
+                @Html.RadioButton("UserType", "Seller", new { @id = "UserType2" }) Seller
+                @Html.RadioButton("UserType", "Buyer", new { @id = "UserType3" }) Buyer
+                @Html.RadioButton("UserType", "Renter", new { @id = "UserType4" }) Renter
+
+                <label id="lblErrorAppointment" class="color-red"></label>
             </div><!-- .contact-form__body -->
            
         </form><!-- .contact-form -->

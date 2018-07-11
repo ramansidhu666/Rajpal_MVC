@@ -22,6 +22,7 @@ namespace Rajpal.Models
         public Nullable<System.DateTime> AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
         public string Notes { get; set; }
+        public string UserType { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     }
 }

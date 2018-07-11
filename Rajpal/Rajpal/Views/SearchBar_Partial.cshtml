@@ -5,7 +5,7 @@
     }
 </style>
 
-<aside class="col-md-3">
+
    
     <section class="widget main-listing__widget">
         <form class="main-listing__form">
@@ -252,8 +252,14 @@
                 <input type="email" class="contact-form__field" placeholder="Email" name="email" required>
                 <label id="message4" class="error"></label>
                 <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="message" required></textarea>
-                <label id="message5" class="error"></label>
+              
+                Please select  I am a
+                @Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType1" }) Buyer & Seller
+                @Html.RadioButton("UserType_ContactUs", "Seller", new { @id = "UserType2" }) Seller
+                @Html.RadioButton("UserType_ContactUs", "Buyer", new { @id = "UserType3" }) Buyer
+                @Html.RadioButton("UserType_ContactUs", "Renter", new { @id = "UserType4" }) Renter
 
+                <label id="message5" class="error"></label>
                 @Html.Recaptcha()
                 <label id="message6" class="error"></label>
             </div><!-- .contact-form__body -->
@@ -262,4 +268,4 @@
             </div><!-- .contact-form__footer -->
         </form><!-- .contact-form -->
     </section><!-- .widget -->
-</aside><!-- .col -->
+
