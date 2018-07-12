@@ -68,9 +68,19 @@
         $(document).ready(function () {
             debugger;
             $('#header').addClass('header--top');
-            $('.register,.login').click(function (event) {
+            $('.register').click(function (event) {
                 debugger;
+              
+                var eventId = $(this).data('id');
+                $('#eventId').html(eventId);
                 $('#modal-dialog-register').modal({backdrop: 'static', keyboard: false},'show')
+            });
+            $('.login').click(function (event) {
+                debugger;
+
+                var eventId = $(this).data('id');
+                $('#eventId').html(eventId);
+                $('#modal-dialog-login').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
             $('input[type=radio][name=choices]').change(function () {
                 $(this).addClass('active');

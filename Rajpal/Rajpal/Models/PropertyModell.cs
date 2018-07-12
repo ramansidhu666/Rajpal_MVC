@@ -51,4 +51,6 @@ namespace Rajpal.Models
         public string Water { get; set; }
         public string Zoning { get; set; }
     }
+
+    
 }

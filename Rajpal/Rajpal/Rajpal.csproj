@@ -224,6 +224,7 @@
     <Compile Include="Models\tblPowerOfSale.cs" />
     <Compile Include="Models\tblPreConstructionCondo.cs" />
     <Compile Include="Models\tblVirtual.cs" />
+    <Compile Include="Models\tbl_Favourite.cs" />
     <Compile Include="Models\tbl_DreamHouse.cs" />
     <Compile Include="Models\tbl_DreamHouseImages.cs" />
     <Compile Include="Models\tbl_PageBlogs.cs" />
@@ -479,6 +480,7 @@
     <Content Include="Views\RegisterLogin.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Login.cshtml" />
+    <Content Include="Views\Property\MyFavourite.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

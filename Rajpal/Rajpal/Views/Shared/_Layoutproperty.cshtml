@@ -198,7 +198,7 @@
                  }
              });
             });
-            var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
+          
             debugger;
             $("#txtdatepicker").datepicker();
             $(".phn").mask("(999) 999-9999");
@@ -206,7 +206,41 @@
                 debugger;
                 $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
+            $('.listing__favorite').click(function (event) {
+                debugger;
+                var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
+                var mlsid = $(this).attr('id');
+                var PropertyType = '@TempData["PropertyType"]';
+                if(value!='')
+                    $('#modal-dialog_signin_up').modal({ backdrop: 'static', keyboard: false }, 'show')
+                else
+                    $.ajax({
+                        url: '@Url.Action("SaveFavourite", "Property")',
+                        dataType: "JSON",
+                        type: "POST",
+                        cache: false,
+                        data: { ID: 11, MLSID: mlsid, Type: PropertyType },
+                        success: function (data) {
+                            debugger;
+                            if (data == "error") {
+                                $('#lblPassword_login').html('')
+                                $('#lblEmail_login').html('');
+                                $('#lblPassword_login').html('You have entered an incorrect email or password');
+                            }
+                            else {
+                                $("input[name=email_login]").val('');
+                                $("input[name=password_login]").val('');
 
+                               
+                            }
+
+                        },
+                        error: function (xhr) {
+                            alert(xhr.responseText);
+                        }
+                    });
+            });
+            
             FillDropdown_PropertType("");
             $('input[name=Type]').change(function () {
                 debugger;
@@ -279,7 +313,7 @@
 
             });
 
-            $('#btnLocked').click(function () {
+            $('.btnLocked').click(function () {
 
             })
 

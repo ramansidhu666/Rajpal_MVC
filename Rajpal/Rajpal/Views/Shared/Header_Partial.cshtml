@@ -99,9 +99,7 @@
                     @{
                         Html.RenderPartial("~/Views/RegisterLogin.cshtml");
                     }
-                    @*@{
-                        Html.RenderPartial("~/Views/Login.cshtml");
-                    }*@
+                  
                 </div>
                 <div class="modal-footer">
                     <div class="row">
@@ -111,6 +109,28 @@
                         <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
                         <div class="col-md-1"></div>
                     </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade reason" id="modal-dialog-login">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Login</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                </div>
+                <div class="modal-body">
+
+                    @{
+                            Html.RenderPartial("~/Views/Login.cshtml");
+                        }
+                </div>
+                <div class="modal-footer">
+                   
 
 
                 </div>

@@ -254,10 +254,10 @@
                 <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="message" required></textarea>
               
                 Please select  I am a
-                @Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType1" }) Buyer & Seller
-                @Html.RadioButton("UserType_ContactUs", "Seller", new { @id = "UserType2" }) Seller
-                @Html.RadioButton("UserType_ContactUs", "Buyer", new { @id = "UserType3" }) Buyer
-                @Html.RadioButton("UserType_ContactUs", "Renter", new { @id = "UserType4" }) Renter
+                @Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType_ContactUs1" }) Buyer & Seller
+                @Html.RadioButton("UserType_ContactUs", "Seller", new { @id = "UserType_ContactUs2" }) Seller
+                @Html.RadioButton("UserType_ContactUs", "Buyer", new { @id = "UserType_ContactUs3" }) Buyer
+                @Html.RadioButton("UserType_ContactUs", "Renter", new { @id = "UserType_ContactUs4" }) Renter
 
                 <label id="message5" class="error"></label>
                 @Html.Recaptcha()

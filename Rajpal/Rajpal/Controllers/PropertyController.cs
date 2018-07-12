@@ -11,12 +11,16 @@ using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using System.Web.Caching;
+using System.Data;
+using Dapper;
 namespace Rajpal.Controllers
 {
     public class PropertyController : Controller
     {
+        IDbConnection db = CommonClass.OpenConnection();
         private const int defaultPageSize = 10;
         private IList<PropertyModell> allEmployee = new List<PropertyModell>();
+        private IList<PropertyModell> allFav = new List<PropertyModell>();
         private IIdxCommercialService _CommercialService { get; set; }
         private IIdxResidentialService _ResidentialService { get; set; }
         private IIdxCondoService _CondoService { get; set; }
@@ -271,12 +275,100 @@ namespace Rajpal.Controllers
 
         }
 
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult SaveFavourite(string MLSID, int ID,string Type)
         {
-            ViewBag.Message = "Your application description page.";
+            try
+            {
+                int rowsAffected = 0;
+                string sqlQuery = @"Insert Into tbl_Favourite (MLSID,ID,Type) Values (@MLSID,@ID,@Type);SELECT CAST(SCOPE_IDENTITY() as int)";
+                rowsAffected = db.Query<int>(sqlQuery, new
+                {
+                    MLSID,
+                    ID,
+                    Type
+                }).SingleOrDefault();
 
-            return View();
+
+                return Json("Suceess", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+           
+        }
+
+        private IList<PropertyModell> GetAllFavourite(int ID)
+        {
+            List<PropertyModel> PropertList = new List<PropertyModel>();
+
+            var query = "Select MLSID,Type from [tbl_Favourite] where ID=@ID  group by Type,MLSID";
+            var result = db.Query<tbl_Favourite>(query, new { ID = ID }).ToList();
+            List<string> Residentials = new List<string>();
+            List<string> Commercials = new List<string>();
+            List<string> Condos = new List<string>();
+            foreach (var item in result)
+            {
+                if (item.Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
+                {
+                    Residentials.Add(item.MLSID);
+                }
+                else if (item.Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
+                {
+                    Commercials.Add(item.MLSID);
+                }
+                else if (item.Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Condo))
+                {
+                    Condos.Add(item.MLSID);
+                }
+            }
+
+
+            PropertList = _ResidentialService.GetResidentials().Where(c=>Residentials.Contains(c.MLS)).ToList();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PropertyModel, PropertyModell>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            foreach (var item in PropertList)
+            {
+                var dest = mapper.Map<PropertyModel, PropertyModell>(item);
+                allFav.Add(dest);
+            }
+
+            PropertList = _CommercialService.GetCommercials().Where(c => Commercials.Contains(c.MLS)).ToList();
+           
+            foreach (var item in PropertList)
+            {
+                var dest = mapper.Map<PropertyModel, PropertyModell>(item);
+                allFav.Add(dest);
+            }
+
+            PropertList = _CondoService.GetCondos().Where(c => Condos.Contains(c.MLS)).ToList();
+           
+            foreach (var item in PropertList)
+            {
+                var dest = mapper.Map<PropertyModel, PropertyModell>(item);
+                allFav.Add(dest);
+            }
+            return allFav;
+        }
+        public ActionResult MyFavourite(int ID, int? page)
+        {
+            try
+            {
+                IList<PropertyModell> PropertList = this.GetAllFavourite(ID);
+                int currentPageIndex = page.HasValue ? page.Value : 1;
+                PropertList = PropertList.ToPagedList(currentPageIndex, defaultPageSize);
+                return View(PropertList);
+            }
+            catch (Exception ex)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult Contact()
