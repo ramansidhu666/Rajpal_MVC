@@ -50,6 +50,7 @@ namespace Rajpal.Models
         public string Washrooms { get; set; }
         public string Water { get; set; }
         public string Zoning { get; set; }
+        public string exist { get; set; }
     }
 
     

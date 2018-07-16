@@ -13,6 +13,7 @@ using MvcPaging;
 using System.Web.Caching;
 using System.Data;
 using Dapper;
+using System.Web.Configuration;
 namespace Rajpal.Controllers
 {
     public class PropertyController : Controller
@@ -62,24 +63,24 @@ namespace Rajpal.Controllers
             return Json(PropertyTypes, JsonRequestBehavior.AllowGet);
         }
 
-        private IList<PropertyModell> GetData(string Type)
+        private IList<PropertyModell> GetData(string Type, string dbName="",string userid="")
         {
             List<PropertyModel> PropertList = new List<PropertyModel>();
             if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
             {
-                PropertList = _ResidentialService.GetResidentials();
+                PropertList = _ResidentialService.GetResidentials(dbName,userid);
             }
             else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
             {
-                PropertList = _CommercialService.GetCommercials();
+                PropertList = _CommercialService.GetCommercials(dbName, userid);
             }
             else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Condo))
             {
-                PropertList = _ResidentialService.GetResidentials();
+                PropertList = _CondoService.GetCondos(dbName, userid);
             }
             else
             {
-                PropertList = _ResidentialService.GetResidentials();
+                PropertList = _ResidentialService.GetResidentials(dbName, userid);
             }
             var config = new MapperConfiguration(cfg =>
             {
@@ -107,7 +108,7 @@ namespace Rajpal.Controllers
                 {
                     TempData["PropertyType"] = Type;
                 }
-                Type = TempData["PropertyType"].ToString();
+                Type = TempData["PropertyType"] == null ? StaticPropertyType : TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
 
                 if (Sort != "")
@@ -161,12 +162,14 @@ namespace Rajpal.Controllers
 
             
                 var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
-
+                string userid = "11";// Session["UserId"] == null ? "" : Session["UserId"].ToString();
+                var dbname = WebConfigurationManager.AppSettings["dbname"];
                 if (PropertList == null)
                 {
-                    PropertList = this.GetData(Type);
+                    PropertList = this.GetData(Type,dbname, userid);
                     HttpContext.Cache.Insert(Type, PropertList, null, DateTime.Now.AddMinutes(1), Cache.NoSlidingExpiration);
                 }
+               
                 if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
                 {
                     PropertList = PropertList.Where(c => c.TypeOwn1Out.ToLower() == HomeType.ToLower()).ToList();
@@ -298,6 +301,24 @@ namespace Rajpal.Controllers
             }
            
         }
+        [HttpPost]
+        public ActionResult RemoveFavourite(string MLSID, int ID, string Type)
+        {
+            try
+            {
+                int rowsAffected = 0;
+                string sqlQuery = @"delete from tbl_Favourite where ID=@ID and MLSID=@MLSID";
+                rowsAffected = db.Execute(sqlQuery, new { ID = ID, MLSID = MLSID });
+
+
+                return Json("Suceess", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         private IList<PropertyModell> GetAllFavourite(int ID)
         {
@@ -360,9 +381,18 @@ namespace Rajpal.Controllers
             try
             {
                 IList<PropertyModell> PropertList = this.GetAllFavourite(ID);
+                ViewBag.TotalData = PropertList.Count();
                 int currentPageIndex = page.HasValue ? page.Value : 1;
                 PropertList = PropertList.ToPagedList(currentPageIndex, defaultPageSize);
-                return View(PropertList);
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("~/Views/Partial/Favourite.cshtml", PropertList);
+                }
+                else
+                {
+                    return View(PropertList);
+                }
+                
             }
             catch (Exception ex)
             {

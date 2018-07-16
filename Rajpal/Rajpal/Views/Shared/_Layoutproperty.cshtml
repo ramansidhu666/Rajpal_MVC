@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="description" content="ReaLand - Real Estate HTML Template">
     <meta name="keywords" content="">
@@ -18,9 +18,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Raleway:700,800|Roboto:400,500,700" rel="stylesheet">
 
 
- 
+
     @Styles.Render("~/Content/home")
-        @Styles.Render("~/Content/custom")
+    @Styles.Render("~/Content/custom")
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
@@ -30,9 +30,9 @@
         Html.RenderPartial("Header_Partial");
     }
 
-    
-   
-        @RenderBody()
+
+
+    @RenderBody()
 
     @{
         Html.RenderPartial("Footer_Partial");
@@ -41,14 +41,14 @@
 
     @Scripts.Render("~/bundles/home")
     @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
-    <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>*@
+        <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>*@
     @*@Scripts.Render("~/bundles/custom")*@
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/jquery-1.8.3.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
-  
+
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -69,7 +69,7 @@
         $(function () {
             $('.register,.login').click(function (event) {
                 debugger;
-                $('#modal-dialog-register').modal({backdrop: 'static', keyboard: false},'show')
+                $('#modal-dialog-register').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
             $('input[type=radio][name=choices]').change(function () {
                 $(this).addClass('active');
@@ -100,13 +100,11 @@
                 debugger;
                 var Email = $("input[name=email_login]").val();
                 var Password = $("input[name=password_login]").val();
-                if (Email == "")
-                {
+                if (Email == "") {
                     $('#lblEmail_login').html('Please enter email')
                     return false;
                 }
-                else if (Password == "")
-                {
+                else if (Password == "") {
                     $('#lblPassword_login').html('Please enter password')
                     $('#lblEmail_login').html('');
                     return false;
@@ -119,14 +117,12 @@
                     data: { Email: Email, Password: Password },
                     success: function (data) {
                         debugger;
-                        if (data == "error")
-                        {
+                        if (data == "error") {
                             $('#lblPassword_login').html('')
                             $('#lblEmail_login').html('');
                             $('#lblPassword_login').html('You have entered an incorrect email or password');
                         }
-                        else
-                        {
+                        else {
                             $("input[name=email_login]").val('');
                             $("input[name=password_login]").val('');
 
@@ -141,64 +137,64 @@
             });
             $('#btnFinish').click(function () {
                 debugger;
-             var Firstname=   $("input[name=firstname]").val();
-             var LastName = $("input[name=lastname]").val();
-             var Email = $("input[name=email]").val();
-             var Password = $("input[name=password]").val();
-             var Street = $("input[name=Street]").val();
-             var City = $("input[name=City]").val();
-             var State = $("input[name=State]").val();
-             var country = $("input[name=country]").val();
-             var UserType_login = $('input[type=radio][name=choices]').val();
-             $.ajax({
+                var Firstname = $("input[name=firstname]").val();
+                var LastName = $("input[name=lastname]").val();
+                var Email = $("input[name=email]").val();
+                var Password = $("input[name=password]").val();
+                var Street = $("input[name=Street]").val();
+                var City = $("input[name=City]").val();
+                var State = $("input[name=State]").val();
+                var country = $("input[name=country]").val();
+                var UserType_login = $('input[type=radio][name=choices]').val();
+                $.ajax({
 
-                 url: "/Account/Register",
-                 data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Street: Street, City: City, State: State, country: country,UserType:UserType_login },
-                 type: "POST",
-                 dataType: 'json',
+                    url: "/Account/Register",
+                    data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Street: Street, City: City, State: State, country: country, UserType: UserType_login },
+                    type: "POST",
+                    dataType: 'json',
 
-                 success: function (data) {
-                     debugger;
-                     var file_data = $("#wizard-picture").prop("files")[0];
-                     if (file_data != undefined || file_data != null) {
-                         var form_data = new FormData();                  // Creating object of FormData class
-                         form_data.append("file", file_data)
-                         form_data.append("UserId", data) // Adding extra parameters to form_data
-                         $.ajax({
-                             url: "/Account/Upload",
-                             dataType: 'script',
-                             cache: false,
-                             contentType: false,
-                             processData: false,
-                             data: form_data,                         // Setting the data attribute of ajax with file_data
-                             type: 'post',
-                             success: function (data) {
-                             },
-                             error: function () {
+                    success: function (data) {
+                        debugger;
+                        var file_data = $("#wizard-picture").prop("files")[0];
+                        if (file_data != undefined || file_data != null) {
+                            var form_data = new FormData();                  // Creating object of FormData class
+                            form_data.append("file", file_data)
+                            form_data.append("UserId", data) // Adding extra parameters to form_data
+                            $.ajax({
+                                url: "/Account/Upload",
+                                dataType: 'script',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form_data,                         // Setting the data attribute of ajax with file_data
+                                type: 'post',
+                                success: function (data) {
+                                },
+                                error: function () {
 
-                                 alert("Dynamic content load failed.");
-                             }
-                         })
-                     }
-                     $("input[name=firstname]").val('');
-                     $("input[name=lastname]").val('');
-                     $("input[name=email]").val('');
-                     $("input[name=password]").val('');
-                     $("input[name=repassword]").val('');
-                     $("input[name=Street]").val('');
-                     $("input[name=City]").val('');
-                     $("input[name=State]").val('');
-                     $("input[name=country]").val('');
-                     $('#modal-dialog-register').modal('toggle');
-                     alert('You have successfully registered.');
-                 },
-                 error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                            })
+                        }
+                        $("input[name=firstname]").val('');
+                        $("input[name=lastname]").val('');
+                        $("input[name=email]").val('');
+                        $("input[name=password]").val('');
+                        $("input[name=repassword]").val('');
+                        $("input[name=Street]").val('');
+                        $("input[name=City]").val('');
+                        $("input[name=State]").val('');
+                        $("input[name=country]").val('');
+                        $('#modal-dialog-register').modal('toggle');
+                        alert('You have successfully registered.');
+                    },
+                    error: function () {
 
-                     alert("Dynamic content load failed.");
-                 }
-             });
+                        alert("Dynamic content load failed.");
+                    }
+                });
             });
-          
+
             debugger;
             $("#txtdatepicker").datepicker();
             $(".phn").mask("(999) 999-9999");
@@ -206,31 +202,52 @@
                 debugger;
                 $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
-            $('.listing__favorite').click(function (event) {
+            //$('.listing__favorite').click(function (event) {
+            //$('.listing__favorite').on("click", function () {
+            $('#modal-content').on('shown.bs.modal', function () {
                 debugger;
+                $("#txtname").focus();
+            });
+            $(document).on('click', '.listing__favorite', function () {
+                debugger;
+                var URL = '';
                 var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
                 var mlsid = $(this).attr('id');
+                $(this).toggleClass('background-red');
                 var PropertyType = '@TempData["PropertyType"]';
-                if(value!='')
-                    $('#modal-dialog_signin_up').modal({ backdrop: 'static', keyboard: false }, 'show')
+                if (value == '')
+                {
+                    $('#modal-content').modal({
+                        show: true
+                    });
+                    $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
+                    $('login').addClass('display-block');
+                    return false;
+                }
+                    
                 else
+                {
+                    if(!$(this).hasClass('background-red'))
+                    {
+                        URL = '@Url.Action("RemoveFavourite", "Property")'
+                        }
+                    else
+                    {
+                        URL = '@Url.Action("SaveFavourite", "Property")'
+                    }
+                }
                     $.ajax({
-                        url: '@Url.Action("SaveFavourite", "Property")',
+                        url: URL,
                         dataType: "JSON",
                         type: "POST",
                         cache: false,
                         data: { ID: 11, MLSID: mlsid, Type: PropertyType },
                         success: function (data) {
                             debugger;
-                            if (data == "error") {
-                                $('#lblPassword_login').html('')
-                                $('#lblEmail_login').html('');
-                                $('#lblPassword_login').html('You have entered an incorrect email or password');
+                            if (data == "Suceess") {
+                                location.reload();
                             }
                             else {
-                                $("input[name=email_login]").val('');
-                                $("input[name=password_login]").val('');
-
                                
                             }
 
@@ -240,7 +257,7 @@
                         }
                     });
             });
-            
+
             FillDropdown_PropertType("");
             $('input[name=Type]').change(function () {
                 debugger;
@@ -266,6 +283,8 @@
 
 
             });
+
+          
             function FillDropdown_PropertType(Type) {
                 debugger;
                 var ddlCustomers = $("#ddlCustomers");

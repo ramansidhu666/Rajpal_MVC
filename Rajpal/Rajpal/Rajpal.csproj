@@ -481,6 +481,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Login.cshtml" />
     <Content Include="Views\Property\MyFavourite.cshtml" />
+    <Content Include="Views\Partial\Favourite.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

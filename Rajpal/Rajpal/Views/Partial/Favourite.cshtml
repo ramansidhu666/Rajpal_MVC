@@ -1,0 +1,104 @@
+﻿@using MvcPaging
+@model IPagedList<Rajpal.Models.PropertyModell>
+<section>
+
+    @foreach (var item in Model)
+    {
+        <div class="item-grid__container">
+            <div class="listing listing--v2">
+                <div class="item-grid__image-container item-grid__image-container--open-houses">
+                    <a>
+                        <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
+                        <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
+                        <span class="item__label">@item.SaleLease</span>
+                        <span id="@item.MLS" class="listing__favorite listing__favorite--v2 background-red"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                    </a>
+                </div><!-- .col -->
+                <div class="item-grid__content-container item-grid__content-container--open-houses">
+                    <div class="listing__content--open-houses">
+                        <div class="listing__header">
+                            <div class="listing__header-primary width-100">
+                                <span class="listing__type font-size-18">@item.TypeOwn1Out</span>
+                                <a class="appointment float-right"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a>
+                                <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
+                                <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
+                                <p class="listing__price listing__price--open-houses color-red">@item.ListPrice</p>
+                            </div><!-- .listing__header-primary -->
+
+                        </div><!-- .listing__header -->
+                        <div class="listing__details">
+                            <ul class="listing__stats">
+                                @if (@ViewBag.Type != "Commercial")
+                                {
+                                    if (item.Bedrooms == "null")
+                                    {
+                                        <li><span class="listing__figure">Not Available</span>  Beds</li>
+                                    }
+                                    else
+                                    {
+                                        <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
+                                    }
+
+                                    if (item.Washrooms == "null")
+                                    {
+                                        <li><span class="listing__figure">Not Available</span>  Baths</li>
+                                    }
+                                    else
+                                    {
+                                        <li><span class="listing__figure">@item.Washrooms</span> Baths</li>
+                                    }
+
+
+                                }
+                                @if (item.ApproxSquareFootage == "null")
+                                {
+                                    <li><span class="listing__figure">Not Available</span>  sq.ft</li>
+                                }
+                                else
+                                {
+                                    <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
+                                }
+
+                            </ul><!-- .listing__stats -->
+
+                            <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                            @*<div class="open-houses">
+                                    <a href="single_property_1.html" class="open-houses__btn"><strong>Open House</strong> July 8, 2018 12.00 pm to 6.00 pm</a>
+                                    <span class="open-houses__desc">Listed on 3 months ago by <span class="open-houses__agency">RealEstate</span></span>
+                                </div>*@<!-- .open-houses -->
+                        </div><!-- .listing__details -->
+                    </div><!-- .listing-content -->
+                </div><!-- .col -->
+            </div><!-- .listing -->
+        </div><!-- .item-grid__container -->
+    }
+    <div class="pager1">
+        @Html.Raw(Ajax.Pager(
+            new Options
+            {
+                PageSize = Model.PageSize,
+                TotalItemCount = Model.TotalItemCount,
+                CurrentPage = Model.PageNumber,
+                ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous", Page = "P" },
+                ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                TooltipTitles = new TooltipTitles() { Next = "Next page", Previous = "Previous page", Page = "Page {0}." },
+                Size = Size.normal,
+                Alignment = Alignment.centered,
+                IsShowControls = true,
+                IsShowFirstLast = true,
+                CssClass = ""
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = "grid-list",
+                OnBegin = "beginPaging",
+                OnSuccess = "successPaging",
+                OnFailure = "failurePaging"
+            }, new { controller = "Property", action = "MyFavourite", ID = 11 }))
+        <div class="well">
+            Showing <span class="badge badge-success">@Model.ItemStart</span> to <span class="badge badge-success">@Model.ItemEnd</span>
+            of <span class="badge badge-info">@Model.TotalItemCount</span> entries
+        </div>
+    </div>
+</section>
+

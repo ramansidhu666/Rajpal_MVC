@@ -12,7 +12,7 @@
                         <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
                         <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
                         <span class="item__label">@item.SaleLease</span>
-                        <span id="@item.MLS" class="listing__favorite listing__favorite--v2"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                        <span id="@item.MLS" class="listing__favorite listing__favorite--v2 @(@item.exist != null ? "background-red" : "")"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                     </a>
                 </div><!-- .col -->
                 <div class="item-grid__content-container item-grid__content-container--open-houses">
