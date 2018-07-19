@@ -171,7 +171,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 .wizard-container {
-  padding-top: 100px;
+ padding-top: 33px;
   z-index: 3;
 }
 .wizard-container .wizard-navigation {
@@ -1770,3 +1770,63 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
     min-width: 140px;
   }
 }
+.moving-tab
+
+{
+	
+	width:100px !important;
+}
+
+
+You can use `border-radius` to make the label a circle.
+
+<!-- begin snippet: js hide: false -->
+
+<!-- language: lang-css -->
+
+
+.radio_btn ul {
+        list-style: none;
+    }
+   .radio_btn li {
+        
+       
+		color:#fff !important;
+	
+    }
+  
+   .radio_btn label {
+        cursor: pointer;
+        
+        line-height: 50px;
+        width: 120px;
+        height: 120px;
+		padding:34px 3px;
+        border-radius: 50%;
+		border:4px solid #f4f4f4 ;
+        
+    }
+   .radio_btn input:checked + label {
+        color: #4caf50;
+		border: 4px  solid #4caf50;
+		
+    }
+	
+	
+	
+.radio_btn.radio label{
+	
+	padding-top:46px;
+	
+}
+
+
+
+
+
+
+
+
+
+
+

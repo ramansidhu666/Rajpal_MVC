@@ -33,6 +33,10 @@ namespace Rajpal.Controllers
         }
         public ActionResult GetPropertyTypes(string Type)
         {
+            if (Type == "")
+            {
+                Type = Request.QueryString["Type"] == null ? "Residential" : Request.QueryString["Type"].ToString();
+            }
             var PropertyType = new List<PropertyType>();
             if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
             {
@@ -63,12 +67,12 @@ namespace Rajpal.Controllers
             return Json(PropertyTypes, JsonRequestBehavior.AllowGet);
         }
 
-        private IList<PropertyModell> GetData(string Type, string dbName="",string userid="")
+        private IList<PropertyModell> GetData(string Type, string dbName = "", string userid = "")
         {
             List<PropertyModel> PropertList = new List<PropertyModel>();
             if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
             {
-                PropertList = _ResidentialService.GetResidentials(dbName,userid);
+                PropertList = _ResidentialService.GetResidentials(dbName, userid);
             }
             else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
             {
@@ -97,13 +101,32 @@ namespace Rajpal.Controllers
 
         }
 
-        public ActionResult Index(string Type, string IsList, int? page,bool Ishome=false, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "0", string MaxPrice = "0", int Bedroom = 0, int Bathroom = 0,string Sort="")
+        public ActionResult Index(string Type, string IsList, int? page, bool Ishome = false, string HomeType = "", string Keyword = "", string Status = "", string MinPrice = "0", string MaxPrice = "0", int Bedroom = 0, int Bathroom = 0, string Sort = "")
         {
 
             var StaticPropertyType = "Residential";
             var people = new PagedData<PropertyModell>();
             try
             {
+                if(page==null)
+                {
+                    if ( HomeType != "All Home Types")
+                    {
+                        TempData["HomeType"] = HomeType=="0"?"":HomeType;
+                    }
+                    HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
+                    TempData.Keep("HomeType");
+                }
+                else
+                {
+                    if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                    {
+                        TempData["HomeType"] = HomeType;
+                    }
+                    HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
+                    TempData.Keep("HomeType");
+                }
+
                 if (Type != "" && Type != null)
                 {
                     TempData["PropertyType"] = Type;
@@ -118,11 +141,11 @@ namespace Rajpal.Controllers
                 Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
                 TempData.Keep("Sort");
 
-                if (MinPrice != "0" )
+                if (MinPrice != "0")
                 {
                     TempData["MinPrice"] = MinPrice;
                 }
-                MinPrice = TempData["MinPrice"]==null?"0":TempData["MinPrice"].ToString();
+                MinPrice = TempData["MinPrice"] == null ? "0" : TempData["MinPrice"].ToString();
                 TempData.Keep("MinPrice");
 
                 if (MaxPrice != "0")
@@ -132,12 +155,7 @@ namespace Rajpal.Controllers
                 MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
                 TempData.Keep("MaxPrice");
 
-                if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
-                {
-                    TempData["HomeType"] = HomeType;
-                }
-                HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
-                TempData.Keep("HomeType");
+              
 
                 if (Status != "" && Status != "All")
                 {
@@ -150,7 +168,7 @@ namespace Rajpal.Controllers
                 {
                     TempData["Bedroom"] = Bedroom;
                 }
-                Bedroom = TempData["Bedroom"] == null ? 0 :Convert.ToInt32( TempData["Bedroom"]);
+                Bedroom = TempData["Bedroom"] == null ? 0 : Convert.ToInt32(TempData["Bedroom"]);
                 TempData.Keep("Bedroom");
 
                 if (Bathroom != 0)
@@ -160,16 +178,16 @@ namespace Rajpal.Controllers
                 Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
                 TempData.Keep("Bathroom");
 
-            
+
                 var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
                 string userid = "11";// Session["UserId"] == null ? "" : Session["UserId"].ToString();
                 var dbname = WebConfigurationManager.AppSettings["dbname"];
                 if (PropertList == null)
                 {
-                    PropertList = this.GetData(Type,dbname, userid);
+                    PropertList = this.GetData(Type, dbname, userid);
                     HttpContext.Cache.Insert(Type, PropertList, null, DateTime.Now.AddMinutes(1), Cache.NoSlidingExpiration);
                 }
-               
+
                 if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
                 {
                     PropertList = PropertList.Where(c => c.TypeOwn1Out.ToLower() == HomeType.ToLower()).ToList();
@@ -202,7 +220,7 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.OrderBy(c => decimal.Parse(c.ListPrice)).ToList();
                 }
-              
+
                 ViewBag.TotalData = PropertList.Count();
                 // List<PropertyModel> PropertList = new List<PropertyModel>();
                 List<PropertyModell> PropertyModel = new List<PropertyModell>();
@@ -230,7 +248,7 @@ namespace Rajpal.Controllers
 
                 //people.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)PropertyModel.Count() / PageSize));
                 ViewBag.Type = Type;
-                if (Request.IsAjaxRequest()&&!Ishome)
+                if (Request.IsAjaxRequest() && !Ishome)
                 {
                     if (IsList == "List")
                     {
@@ -244,11 +262,21 @@ namespace Rajpal.Controllers
 
                 else
                 {
-                   
-                        return View(PropertList);
-                   
+                    if (Ishome)
+                    {
+                        TempData["PropertyType"] = null;
+                        TempData["Sort"] = null;
+                        TempData["MinPrice"] = null;
+                        TempData["MaxPrice"] = null;
+                        TempData["HomeType"] = null;
+                        TempData["Status"] = null;
+                        TempData["Bedroom"] = null;
+                        TempData["Bathroom"] = null;
+                    }
+                    return View(PropertList);
+
                 }
-                   
+
                 ////if (IsList == "" || IsList == null)
                 ////{
                 ////    return View(employees);
@@ -279,7 +307,7 @@ namespace Rajpal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveFavourite(string MLSID, int ID,string Type)
+        public ActionResult SaveFavourite(string MLSID, int ID, string Type)
         {
             try
             {
@@ -299,7 +327,7 @@ namespace Rajpal.Controllers
             {
                 return Json("Error", JsonRequestBehavior.AllowGet);
             }
-           
+
         }
         [HttpPost]
         public ActionResult RemoveFavourite(string MLSID, int ID, string Type)
@@ -346,7 +374,7 @@ namespace Rajpal.Controllers
             }
 
 
-            PropertList = _ResidentialService.GetResidentials().Where(c=>Residentials.Contains(c.MLS)).ToList();
+            PropertList = _ResidentialService.GetResidentials().Where(c => Residentials.Contains(c.MLS)).ToList();
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<PropertyModel, PropertyModell>();
@@ -360,7 +388,7 @@ namespace Rajpal.Controllers
             }
 
             PropertList = _CommercialService.GetCommercials().Where(c => Commercials.Contains(c.MLS)).ToList();
-           
+
             foreach (var item in PropertList)
             {
                 var dest = mapper.Map<PropertyModel, PropertyModell>(item);
@@ -368,7 +396,7 @@ namespace Rajpal.Controllers
             }
 
             PropertList = _CondoService.GetCondos().Where(c => Condos.Contains(c.MLS)).ToList();
-           
+
             foreach (var item in PropertList)
             {
                 var dest = mapper.Map<PropertyModel, PropertyModell>(item);
@@ -392,7 +420,7 @@ namespace Rajpal.Controllers
                 {
                     return View(PropertList);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -411,6 +439,6 @@ namespace Rajpal.Controllers
         public void Clear(string key)
         {
             HttpContext.Cache.Remove(key);
-        }  
+        }
     }
 }

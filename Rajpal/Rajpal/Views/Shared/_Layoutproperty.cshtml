@@ -332,7 +332,7 @@
                 $(this).toggleClass('background-red');
                 var PropertyType = '@TempData["PropertyType"]';
                 if (value == '') {
-                   
+
                     $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
                     $('login').addClass('display-block');
                     return false;
@@ -367,8 +367,19 @@
                     }
                 });
             });
+            var Type = $("#HdnType").val();
+            FillDropdown_PropertType(Type);
+            debugger;
+            setTimeout(
+                    function () {
+                        if (typeof (history.pushState) != "undefined") {
+                            var obj = { Title: Type, Url: 'Index' };
+                            history.pushState(obj, obj.Title, obj.Url);
+                        } else {
+                            alert("Browser does not support HTML5.");
+                        }
+                    }, 5000);
 
-            FillDropdown_PropertType("");
             $('input[name=Type]').change(function () {
                 debugger;
 

@@ -9,45 +9,51 @@
 @*<link href="../assets/css/material-bootstrap-wizard.css" rel="stylesheet" />*@
 
 
-<div class="image-container set-full-height" style="background-image: url('../assets/img/wizard-profile.jpg')">
-   
+<div style="background-color:#fff; height:400px;">
     <!--   Big container   -->
-    <div class="container">
-        <div class="row">
-     
 
-                                    <div class="row">
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">email</i>
-                                                </span>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Email <small>(required)</small></label>
-                                                    <input name="email_login" type="email" class="form-control">
-                                                    <label id="lblEmail_login" class="color-red"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">enhanced_encryption</i>
-                                                </span>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">password <small>(required)</small></label>
-                                                    <input id="password_login" name="password_login" type="password" class="form-control">
-                                                    <label id="lblPassword_login" class="color-red"></label>
-                                                </div>
-                                            </div>
-                                        </div>
+    
 
-                                    </div>
-                                </div>
-        <input type='button' id="btnLogin" class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' />
 
-                            </div>
+            <div class="row">
+                <div class="col-sm-12 col-sm-offset-0">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Email <small>(required)</small></label>
+                            <input name="email_login" type="email" class="form-control">
+                            <label id="lblEmail_login" class="color-red"></label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="row">
+                <div class="col-sm-12 col-sm-offset-0">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">enhanced_encryption</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">password <small>(required)</small></label>
+                            <input id="password_login" name="password_login" type="password" class="form-control">
+                            <label id="lblPassword_login" class="color-red"></label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+   
+       
+
 
 </div>
 
 
+<div class="wizard-footer">
+    <div class="pull-center">
+        <input type='button' id="btnLogin" class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' />
+    </div>
+
+</div> <!-- wizard container -->

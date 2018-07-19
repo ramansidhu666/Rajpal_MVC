@@ -254,14 +254,41 @@
                 <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="message" required></textarea>
               
                 Please select  I am a
-                @Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType_ContactUs1" }) Buyer & Seller
+                @*@Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType_ContactUs1" }) Buyer & Seller
                 @Html.RadioButton("UserType_ContactUs", "Seller", new { @id = "UserType_ContactUs2" }) Seller
                 @Html.RadioButton("UserType_ContactUs", "Buyer", new { @id = "UserType_ContactUs3" }) Buyer
-                @Html.RadioButton("UserType_ContactUs", "Renter", new { @id = "UserType_ContactUs4" }) Renter
+                @Html.RadioButton("UserType_ContactUs", "Renter", new { @id = "UserType_ContactUs4" }) Renter*@
+
+                <div class="radio_sgl_btn">
+                    <div class="box">
+                        <label>
+                            <input type="radio" name="UserType_ContactUs" value="Buyer & Seller">
+                            <span class="no text">Buyer & Seller</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_ContactUs" value="Seller">
+                            <span class="no">Seller</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_ContactUs" value="Buyer">
+                            <span class="no">Buyer</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_ContactUs" value="Renter">
+                            <span class="no">Renter</span>
+                        </label>
+                    </div>
+                </div>
+
+
 
                 <label id="message5" class="error"></label>
                 @Html.Recaptcha()
                 <label id="message6" class="error"></label>
+
+                <div class="g-recaptcha" data-theme="light" data-sitekey="XXXXXXXXXXXXX" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
+
+
             </div><!-- .contact-form__body -->
             <div class="contact-form__footer">
                 <input id="btnSave" type="button" class="contact-form__submit" name="submit" value="Contact Us">
