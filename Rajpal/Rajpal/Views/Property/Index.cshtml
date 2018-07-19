@@ -5,7 +5,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layoutproperty.cshtml";
 }
-
+<div id="spinner"></div>
 <section class="main-listing">
     <div class="container">
 
@@ -150,33 +150,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <span>test</span>
+               
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
             </div>
             <div class="modal-body">
-                <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'Login')">Login</button>
-                    <button class="tablinks" onclick="openCity(event, 'Register')">Register</button>
-                  
-                    <button class="tablinks" onclick="openCity(event, 'Forgot_Password')">Forgot Password</button>
-                </div>
-
-                <div id="Register" class="tabcontent">
-                    <h3>London</h3>
-                    <p>London is the capital city of England.</p>
-                </div>
-
-                <div id="Login" class="tabcontent">
-                    <h3>Paris</h3>
-                    <p>Paris is the capital of France.</p>
-                </div>
-
-                <div id="Forgot_Password" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
-                </div>
-
+             
+                @{
+                    Html.RenderPartial("~/Views/FavRegisterLogin.cshtml");
+                }
             </div>
             <div class="modal-footer">
                 @*<div class="row">
@@ -209,21 +191,4 @@
         alert("Could not retrieve list.");
     }
 
-</script>
-
-<script>
-    function openCity(evt, cityName) {
-        debugger;
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
 </script>

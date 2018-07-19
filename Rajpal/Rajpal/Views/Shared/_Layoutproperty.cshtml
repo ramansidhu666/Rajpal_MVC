@@ -22,7 +22,19 @@
     @Styles.Render("~/Content/home")
     @Styles.Render("~/Content/custom")
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link href="../assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/modernizr")*@
+    <style>
+        #spinner {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(../Content/images/Preloader_2.gif) 50% 50% no-repeat #ede9df;
+        }
+    </style>
 </head>
 <body>
 
@@ -63,6 +75,12 @@
     <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
     <script src="/assets/js/jquery.validate.min.js"></script>
 
+    <script type="text/javascript">
+        $(window).load(function () {
+            debugger;
+            $("#spinner").fadeOut("slow");
+        })
+    </script>
 
     <script>
 
@@ -95,6 +113,48 @@
                     }
                 });
             });
+
+
+            $('#btnLoginFav').click(function () {
+                debugger;
+                var Email = $("input[name=email_fav_login]").val();
+                var Password = $("input[name=password_fav_login]").val();
+                if (Email == "") {
+                    $('#lblEmail_login_fav').html('Please enter email')
+                    return false;
+                }
+                else if (Password == "") {
+                    $('#lblPassword_login_fav').html('Please enter password')
+                    $('#lblEmail_login_fav').html('');
+                    return false;
+                }
+                $.ajax({
+                    url: '@Url.Action("Login", "Account")',
+                    dataType: "JSON",
+                    type: "POST",
+                    cache: false,
+                    data: { Email: Email, Password: Password },
+                    success: function (data) {
+                        debugger;
+                        if (data == "error") {
+                            $('#lblEmail_login_fav').html('');
+                            $('#lblPassword_login_fav').html('You have entered an incorrect email or password');
+                        }
+                        else {
+                            $("input[name=email_fav_login]").val('');
+                            $("input[name=password_fav_login]").val('');
+
+                            $('#modal-dialog_favourite').modal('toggle');
+                            location.reload();
+                        }
+
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
+
 
             $('#btnLogin').click(function () {
                 debugger;
@@ -132,6 +192,61 @@
                     },
                     error: function (xhr) {
                         alert(xhr.responseText);
+                    }
+                });
+            });
+            $('#btnRegisterFav').click(function () {
+                debugger;
+                var Firstname = $("input[name=name_fav]").val();
+                var LastName = $("input[name=lastname_fav]").val();
+                var Email = $("input[name=email_fav]").val();
+                var Password = $("input[name=password_fav]").val();
+                var Phone = $("input[name=phone_fav]").val();
+                var UserType_login = $('input[type=radio][name=UserType_fav]').val();
+                if (Firstname == "") {
+                    $("input[name='name_fav']").addClass('error-border');
+                    $("input[name='email_fav']").removeClass('error-border');
+                    $("input[name='password_fav']").removeClass('error-border');
+                    return false;
+                }
+                if (Email == "") {
+                    $("input[name='email_fav']").addClass('error-border');
+                    $("input[name='name_fav']").removeClass('error-border');
+                    $("input[name='password_fav']").removeClass('error-border');
+                    return false;
+                }
+                if (Password == "") {
+                    $("input[name='password_fav']").addClass('error-border');
+                    $("input[name='email_fav']").removeClass('error-border');
+                    $("input[name='name_fav']").removeClass('error-border');
+                    return false;
+                }
+                if (UserType_login == "") {
+                    $('#lblErrorFav').html('Please select  I am a');
+                    return false;
+                }
+                $.ajax({
+
+                    url: "/Account/Register",
+                    data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Phone: Phone, UserType: UserType_login },
+                    type: "POST",
+                    dataType: 'json',
+
+                    success: function (data) {
+                        debugger;
+
+                        $("input[name=name_fav]").val('');
+                        $("input[name=lastname_fav]").val('');
+                        $("input[name=email_fav]").val('');
+                        $("input[name=password_fav]").val('');
+                        $("input[name=phone_fav]").val('');
+
+                        $('#modal-dialog_favourite').modal('toggle');
+                        alert('You have successfully registered.');
+                    },
+                    error: function () {
+
+                        alert("Dynamic content load failed.");
                     }
                 });
             });
@@ -198,7 +313,8 @@
             debugger;
             $("#txtdatepicker").datepicker();
             $(".phn").mask("(999) 999-9999");
-            $('.appointment').click(function (event) {
+
+            $(document).on('click', '.appointment', function () {
                 debugger;
                 $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
@@ -215,47 +331,41 @@
                 var mlsid = $(this).attr('id');
                 $(this).toggleClass('background-red');
                 var PropertyType = '@TempData["PropertyType"]';
-                if (value == '')
-                {
-                    $('#modal-content').modal({
-                        show: true
-                    });
+                if (value == '') {
+                   
                     $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
                     $('login').addClass('display-block');
                     return false;
                 }
-                    
-                else
-                {
-                    if(!$(this).hasClass('background-red'))
-                    {
+
+                else {
+                    if (!$(this).hasClass('background-red')) {
                         URL = '@Url.Action("RemoveFavourite", "Property")'
-                        }
-                    else
-                    {
+                    }
+                    else {
                         URL = '@Url.Action("SaveFavourite", "Property")'
                     }
                 }
-                    $.ajax({
-                        url: URL,
-                        dataType: "JSON",
-                        type: "POST",
-                        cache: false,
-                        data: { ID: 11, MLSID: mlsid, Type: PropertyType },
-                        success: function (data) {
-                            debugger;
-                            if (data == "Suceess") {
-                                location.reload();
-                            }
-                            else {
-                               
-                            }
-
-                        },
-                        error: function (xhr) {
-                            alert(xhr.responseText);
+                $.ajax({
+                    url: URL,
+                    dataType: "JSON",
+                    type: "POST",
+                    cache: false,
+                    data: { ID: 11, MLSID: mlsid, Type: PropertyType },
+                    success: function (data) {
+                        debugger;
+                        if (data == "Suceess") {
+                            //location.reload();
                         }
-                    });
+                        else {
+
+                        }
+
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
             });
 
             FillDropdown_PropertType("");
@@ -284,7 +394,7 @@
 
             });
 
-          
+
             function FillDropdown_PropertType(Type) {
                 debugger;
                 var ddlCustomers = $("#ddlCustomers");

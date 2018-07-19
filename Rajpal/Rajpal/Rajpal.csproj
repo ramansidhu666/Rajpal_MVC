@@ -294,6 +294,7 @@
     <Content Include="Content\images\icon_search.png" />
     <Content Include="Content\images\map_marker.png" />
     <Content Include="Content\images\month.png" />
+    <Content Include="Content\images\Preloader_2.gif" />
     <Content Include="Content\images\rating.png" />
     <Content Include="Content\images\revslider\main_slider_1-2.jpeg" />
     <Content Include="Content\images\revslider\main_slider_1.jpg" />
@@ -482,6 +483,7 @@
     <Content Include="Views\Login.cshtml" />
     <Content Include="Views\Property\MyFavourite.cshtml" />
     <Content Include="Views\Partial\Favourite.cshtml" />
+    <Content Include="Views\FavRegisterLogin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

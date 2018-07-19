@@ -9,7 +9,9 @@ namespace Rajpal.Models
     {
        
 
-        public string Address { get; set; }
+     
+        private string _Address = "";
+        public string Address { get { return (_Address == null ? "" : _Address); } set { this._Address = value; } }
         public string AirConditioning { get; set; }
         public string ApproxSquareFootage { get; set; }
         public string Area { get; set; }
@@ -23,15 +25,22 @@ namespace Rajpal.Models
         public string Kitchens { get; set; }
         public string ListBrokerage { get; set; }
         public string ListPrice { get; set; }
-        public string MLS { get; set; }
+    
+        private string _MLS = "";
+        public string MLS { get { return (_MLS == null ? "" : _MLS); } set { this._MLS = value; } }
+
         public string Municipality { get; set; }
-        public string MunicipalityDistrict { get; set; }
+        private string _MunicipalityDistrict = "";
+        public string MunicipalityDistrict { get { return (_MunicipalityDistrict == null ? "" : _MunicipalityDistrict); } set { this._MunicipalityDistrict = value; } }
         public string ParkingSpaces { get; set; }
         public string pImage { get; set; }
         public string Pool { get; set; }
-        public string PostalCode { get; set; }
+        private string _PostalCode = "";
+        public string PostalCode { get { return (_PostalCode == null ? "" : _PostalCode); } set { this._PostalCode = value; } }
        // public List<PropertyImages> PropertyImages { get; set; }
-        public string Province { get; set; }
+  
+        private string _Province = "";
+        public string Province { get { return (_Province == null ? "" : _Province); } set { this._Province = value; } }
         public string RemarksForClients { get; set; }
         public string Rooms { get; set; }
         public string SaleLease { get; set; }

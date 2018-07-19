@@ -292,7 +292,7 @@ namespace Rajpal.Controllers
                     Type
                 }).SingleOrDefault();
 
-
+                Clear(Type);
                 return Json("Suceess", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -310,7 +310,7 @@ namespace Rajpal.Controllers
                 string sqlQuery = @"delete from tbl_Favourite where ID=@ID and MLSID=@MLSID";
                 rowsAffected = db.Execute(sqlQuery, new { ID = ID, MLSID = MLSID });
 
-
+                Clear(Type);
                 return Json("Suceess", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -408,5 +408,9 @@ namespace Rajpal.Controllers
             return View();
         }
 
+        public void Clear(string key)
+        {
+            HttpContext.Cache.Remove(key);
+        }  
     }
 }

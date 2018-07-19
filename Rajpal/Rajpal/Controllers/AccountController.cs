@@ -25,18 +25,19 @@ namespace Rajpal.Controllers
 
        
         [HttpPost]
-        public ActionResult Register(string Firstname, string LastName, string Email, string Password, string Street = "", string City = "", string State = "", string country = "", string UserType="")
+        public ActionResult Register(string Firstname, string LastName, string Email, string Password,string Phone="", string Street = "", string City = "", string State = "", string country = "", string UserType="")
         {
             try
             {
                 int rowsAffected = 0;
-                string sqlQuery = @"Insert Into Registration (FirstName,LastName,[EmailId],[Password],Address,City,State,country,UserType) Values (@FirstName,@LastName,@EmailId,@Password,@Address,@City,@State,@country,@UserType);SELECT CAST(SCOPE_IDENTITY() as int)";
+                string sqlQuery = @"Insert Into Registration (FirstName,LastName,[EmailId],[Password],PhoneNumber,Address,City,State,country,UserType) Values (@FirstName,@LastName,@EmailId,@Password,@PhoneNumber,@Address,@City,@State,@country,@UserType);SELECT CAST(SCOPE_IDENTITY() as int)";
                      rowsAffected = db.Query<int>(sqlQuery, new
                     {
                         FirstName=Firstname,
                         LastName,
                         EmailId=Email,
                         Password,
+                        PhoneNumber=Phone,
                         Address = Street,
                         City,
                         State,
