@@ -283,13 +283,12 @@
 
 
                 <label id="message5" class="error"></label>
-                @Html.Recaptcha()
-                <label id="message6" class="error"></label>
-
-                <div class="g-recaptcha" data-theme="light" data-sitekey="XXXXXXXXXXXXX" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
-
-
-            </div><!-- .contact-form__body -->
+                <div style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;">
+                    @Html.Recaptcha()
+                </div>
+                    <label id="message6" class="error"></label>
+                    
+                </div><!-- .contact-form__body -->
             <div class="contact-form__footer">
                 <input id="btnSave" type="button" class="contact-form__submit" name="submit" value="Contact Us">
             </div><!-- .contact-form__footer -->

@@ -32,7 +32,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: url(../Content/images/Preloader_2.gif) 50% 50% no-repeat #ede9df;
+            background: url(../Content/images/Preloader_1.gif) 50% 50% no-repeat #fff;
         }
     </style>
 </head>
@@ -145,7 +145,14 @@
                             $("input[name=password_fav_login]").val('');
 
                             $('#modal-dialog_favourite').modal('toggle');
-                            location.reload();
+                            if ($('#hdnLockedorAppointment').val() == 'locked') {
+                                window.location = '/Home/Index';
+                            }
+                            else
+                            {
+                                location.reload();
+                            }
+                           
                         }
 
                     },
@@ -243,6 +250,10 @@
 
                         $('#modal-dialog_favourite').modal('toggle');
                         alert('You have successfully registered.');
+                        if($('#hdnLockedorAppointment').val()=='locked')
+                        {
+                            window.location = '/Home/Index';
+                        }
                     },
                     error: function () {
 
@@ -316,30 +327,37 @@
 
             $(document).on('click', '.appointment', function () {
                 debugger;
+                if ($(this).hasClass('disabled'))
+                {
+                    return false;
+                }
+                
                 $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
-            //$('.listing__favorite').click(function (event) {
-            //$('.listing__favorite').on("click", function () {
-            $('#modal-content').on('shown.bs.modal', function () {
-                debugger;
-                $("#txtname").focus();
+            $(document).on('click', '.locked', function () {
+                $('#hdnLockedorAppointment').val('locked');
+                $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
             });
             $(document).on('click', '.listing__favorite', function () {
                 debugger;
+                if ($(this).hasClass('disabled')) {
+                    return false;
+                }
                 var URL = '';
                 var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
                 var mlsid = $(this).attr('id');
-                $(this).toggleClass('background-red');
+                var currentElement = $(this);
+               // $(this).toggleClass('background-red');
                 var PropertyType = '@TempData["PropertyType"]';
                 if (value == '') {
-
+                   
                     $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
                     $('login').addClass('display-block');
                     return false;
                 }
 
                 else {
-                    if (!$(this).hasClass('background-red')) {
+                    if ($(this).hasClass('background-red')) {
                         URL = '@Url.Action("RemoveFavourite", "Property")'
                     }
                     else {
@@ -356,6 +374,7 @@
                         debugger;
                         if (data == "Suceess") {
                             //location.reload();
+                            currentElement.toggleClass('background-red');
                         }
                         else {
 
@@ -369,17 +388,6 @@
             });
             var Type = $("#HdnType").val();
             FillDropdown_PropertType(Type);
-            debugger;
-            setTimeout(
-                    function () {
-                        if (typeof (history.pushState) != "undefined") {
-                            var obj = { Title: Type, Url: 'Index' };
-                            history.pushState(obj, obj.Title, obj.Url);
-                        } else {
-                            alert("Browser does not support HTML5.");
-                        }
-                    }, 5000);
-
             $('input[name=Type]').change(function () {
                 debugger;
 

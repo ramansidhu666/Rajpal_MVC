@@ -119,6 +119,6 @@ D:\Raman\Rajpal\Rajpal\bin\System.Web.WebPages.Deployment.xml
 D:\Raman\Rajpal\Rajpal\bin\System.Web.WebPages.Razor.xml
 D:\Raman\Rajpal\Rajpal\bin\System.Web.Optimization.xml
 D:\Raman\Rajpal\Rajpal\bin\Antlr3.Runtime.pdb
-D:\Raman\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache
 D:\Raman\Rajpal\Rajpal\obj\Debug\Rajpal.dll
 D:\Raman\Rajpal\Rajpal\obj\Debug\Rajpal.pdb
+D:\Raman\Rajpal\Rajpal\obj\Debug\Rajpal.csprojResolveAssemblyReference.cache

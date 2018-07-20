@@ -3,16 +3,28 @@
 
 <section>
  
-        @foreach (var item in Model)
+            @foreach (var item in Model)
     {
-        <div class="item-grid__container">
-            <div class="listing listing--v2">
+        <div class="item-grid__container @(@item.VOX? "property_item_hidden text-hidden":"")" >
+            @if (@item.VOX)
+            {
+                <img src="https://www.materialui.co/materialIcons/action/lock_grey_192x192.png" height="150px" width="150px" class="img-hidden">
+
+
+                <center><h1 class="locked">SEE WHAT REALTORS SEE</h1></center>
+                <h3><span><i class="fa fa-lock" aria-hidden="true"></i> FREE VIP Account Required</span></h3>
+            }
+
+            <div class="listing listing--v2 @(@item.VOX? "property_item_blur":"")">
+
+
+
                 <div class="item-grid__image-container item-grid__image-container--open-houses">
                     <a>
                         <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
                         <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
                         <span class="item__label">@item.SaleLease</span>
-                        <span id="@item.MLS" class="listing__favorite listing__favorite--v2 @(@item.exist != null ? "background-red" : "")"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                        <span id="@item.MLS" class="listing__favorite listing__favorite--v2 @(@item.exist != null && Session["UserId"] != null ? "background-red" : "") @(@item.VOX ?"disabled":"")"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                     </a>
                 </div><!-- .col -->
                 <div class="item-grid__content-container item-grid__content-container--open-houses">
@@ -20,52 +32,51 @@
                         <div class="listing__header">
                             <div class="listing__header-primary width-100">
                                 <span class="listing__type font-size-18">@item.TypeOwn1Out</span>
-                                <a class="appointment float-right"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a>
+                                <a class="appointment float-right @(@item.VOX ?"disabled":"")"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a>
                                 <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
                                 <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
                                 <p class="listing__price listing__price--open-houses color-red">@item.ListPrice</p>
                             </div><!-- .listing__header-primary -->
-                           
+
                         </div><!-- .listing__header -->
                         <div class="listing__details">
                             <ul class="listing__stats">
-                            @if(@ViewBag.Type!="Commercial")
-                            {
-                                 if (item.Bedrooms == "null")
+                                @if (@ViewBag.Type != "Commercial")
                                 {
-                                    <li><span class="listing__figure">Not<br /> Available</span>  Beds</li>
+                                    if (item.Bedrooms == "null")
+                                    {
+                                        <li><span class="listing__figure"><span>Not</span><br /> Available</span>  Beds</li>
+                                    }
+                                    else
+                                    {
+                                        <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
+                                    }
+
+                                    if (item.Washrooms == "null")
+                                    {
+                                        <li><span class="listing__figure">Not Available</span>  Baths</li>
+                                    }
+                                    else
+                                    {
+                                        <li><span class="listing__figure">@item.Washrooms</span> Baths</li>
+                                    }
+
+
                                 }
-                                else
-                                {
-                                   <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
-                                }
-                                
-                                 if (item.Washrooms == "null")
-                                {
-                                    <li><span class="listing__figure">Not Available</span>  Baths</li>
-                                }
-                                else
-                                {
-                                    <li><span class="listing__figure">@item.Washrooms</span> Baths</li>
-                                }
-                                
-                              
-                            }
                                 @if (item.ApproxSquareFootage == "null")
                                 {
-                                    <li><span class="listing__figure">Not Available</span>  sq.ft</li>
+                                    <li><span class="listing__figure"><span>Not</span><br /> Available</span>  sq.ft</li>
                                 }
                                 else
                                 {
                                     <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
                                 }
-                                
-                            </ul><!-- .listing__stats -->
 
-                        @if(@item.VOX)
-                        {
-                            <button class="btnLocked" value="locked"></button>
-                        }
+                            </ul><!-- .listing__stats -->
+                            @if (@item.VOX)
+                            {
+                                <button class="btnLocked" value="locked"></button>
+                            }
                             <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                             @*<div class="open-houses">
                                     <a href="single_property_1.html" class="open-houses__btn"><strong>Open House</strong> July 8, 2018 12.00 pm to 6.00 pm</a>

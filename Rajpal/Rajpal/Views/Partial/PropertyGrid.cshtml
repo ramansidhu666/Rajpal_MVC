@@ -4,28 +4,34 @@
 <section class="main-listing__item-grid">
 
     @foreach (var item in Model)
-    {
+        { <div class="item-grid__container @(@item.VOX? "property_item_hidden2 text-hidden2":"")">
+        @if (@item.VOX)
+            {
+            <img src="https://www.materialui.co/materialIcons/action/lock_grey_192x192.png" height="150px" width="150px" class="img-hidden2">
+            <center><h1>SEE WHAT REALTORS SEE</h1></center>
+            <h3><span><i class="fa fa-lock" aria-hidden="true"></i> FREE VIP Account Required</span></h3>
+}
+        <div class="listing @(@item.VOX? "property_item_blur":"")">
+            <div class="item-grid__image-container">
+                <a>
+                    <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
+                    <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
 
-        <div class="item-grid__container">
-            <div class="listing">
-                <div class="item-grid__image-container">
-                    <a href="single_property_1.html">
-                        <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
-                        <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
+                    <span id="@item.MLS" class="listing__favorite @(@item.exist != null && Session["UserId"] != null ? "background-red" : "") @(@item.VOX ?"disabled":"")"><i class=" fa fa-heart-o" aria-hidden="true"></i></span>
+                </a>
+            </div>
 
-                        <span class="listing__favorite @(@item.exist != null ? "background-red" : "")"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-                    </a>
-                </div>
-                <div class="item-grid__content-container">
-                    <div class="listing__content width-100">
-                        <p class="listing__price font-size-18"><b>@item.TypeOwn1Out</b><a class="appointment float-right"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a></p>
+            <div class="item-grid__content-container">
 
-                        <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
-                        <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
-                        <p class="listing__price color-red">@item.ListPrice</p>
-                        <div class="listing__details">
-                            <ul class="listing__stats">
-                                @if (@ViewBag.Type != "Commercial")
+                <div class="listing__content width-100">
+                    <p class="listing__price font-size-18"><b>@item.TypeOwn1Out</b><a class="appointment float-right @(@item.VOX ?"disabled":"")"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a></p>
+
+                    <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
+                    <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
+                    <p class="listing__price color-red">@item.ListPrice</p>
+                    <div class="listing__details">
+                        <ul class="listing__stats">
+                            @if (@ViewBag.Type != "Commercial")
                                 {
                                     if (item.Bedrooms == "null")
                                     {
@@ -47,24 +53,26 @@
 
 
                                 }
-                                @if (item.ApproxSquareFootage == "null")
+                            @if (item.ApproxSquareFootage == "null")
                                 {
-                                    <li><span class="listing__figure">Not Available</span>  sq.ft</li>
+                                <li><span class="listing__figure">Not Available</span>  sq.ft</li>
                                 }
                                 else
                                 {
-                                    <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
+                                <li><span class="listing__figure">@item.ApproxSquareFootage</span> sq.ft</li>
                                 }
 
 
-                            </ul><!-- .listing__stats -->
-                            <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        </div><!-- .listing__details -->
-                    </div><!-- .listing-content -->
-                </div>
-            </div><!-- .listing -->
-        </div><!-- .col -->
+                        </ul><!-- .listing__stats -->
+                        <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    </div><!-- .listing__details -->
+                </div><!-- .listing-content -->
+            </div>
+        </div><!-- .listing -->
+    </div><!-- .col -->
     }
+
+
     <div class="pager1">
         @Html.Raw(Ajax.Pager(
             new Options

@@ -1442,7 +1442,7 @@ textarea {
   color: #888888;
 }
 .topbar__link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.);
   transition: 0.3s color ease-out;
 }
 .topbar__link--white {
@@ -4167,7 +4167,7 @@ textarea {
     position: absolute;
     left: 0;
     bottom: -125px;
-    z-index: 5;
+    z-index: 1;
     width: 100%;
     background-color: transparent;
   }
@@ -4191,6 +4191,7 @@ textarea {
 .listing-search {
   padding: 10px 15px 0;
   background-color: #22355b;
+  z-index:2!important;
 }
 .listing-search__label {
   display: block;
@@ -5471,3 +5472,33 @@ div.similar-home:last-of-type {
 .coming-soon__unit {
   text-transform: uppercase;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
