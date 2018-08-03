@@ -45,7 +45,7 @@ namespace Rajpal.Controllers
                         UserType
                     }).SingleOrDefault();
 
-                
+                     Session["UserId"] = rowsAffected;
                 //HttpPostedFileBase file = Request.Files["file"];
                  
                 //CommonClass.SendMailToAdmin(EnumValue.GetEnumDescription(EnumValue.EmailType.Appointment), FirstName + " " + LastName, Email, PhoneNumber, AppointmentDate, AppointmentTime, Notes);
@@ -150,7 +150,7 @@ namespace Rajpal.Controllers
             Session.Abandon();
             Session.RemoveAll();
 
-            return RedirectToAction("Index");
+            return Redirect("~/Home/Index");
         }
 
         public ActionResult ForgotPassword()

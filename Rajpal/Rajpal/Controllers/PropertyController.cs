@@ -108,6 +108,34 @@ namespace Rajpal.Controllers
             var people = new PagedData<PropertyModell>();
             try
             {
+                if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                {
+                    TempData["HomeType"] = HomeType;
+                }
+                if (Sort != "")
+                {
+                    TempData["Sort"] = Sort;
+                }
+                if (MinPrice != "0")
+                {
+                    TempData["MinPrice"] = MinPrice;
+                }
+                if (MaxPrice != "0")
+                {
+                    TempData["MaxPrice"] = MaxPrice;
+                }
+                if (Status != "" && Status != "All")
+                {
+                    TempData["Status"] = Status;
+                }
+                if (Bedroom != 0)
+                {
+                    TempData["Bedroom"] = Bedroom;
+                }
+                if (Bathroom != 0)
+                {
+                    TempData["Bathroom"] = Bathroom;
+                }
                 if(page==null)
                 {
                     if ( HomeType != "All Home Types")
@@ -119,12 +147,34 @@ namespace Rajpal.Controllers
                 }
                 else
                 {
-                    if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
-                    {
-                        TempData["HomeType"] = HomeType;
-                    }
+                    
                     HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
                     TempData.Keep("HomeType");
+                    
+                    Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
+                    TempData.Keep("Sort");
+
+                    
+                    MinPrice = TempData["MinPrice"] == null ? "0" : TempData["MinPrice"].ToString();
+                    TempData.Keep("MinPrice");
+
+                    
+                    MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
+                    TempData.Keep("MaxPrice");
+
+
+
+                   
+                    Status = TempData["Status"] == null ? "" : TempData["Status"].ToString();
+                    TempData.Keep("Status");
+
+                   
+                    Bedroom = TempData["Bedroom"] == null ? 0 : Convert.ToInt32(TempData["Bedroom"]);
+                    TempData.Keep("Bedroom");
+
+                   
+                    Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
+                    TempData.Keep("Bathroom");
                 }
 
                 if (Type != "" && Type != null)
@@ -133,50 +183,8 @@ namespace Rajpal.Controllers
                 }
                 Type = TempData["PropertyType"] == null ? StaticPropertyType : TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
-
-                if (Sort != "")
-                {
-                    TempData["Sort"] = Sort;
-                }
-                Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
-                TempData.Keep("Sort");
-
-                if (MinPrice != "0")
-                {
-                    TempData["MinPrice"] = MinPrice;
-                }
-                MinPrice = TempData["MinPrice"] == null ? "0" : TempData["MinPrice"].ToString();
-                TempData.Keep("MinPrice");
-
-                if (MaxPrice != "0")
-                {
-                    TempData["MaxPrice"] = MaxPrice;
-                }
-                MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
-                TempData.Keep("MaxPrice");
-
-              
-
-                if (Status != "" && Status != "All")
-                {
-                    TempData["Status"] = Status;
-                }
-                Status = TempData["Status"] == null ? "" : TempData["Status"].ToString();
-                TempData.Keep("Status");
-
-                if (Bedroom != 0)
-                {
-                    TempData["Bedroom"] = Bedroom;
-                }
-                Bedroom = TempData["Bedroom"] == null ? 0 : Convert.ToInt32(TempData["Bedroom"]);
-                TempData.Keep("Bedroom");
-
-                if (Bathroom != 0)
-                {
-                    TempData["Bathroom"] = Bathroom;
-                }
-                Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
-                TempData.Keep("Bathroom");
+                Session["PropertyType"] = Type;
+               
 
 
                 var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
@@ -196,14 +204,20 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.Where(c => c.SaleLease.ToLower() == Status.ToLower()).ToList();
                 }
-                if (Bedroom != 0)
+                if (Type!=EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
                 {
-                    PropertList = PropertList.Where(c => Convert.ToInt32(c.Bedrooms) >= Bedroom && c.Bedrooms != null).ToList();
+                    if (Bedroom != 0)
+                    {
+                        PropertList = PropertList.Where(c => c.Bedrooms != "" && c.Bedrooms != null ).ToList();
+                        PropertList = PropertList.Where(c => Convert.ToInt32(c.Bedrooms) > Bedroom || Convert.ToInt32(c.Bedrooms) == Bedroom).ToList();
+                    }
+                    if (Bathroom != 0)
+                    {
+                        PropertList = PropertList.Where(c =>  c.Washrooms != null ).OrderByDescending(c=>c.Washrooms).ToList();
+                        PropertList = PropertList.Where(c =>  c.Washrooms >= Bathroom).ToList();
+                    }
                 }
-                if (Bathroom != 0)
-                {
-                    PropertList = PropertList.Where(c => Convert.ToInt32(c.Washrooms) >= Bathroom && c.Washrooms != null).ToList();
-                }
+               
                 if (MinPrice != "0" && MaxPrice != "0")
                 {
                     PropertList = PropertList.Where(c => decimal.Parse(c.ListPrice) >= decimal.Parse(MinPrice) && decimal.Parse(c.ListPrice) <= decimal.Parse(MaxPrice)).ToList();

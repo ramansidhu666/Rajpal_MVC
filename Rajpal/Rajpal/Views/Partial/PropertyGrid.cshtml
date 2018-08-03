@@ -1,30 +1,49 @@
 ﻿@using MvcPaging
 @model IPagedList<Rajpal.Models.PropertyModell>
+<div class="listing-sort listing-sort--main-listing">
+    <div class="listing-sort__inner">
+        <ul class="listing-sort__list">
+            <li id="List" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
+            <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
+        </ul>
 
+        <span class="listing-sort__result">Total Record Found @ViewBag.TotalData</span>
+
+        <p class="listing-sort__sort">
+            <label for="sort-type" class="listing-sort__label"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by </label>
+            <select name="sort-type" id="sort-type" class="ht-field listing-sort__field listing-sort__field  dp_setting dk-selected sort-type-grid">
+                <option value="default">Default</option>
+                <option value="low-price">Price (Low to High)</option>
+                <option value="high-price">Price (High to Low)</option>
+
+            </select>
+        </p><!-- .listing-sort__sort -->
+    </div><!-- .listing-sort__inner -->
+</div><!-- .listing-sort -->
 <section class="main-listing__item-grid">
 
     @foreach (var item in Model)
-        { <div class="item-grid__container @(@item.VOX? "property_item_hidden2 text-hidden2":"")">
-        @if (@item.VOX)
+        { <div class="item-grid__container @(@item.VOX && Session["UserId"] == null ? "property_item_hidden2 text-hidden2" : "")">
+        @if (@item.VOX &&  Session["UserId"] == null)
             {
-            <img src="https://www.materialui.co/materialIcons/action/lock_grey_192x192.png" height="150px" width="150px" class="img-hidden2">
-            <center><h1>SEE WHAT REALTORS SEE</h1></center>
+            <img src="../content/images/lock.png" height="150px" width="150px" class="img-hidden2">
+            <center><h1 class="locked">SEE WHAT REALTORS SEE</h1></center>
             <h3><span><i class="fa fa-lock" aria-hidden="true"></i> FREE VIP Account Required</span></h3>
 }
-        <div class="listing @(@item.VOX? "property_item_blur":"")">
+        <div class="listing @(@item.VOX && Session["UserId"] == null ? "property_item_blur" : "")">
             <div class="item-grid__image-container">
                 <a>
                     <div class="item-grid__image-overlay"></div><!-- .item-grid__image-overlay -->
                     <img src="@item.pImage" alt="@item.Style in @item.Area" class="listing__img">
 
-                    <span id="@item.MLS" class="listing__favorite @(@item.exist != null && Session["UserId"] != null ? "background-red" : "") @(@item.VOX ?"disabled":"")"><i class=" fa fa-heart-o" aria-hidden="true"></i></span>
+                    <span id="@item.MLS" class="listing__favorite @(@item.exist != null && Session["UserId"] != null ? "background-red" : "") @(@item.VOX && Session["UserId"] == null ? "disabled" : "")"><i class="fa fa-heart @(@item.exist != null && Session["UserId"] != null ? "color-red" : "")" aria-hidden="true"></i></span>
                 </a>
             </div>
 
             <div class="item-grid__content-container">
 
                 <div class="listing__content width-100">
-                    <p class="listing__price font-size-18"><b>@item.TypeOwn1Out</b><a class="appointment float-right @(@item.VOX ?"disabled":"")"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>Appointment</a></p>
+                    <p class="listing__price font-size-18"><b>@item.TypeOwn1Out</b><a class="appointment float-right @(@item.VOX ?"disabled":"")">Appointment</a></p>
 
                     <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
                     <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
@@ -35,16 +54,16 @@
                                 {
                                     if (item.Bedrooms == "null")
                                     {
-                                        <li><span class="listing__figure">Not Available</span>  Beds</li>
+                                        <li><span class="listing__figure"><img src="../content/images/nt.png"></span>  Beds</li>
                                     }
                                     else
                                     {
                                         <li><span class="listing__figure">@item.Bedrooms<sup>&plus;</sup></span> Beds</li>
                                     }
 
-                                    if (item.Washrooms == "null")
+                                    if (item.Washrooms == null)
                                     {
-                                        <li><span class="listing__figure">Not Available</span>  Baths</li>
+                                        <li><span class="listing__figure"><img src="../content/images/nt.png"></span>  Baths</li>
                                     }
                                     else
                                     {
@@ -55,7 +74,7 @@
                                 }
                             @if (item.ApproxSquareFootage == "null")
                                 {
-                                <li><span class="listing__figure">Not Available</span>  sq.ft</li>
+                                <li><span class="listing__figure"><img src="../content/images/nt.png"></span>  sq.ft</li>
                                 }
                                 else
                                 {
@@ -64,7 +83,7 @@
 
 
                         </ul><!-- .listing__stats -->
-                        <a href="single_property_1.html" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        <a href="#" class="listing__btn">Details <span class="listing__btn-icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                     </div><!-- .listing__details -->
                 </div><!-- .listing-content -->
             </div>
@@ -72,7 +91,8 @@
     </div><!-- .col -->
     }
 
-
+@if(@ViewBag.TotalData>0)
+    {
     <div class="pager1">
         @Html.Raw(Ajax.Pager(
             new Options
@@ -96,11 +116,9 @@
                 OnSuccess = "successPaging",
                 OnFailure = "failurePaging"
             }, new { controller = "Property", action = "Index", IsList = "Grid" }))
-        <div class="well">
-            Showing <span class="badge badge-success">@Model.ItemStart</span> to <span class="badge badge-success">@Model.ItemEnd</span>
-            of <span class="badge badge-info">@Model.TotalItemCount</span> entries
-        </div>
+        
     </div>
+}
 </section><!-- .main-listing__item-grid -->
 @*<script>
         $(function () {

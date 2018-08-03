@@ -84,94 +84,136 @@
 
     <script>
 
-        $(function () {
-            $('.register,.login').click(function (event) {
-                debugger;
-                $('#modal-dialog-register').modal({ backdrop: 'static', keyboard: false }, 'show')
-            });
-            $('input[type=radio][name=choices]').change(function () {
-                $(this).addClass('active');
-                $('input[type=radio][name=choices]').not(this).removeClass('active');
-            });
-            $('#registerEmail').on('input', function (e) {
-                var Email = $("input[name=email]").val();
-                $.ajax({
-                    url: '@Url.Action("IsEmailExits", "Account")',
-                    dataType: "JSON",
-                    type: "POST",
-                    cache: false,
-                    data: { Email: Email },
-                    success: function (data) {
-                        debugger;
-                        if (data == "success")
-                            $('#lblEmail').html('This email is already registered.')
-                        else
-                            $('#lblEmail').html('');
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
+    $(function () {
+        $('.register').click(function (event) {
+            debugger;
+
+            var eventId = $(this).data('id');
+            $('#eventId').html(eventId);
+            $('#modal-dialog-register').modal({ backdrop: 'static', keyboard: false }, 'show')
+        });
+        $('.login').click(function (event) {
+            debugger;
+
+            var eventId = $(this).data('id');
+            $('#eventId').html(eventId);
+            $('#modal-dialog-login').modal({ backdrop: 'static', keyboard: false }, 'show')
+        });
+        $('input[type=radio][name=choices]').change(function () {
+            $(this).addClass('active');
+            $('input[type=radio][name=choices]').not(this).removeClass('active');
+        });
+        $('#registerEmail').on('input', function (e) {
+            var Email = $("input[name=email]").val();
+            $.ajax({
+                url: '@Url.Action("IsEmailExits", "Account")',
+                dataType: "JSON",
+                type: "POST",
+                cache: false,
+                data: { Email: Email },
+                success: function (data) {
+                    debugger;
+                    if (data == "success") {
+                        $('#lblEmail').html('This email is already registered.')
+                        $('input[name=next]').prop('disabled', true);
                     }
-                });
+
+                    else {
+                        $('#lblEmail').html('');
+                        $('input[name=next]').prop('disabled', false);
+                    }
+
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
             });
-
-
-            $('#btnLoginFav').click(function () {
-                debugger;
-                var Email = $("input[name=email_fav_login]").val();
-                var Password = $("input[name=password_fav_login]").val();
-                if (Email == "") {
-                    $('#lblEmail_login_fav').html('Please enter email')
-                    return false;
+        });
+        $('#email_fav').on('input', function (e) {
+            var Email = $("input[name=email_fav]").val();
+            $.ajax({
+                url: '@Url.Action("IsEmailExits", "Account")',
+                dataType: "JSON",
+                type: "POST",
+                cache: false,
+                data: { Email: Email },
+                success: function (data) {
+                    debugger;
+                    if (data == "success")
+                        $('#lblErrorFav').html('This email is already registered.')
+                    else
+                        $('#lblErrorFav').html('');
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
                 }
-                else if (Password == "") {
-                    $('#lblPassword_login_fav').html('Please enter password')
-                    $('#lblEmail_login_fav').html('');
-                    return false;
-                }
-                $.ajax({
-                    url: '@Url.Action("Login", "Account")',
-                    dataType: "JSON",
-                    type: "POST",
-                    cache: false,
-                    data: { Email: Email, Password: Password },
-                    success: function (data) {
-                        debugger;
-                        if (data == "error") {
-                            $('#lblEmail_login_fav').html('');
-                            $('#lblPassword_login_fav').html('You have entered an incorrect email or password');
+            });
+        });
+        $(document).on('click', '.pagination ul li', function () {
+            debugger;
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+
+        $('#btnLoginFav').click(function () {
+            debugger;
+            var Email = $("input[name=email_fav_login]").val();
+            var Password = $("input[name=password_fav_login]").val();
+            if (Email == "") {
+                $('#lblEmail_login_fav').html('Please enter email')
+                return false;
+            }
+            else if (Password == "") {
+                $('#lblPassword_login_fav').html('Please enter password')
+                $('#lblEmail_login_fav').html('');
+                return false;
+            }
+            $.ajax({
+                url: '@Url.Action("Login", "Account")',
+                dataType: "JSON",
+                type: "POST",
+                cache: false,
+                data: { Email: Email, Password: Password },
+                success: function (data) {
+                    debugger;
+                    if (data == "error") {
+                        $('#lblEmail_login_fav').html('');
+                        $('#lblPassword_login_fav').html('You have entered an incorrect email or password');
+                    }
+                    else {
+                        $("input[name=email_fav_login]").val('');
+                        $("input[name=password_fav_login]").val('');
+
+                        $('#modal-dialog_favourite').modal('toggle');
+                        if ($('#hdnLockedorAppointment').val() == 'locked') {
+                            window.location = '/PropertyDetails/Index';
                         }
                         else {
-                            $("input[name=email_fav_login]").val('');
-                            $("input[name=password_fav_login]").val('');
-
-                            $('#modal-dialog_favourite').modal('toggle');
-                            if ($('#hdnLockedorAppointment').val() == 'locked') {
-                                window.location = '/Home/Index';
-                            }
-                            else
-                            {
-                                location.reload();
-                            }
-                           
+                            location.reload();
                         }
 
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
                     }
-                });
+
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
             });
+        });
+
 
 
             $('#btnLogin').click(function () {
                 debugger;
                 var Email = $("input[name=email_login]").val();
                 var Password = $("input[name=password_login]").val();
-                if (Email == "") {
+                if (Email == "")
+                {
                     $('#lblEmail_login').html('Please enter email')
                     return false;
                 }
-                else if (Password == "") {
+                else if (Password == "")
+                {
                     $('#lblPassword_login').html('Please enter password')
                     $('#lblEmail_login').html('');
                     return false;
@@ -184,16 +226,19 @@
                     data: { Email: Email, Password: Password },
                     success: function (data) {
                         debugger;
-                        if (data == "error") {
+                        if (data == "error")
+                        {
                             $('#lblPassword_login').html('')
                             $('#lblEmail_login').html('');
                             $('#lblPassword_login').html('You have entered an incorrect email or password');
                         }
-                        else {
+                        else
+                        {
                             $("input[name=email_login]").val('');
                             $("input[name=password_login]").val('');
 
-                            $('#modal-dialog-register').modal('toggle');
+                            $('#modal-dialog-login').modal('toggle');
+                            location.reload();
                         }
 
                     },
@@ -202,483 +247,508 @@
                     }
                 });
             });
-            $('#btnRegisterFav').click(function () {
-                debugger;
-                var Firstname = $("input[name=name_fav]").val();
-                var LastName = $("input[name=lastname_fav]").val();
-                var Email = $("input[name=email_fav]").val();
-                var Password = $("input[name=password_fav]").val();
-                var Phone = $("input[name=phone_fav]").val();
-                var UserType_login = $('input[type=radio][name=UserType_fav]').val();
-                if (Firstname == "") {
-                    $("input[name='name_fav']").addClass('error-border');
-                    $("input[name='email_fav']").removeClass('error-border');
-                    $("input[name='password_fav']").removeClass('error-border');
-                    return false;
-                }
-                if (Email == "") {
-                    $("input[name='email_fav']").addClass('error-border');
-                    $("input[name='name_fav']").removeClass('error-border');
-                    $("input[name='password_fav']").removeClass('error-border');
-                    return false;
-                }
-                if (Password == "") {
-                    $("input[name='password_fav']").addClass('error-border');
-                    $("input[name='email_fav']").removeClass('error-border');
-                    $("input[name='name_fav']").removeClass('error-border');
-                    return false;
-                }
-                if (UserType_login == "") {
-                    $('#lblErrorFav').html('Please select  I am a');
-                    return false;
-                }
-                $.ajax({
-
-                    url: "/Account/Register",
-                    data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Phone: Phone, UserType: UserType_login },
-                    type: "POST",
-                    dataType: 'json',
-
-                    success: function (data) {
-                        debugger;
-
-                        $("input[name=name_fav]").val('');
-                        $("input[name=lastname_fav]").val('');
-                        $("input[name=email_fav]").val('');
-                        $("input[name=password_fav]").val('');
-                        $("input[name=phone_fav]").val('');
-
-                        $('#modal-dialog_favourite').modal('toggle');
-                        alert('You have successfully registered.');
-                        if($('#hdnLockedorAppointment').val()=='locked')
-                        {
-                            window.location = '/Home/Index';
-                        }
-                    },
-                    error: function () {
-
-                        alert("Dynamic content load failed.");
-                    }
-                });
-            });
-            $('#btnFinish').click(function () {
-                debugger;
-                var Firstname = $("input[name=firstname]").val();
-                var LastName = $("input[name=lastname]").val();
-                var Email = $("input[name=email]").val();
-                var Password = $("input[name=password]").val();
-                var Street = $("input[name=Street]").val();
-                var City = $("input[name=City]").val();
-                var State = $("input[name=State]").val();
-                var country = $("input[name=country]").val();
-                var UserType_login = $('input[type=radio][name=choices]').val();
-                $.ajax({
-
-                    url: "/Account/Register",
-                    data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Street: Street, City: City, State: State, country: country, UserType: UserType_login },
-                    type: "POST",
-                    dataType: 'json',
-
-                    success: function (data) {
-                        debugger;
-                        var file_data = $("#wizard-picture").prop("files")[0];
-                        if (file_data != undefined || file_data != null) {
-                            var form_data = new FormData();                  // Creating object of FormData class
-                            form_data.append("file", file_data)
-                            form_data.append("UserId", data) // Adding extra parameters to form_data
-                            $.ajax({
-                                url: "/Account/Upload",
-                                dataType: 'script',
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                data: form_data,                         // Setting the data attribute of ajax with file_data
-                                type: 'post',
-                                success: function (data) {
-                                },
-                                error: function () {
-
-                                    alert("Dynamic content load failed.");
-                                }
-                            })
-                        }
-                        $("input[name=firstname]").val('');
-                        $("input[name=lastname]").val('');
-                        $("input[name=email]").val('');
-                        $("input[name=password]").val('');
-                        $("input[name=repassword]").val('');
-                        $("input[name=Street]").val('');
-                        $("input[name=City]").val('');
-                        $("input[name=State]").val('');
-                        $("input[name=country]").val('');
-                        $('#modal-dialog-register').modal('toggle');
-                        alert('You have successfully registered.');
-                    },
-                    error: function () {
-
-                        alert("Dynamic content load failed.");
-                    }
-                });
-            });
-
+        $('#btnFinish').click(function () {
             debugger;
-            $("#txtdatepicker").datepicker();
-            $(".phn").mask("(999) 999-9999");
+            var Firstname = $("input[name=firstname]").val();
+            var LastName = $("input[name=lastname]").val();
+            var Email = $("input[name=email]").val();
+            var Password = $("input[name=password]").val();
+            var Street = $("input[name=Street]").val();
+            var City = $("input[name=City]").val();
+            var State = $("input[name=State]").val();
+            var country = $("input[name=country]").val();
+            var UserType_login = $('input[name=choices]:checked').val();
+            $.ajax({
 
-            $(document).on('click', '.appointment', function () {
-                debugger;
-                if ($(this).hasClass('disabled'))
-                {
-                    return false;
-                }
-                
-                $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
-            });
-            $(document).on('click', '.locked', function () {
-                $('#hdnLockedorAppointment').val('locked');
-                $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
-            });
-            $(document).on('click', '.listing__favorite', function () {
-                debugger;
-                if ($(this).hasClass('disabled')) {
-                    return false;
-                }
-                var URL = '';
-                var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
-                var mlsid = $(this).attr('id');
-                var currentElement = $(this);
-               // $(this).toggleClass('background-red');
-                var PropertyType = '@TempData["PropertyType"]';
-                if (value == '') {
-                   
-                    $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
-                    $('login').addClass('display-block');
-                    return false;
-                }
+                url: "/Account/Register",
+                data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Street: Street, City: City, State: State, country: country, UserType: UserType_login },
+                type: "POST",
+                dataType: 'json',
 
-                else {
-                    if ($(this).hasClass('background-red')) {
-                        URL = '@Url.Action("RemoveFavourite", "Property")'
+                success: function (data) {
+                    debugger;
+                    var file_data = $("#wizard-picture").prop("files")[0];
+                    if (file_data != undefined || file_data != null) {
+                        var form_data = new FormData();                  // Creating object of FormData class
+                        form_data.append("file", file_data)
+                        form_data.append("UserId", data) // Adding extra parameters to form_data
+                        $.ajax({
+                            url: "/Account/Upload",
+                            dataType: 'script',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,                         // Setting the data attribute of ajax with file_data
+                            type: 'post',
+                            success: function (data) {
+                            },
+                            error: function () {
+
+                                alert("Dynamic content load failed.");
+                            }
+                        })
                     }
-                    else {
-                        URL = '@Url.Action("SaveFavourite", "Property")'
-                    }
-                }
-                $.ajax({
-                    url: URL,
-                    dataType: "JSON",
-                    type: "POST",
-                    cache: false,
-                    data: { ID: 11, MLSID: mlsid, Type: PropertyType },
-                    success: function (data) {
-                        debugger;
-                        if (data == "Suceess") {
-                            //location.reload();
-                            currentElement.toggleClass('background-red');
-                        }
-                        else {
+                    $("input[name=firstname]").val('');
+                    $("input[name=lastname]").val('');
+                    $("input[name=email]").val('');
+                    $("input[name=password]").val('');
+                    $("input[name=repassword]").val('');
+                    $("input[name=Street]").val('');
+                    $("input[name=City]").val('');
+                    $("input[name=State]").val('');
+                    $("input[name=country]").val('');
+                    $('#modal-dialog-register').modal('toggle');
+                    alert('You have successfully registered.');
+                },
+                error: function () {
 
-                        }
-
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
-            });
-            var Type = $("#HdnType").val();
-            FillDropdown_PropertType(Type);
-            $('input[name=Type]').change(function () {
-                debugger;
-
-
-                var selectedDT = $(this).val();
-                if (selectedDT == "Residential") {
-                    $("#rb1").attr("checked", true);
-                    $("#rb2").attr("checked", false);
-                    $("#rb3").attr("checked", false);
-                }
-                else if (selectedDT == "Commercial") {
-                    $("#rb1").attr("checked", false);
-                    $("#rb2").attr("checked", true);
-                    $("#rb3").attr("checked", false);
-                }
-                else {
-                    $("#rb1").attr("checked", false);
-                    $("#rb2").attr("checked", false);
-                    $("#rb3").attr("checked", true);
-                }
-                FillDropdown_PropertType(selectedDT);
-
-
-            });
-
-
-            function FillDropdown_PropertType(Type) {
-                debugger;
-                var ddlCustomers = $("#ddlCustomers");
-                ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
-                $.ajax({
-                    url: '@Url.Action("GetPropertyTypes", "Property")',
-                    dataType: "Json",
-                    type: "POST",
-                    cache: false,
-                    data: { Type: Type },
-                    success: function (response) {
-                        debugger;
-                        ddlCustomers.empty().append('<option selected="selected" value="0">All Home Types</option>');
-                        $.each(response, function () {
-                            ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
-                        });
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-
-            $("#sort-type").change(function () {
-                var IsList = $('.listing-sort__link--active').parent().attr('id');
-                debugger;
-                $.ajax({
-                    url: '@Url.Action("Index", "Property")',
-                    dataType: "html",
-                    type: "POST",
-                    cache: false,
-                    data: { Type: "", IsList: IsList, Sort: $('option:selected', this).val() },
-                    success: function (data) {
-                        debugger;
-                        $("#grid-list").html('');
-                        $("#grid-list").html(data);
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
-
-            });
-
-            $('.btnLocked').click(function () {
-
-            })
-
-            $(".ListOrGrid").click(function () {
-                debugger;
-                $.ajax({
-                    url: '@Url.Action("Index", "Property")',
-                    dataType: "html",
-                    type: "POST",
-                    cache: false,
-                    data: { Type: '', IsList: $(this).attr('id') },
-                    success: function (data) {
-                        debugger;
-                        $("#grid-list").html('');
-                        $("#grid-list").html(data);
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
-            });
-
-            $('.btnAppointment').click(function () {
-                debugger;
-                var name = $("input[name='name']").val();
-                var lastname = $("input[name='lastname']").val();
-                var email = $("input[name='email_appointment']").val();
-                var phone = $("input[name='phone']").val();
-                var date = $("input[name='date']").val();
-                var time = $('#listing-time').val();
-                var comment = $("textarea[name='comment']").val();
-                var UserType = $("input[name='UserType']:checked").val();
-
-                if (name == "") {
-                    $("input[name='name']").addClass('error-border');
-                    $("input[name='email_appointment']").removeClass('error-border');
-                    $("input[name='date']").removeClass('error-border');
-                    return false;
-                }
-                if (email == "") {
-                    $("input[name='email_appointment']").addClass('error-border');
-                    $("input[name='name']").removeClass('error-border');
-                    $("input[name='date']").removeClass('error-border');
-                    return false;
-                }
-                if (date == "") {
-                    $("input[name='date']").addClass('error-border');
-                    $("input[name='email_appointment']").removeClass('error-border');
-                    $("input[name='name']").removeClass('error-border');
-                    return false;
-                }
-                if (UserType == "") {
-                    $('#lblErrorAppointment').html('Please select  I am a');
-                    return false;
-                }
-                $.ajax({
-                    url: '@Url.Action("SaveAppointment", "Common")',
-                    dataType: "Json",
-                    type: "POST",
-                    cache: false,
-                    data: { FirstName: name, LastName: lastname, Email: email, PhoneNumber: phone, AppointmentDate: date, AppointmentTime: time, Notes: comment, UserType: UserType },
-                    success: function (data) {
-                        debugger;
-                        $("input[name='name']").val('');
-                        $("input[name='lastname']").val('');
-                        $("input[name='email_appointment']").val('');
-                        $("input[name='phone']").val('');
-                        $("input[name='date']").val('');
-                        $('#listing-time').val('');
-                        $("textarea[name='comment']").val('');
-                        $("input[name='UserType']:checked").removeAttr('checked');
-                        $('#modal-dialog').modal('toggle');
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
-            });
-
-            $(".Search").click(function () {
-                debugger;
-                var Type = $("input[name='Type']:checked").val();
-                var HomeType = $("#ddlCustomers").val();
-                var Keyword = $('#main-listing-keyword').val();
-                var Status = $('#listing-status').val();
-                var Bedroom = $('#listing-bedroom').val();
-                var Bathroom = $('#listing-bathroom').val();
-                var MinPrice = $('#min-price').val();
-                var MaxPrice = $('#max-price').val();
-                $.ajax({
-                    url: '@Url.Action("Index", "Property")',
-                    dataType: "html",
-                    type: "POST",
-                    cache: false,
-                    data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom, MinPrice: MinPrice, MaxPrice: MaxPrice },
-                    success: function (data) {
-                        debugger;
-                        $("#grid-list").html('');
-                        $("#grid-list").html(data);
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
-            });
-
-            //Contact us
-            $('#btnSave').click(function () {
-                debugger;
-
-                var response = grecaptcha.getResponse();
-
-                if ($("input[name=username]").val() == "") {
-                    $("input[name=username]").addClass('error-txt');
-                    $("input[name=lastname]").removeClass('error-txt');
-                    $("input[name=phn]").removeClass('error-txt');
-                    $("input[name=email]").removeClass('error-txt');
-                    $('#message1').html('This field is required');
-                    $('#message2').html('');
-                    $('#message3').html('');
-                    $('#message4').html('');
-                }
-                else if ($("input[name=lastname]").val() == "") {
-                    $("input[name=lastname]").addClass('error-txt');
-                    $("input[name=username]").removeClass('error-txt');
-                    $("input[name=phn]").removeClass('error-txt');
-                    $("input[name=email]").removeClass('error-txt');
-                    $('#message2').html('This field is required');
-                    $('#message1').html('');
-                    $('#message3').html('');
-                    $('#message4').html('');
-                    $('#message5').html('');
-                }
-                else if ($("input[name=phn]").val() == "") {
-                    $("input[name=phn]").addClass('error-txt');
-                    $("input[name=lastname]").removeClass('error-txt');
-                    $("input[name=username]").removeClass('error-txt');
-                    $("input[name=email]").removeClass('error-txt');
-                    $('#message3').html('This field is required');
-                    $('#message1').html('');
-                    $('#message2').html('');
-                    $('#message4').html('');
-                    $('#message5').html('');
-                }
-                else if ($("input[name=email]").val() == "") {
-                    $("input[name=email]").addClass('error-txt');
-                    $("input[name=phn]").removeClass('error-txt');
-                    $("input[name=lastname]").removeClass('error-txt');
-                    $("input[name=username]").removeClass('error-txt');
-                    $('#message4').html('This field is required');
-                    $('#message1').html('');
-                    $('#message2').html('');
-                    $('#message3').html('');
-                    $('#message5').html('');
-
-                }
-                else if ($("input[name=UserType_ContactUs]:checked").val() == "") {
-                    $("input[name=lastname]").removeClass('error-txt');
-                    $("input[name=username]").removeClass('error-txt');
-                    $("input[name=phn]").removeClass('error-txt');
-                    $("input[name=email]").removeClass('error-txt');
-                    $('#message5').html('This field is required');
-                    $('#message2').html('');
-                    $('#message1').html('');
-                    $('#message3').html('');
-                    $('#message4').html('');
-                }
-                else if (response.length == 0) {
-                    $('#message6').html('The captcha field is required');
-                    $("input[name=email]").removeClass('error-txt');
-                    $("input[name=phn]").removeClass('error-txt');
-                    $("input[name=lastname]").removeClass('error-txt');
-                    $("input[name=username]").removeClass('error-txt');
-                    $('#message4').html('');
-                    $('#message1').html('');
-                    $('#message2').html('');
-                    $('#message3').html('');
-                    $('#message5').html('');
-                }
-
-
-
-
-                if ($("input[name=username]").val() != "" && $("input[name=UserType_ContactUs]:checked").val() != "" && response.length != 0 && $("input[name=lastname]").val() != "" && $("input[name=email]").val() != "" && $("input[name=phn]").val() != "") {
-
-                    $.ajax({
-
-                        url: "/Common/Contact",
-                        data: { 'username': $("input[name=username]").val(), 'lastname': $("input[name=lastname]").val(), 'Email': $("input[name=email]").val(), 'phn': $("input[name=phn]").val(), 'message': $("textarea[name=message]").val(), 'UserType': $("input[name=UserType_ContactUs]:checked").val() },
-                        type: "POST",
-                        dataType: 'json',
-                        success: function (data) {
-                            debugger;
-                            $('#message1').html('');
-                            $('#message3').html('');
-                            $('#message2').html('');
-                            $('#message4').html('');
-                            $('#message5').html('');
-                            $('#message6').html('');
-                            $("input[name=username]").val('');
-                            $("input[name=lastname]").val('');
-                            $("input[name=email]").val('');
-                            $("input[name=phn]").val('');
-                            $("textarea[name=message]").val('');
-                            $("input[name='UserType_ContactUs']:checked").removeAttr('checked');
-                            alert('Mail has been sent to admin. You will be contacted shortly.');
-                            grecaptcha.reset();
-                            return false;
-                        },
-                        error: function () {
-
-                            alert("Dynamic content load failed.");
-                        }
-                    });
+                    alert("Dynamic content load failed.");
                 }
             });
         });
+
+        $('#btnRegisterFav').click(function () {
+            debugger;
+            var Firstname = $("input[name=name_fav]").val();
+            var LastName = $("input[name=lastname_fav]").val();
+            var Email = $("input[name=email_fav]").val();
+            var Password = $("input[name=password_fav]").val();
+            var Phone = $("input[name=phone_fav]").val();
+            var UserType_login = $('input[name=UserType_fav]:checked').val();
+            if (Firstname == "") {
+                $("input[name='name_fav']").addClass('error-border');
+                $("input[name='email_fav']").removeClass('error-border');
+                $("input[name='password_fav']").removeClass('error-border');
+                return false;
+            }
+            if (Email == "") {
+                $("input[name='email_fav']").addClass('error-border');
+                $("input[name='name_fav']").removeClass('error-border');
+                $("input[name='password_fav']").removeClass('error-border');
+                return false;
+            }
+            if (Password == "") {
+                $("input[name='password_fav']").addClass('error-border');
+                $("input[name='email_fav']").removeClass('error-border');
+                $("input[name='name_fav']").removeClass('error-border');
+                return false;
+            }
+            if (UserType_login == "" || UserType_login == undefined) {
+                $('#lblErrorFav').html('Please select  I am a');
+                return false;
+            }
+            $.ajax({
+
+                url: "/Account/Register",
+                data: { Firstname: Firstname, LastName: LastName, Email: Email, Password: Password, Phone: Phone, UserType: UserType_login },
+                type: "POST",
+                dataType: 'json',
+
+                success: function (data) {
+                    debugger;
+
+                    $("input[name=name_fav]").val('');
+                    $("input[name=lastname_fav]").val('');
+                    $("input[name=email_fav]").val('');
+                    $("input[name=password_fav]").val('');
+                    $("input[name=phone_fav]").val('');
+
+                    $('#modal-dialog_favourite').modal('toggle');
+                    alert('You have successfully registered.');
+                    if ($('#hdnLockedorAppointment').val() == 'locked') {
+                        window.location = '/PropertyDetails/Index';
+                    }
+                },
+                error: function () {
+
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+
+
+        debugger;
+        $("#txtdatepicker").datepicker();
+        $(".phn").mask("(999) 999-9999");
+
+
+        $('#btnClose_Appointment').click(function () {
+            debugger;
+            $("input[name='name_appointment']").val('');
+            $("input[name='lastname_appointment']").val('');
+            $("input[name='email_appointment']").val('');
+            $("input[name='phone_appointment']").val('');
+            $("input[name='date']").val('');
+            $('#listing-time').val('');
+            $("textarea[name='comment_appointment']").val('');
+            $("input[name='UserType']:checked").removeAttr('checked');
+            $('#modal-dialog').modal('toggle');
+            return false;
+        });
+
+        $(document).on('click', '.appointment', function () {
+            debugger;
+            if ($(this).hasClass('disabled')) {
+                return false;
+            }
+
+            $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }, 'show')
+        });
+        $(document).on('click', '.locked', function () {
+            $('#hdnLockedorAppointment').val('locked');
+            $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
+        });
+        $(document).on('click', '.listing__favorite', function () {
+            debugger;
+            if ($(this).hasClass('disabled')) {
+                return false;
+            }
+            var URL = '';
+            var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
+            var mlsid = $(this).attr('id');
+            var currentElement = $(this).find('i');
+            // $(this).toggleClass('background-red');
+            var PropertyType = '@Request.RequestContext.HttpContext.Session["PropertyType"]';
+            if (value == '') {
+
+                $('#modal-dialog_favourite').modal({ backdrop: 'static', keyboard: false }, 'show')
+                $('login').addClass('display-block');
+                return false;
+            }
+
+            else {
+                if ($(this).hasClass('background-red')) {
+                    URL = '@Url.Action("RemoveFavourite", "Property")'
+                }
+                else {
+                    URL = '@Url.Action("SaveFavourite", "Property")'
+                }
+            }
+            $.ajax({
+                url: URL,
+                dataType: "JSON",
+                type: "POST",
+                cache: false,
+                data: { ID: value, MLSID: mlsid, Type: PropertyType },
+                success: function (data) {
+                    debugger;
+                    if (data == "Suceess") {
+                        //location.reload();
+                        currentElement.toggleClass('color-red');
+                        currentElement.toggleClass('background-red');
+                    }
+                    else {
+
+                    }
+
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+        var Type = $("#HdnType").val();
+        FillDropdown_PropertType(Type);
+        debugger;
+        setTimeout(
+                function () {
+                    if (typeof (history.pushState) != "undefined") {
+                        var obj = { Title: Type, Url: 'Index' };
+                        history.pushState(obj, obj.Title, obj.Url);
+                    } else {
+                        alert("Browser does not support HTML5.");
+                    }
+                }, 5000);
+        $('input[name=Type]').change(function () {
+            debugger;
+
+
+            var selectedDT = $(this).val();
+            if (selectedDT == "Residential") {
+                $("#rb1").attr("checked", true);
+                $("#rb2").attr("checked", false);
+                $("#rb3").attr("checked", false);
+            }
+            else if (selectedDT == "Commercial") {
+                $("#rb1").attr("checked", false);
+                $("#rb2").attr("checked", true);
+                $("#rb3").attr("checked", false);
+            }
+            else {
+                $("#rb1").attr("checked", false);
+                $("#rb2").attr("checked", false);
+                $("#rb3").attr("checked", true);
+            }
+            FillDropdown_PropertType(selectedDT);
+
+
+        });
+
+
+        function FillDropdown_PropertType(Type) {
+            debugger;
+            var ddlCustomers = $("#ddlCustomers");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+            $.ajax({
+                url: '@Url.Action("GetPropertyTypes", "Property")',
+                dataType: "Json",
+                type: "POST",
+                cache: false,
+                data: { Type: Type },
+                success: function (response) {
+                    debugger;
+                    ddlCustomers.empty().append('<option selected="selected" value="0">All Home Types</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        $(document).on('change', '.sort-type-list,.sort-type-grid', function() { 
+            var IsList = $('.listing-sort__link--active').parent().attr('id');
+            debugger;
+            $.ajax({
+                url: '@Url.Action("Index", "Property")',
+                dataType: "html",
+                type: "POST",
+                cache: false,
+                data: { Type: "", IsList: IsList, Sort: $('option:selected', this).val() },
+                success: function (data) {
+                    debugger;
+                    $("#grid-list").html('');
+                    $("#grid-list").html(data);
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+
+        });
+
+        $('.btnLocked').click(function () {
+
+        })
+        $(document).on('click', '.ListOrGrid', function () {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("Index", "Property")',
+                dataType: "html",
+                type: "POST",
+                cache: false,
+                data: { Type: '', IsList: $(this).attr('id') },
+                success: function (data) {
+                    debugger;
+                    $("#grid-list").html('');
+                    $("#grid-list").html(data);
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        $('.btnAppointment').click(function () {
+            debugger;
+            var name = $("input[name='name_appointment']").val();
+            var lastname = $("input[name='lastname_appointment']").val();
+            var email = $("input[name='email_appointment']").val();
+            var phone = $("input[name='phone_appointment']").val();
+            var date = $("input[name='date']").val();
+            var time = $('#listing-time').val();
+            var comment = $("textarea[name='comment_appointment']").val();
+            var UserType = $("input[name='UserType']:checked").val();
+
+            if (name == "") {
+                $("input[name='name_appointment']").addClass('error-border');
+                $("input[name='email_appointment']").removeClass('error-border');
+                $("input[name='date']").removeClass('error-border');
+                return false;
+            }
+            if (email == "") {
+                $("input[name='email_appointment']").addClass('error-border');
+                $("input[name='name_appointment']").removeClass('error-border');
+                $("input[name='date']").removeClass('error-border');
+                return false;
+            }
+            if (date == "") {
+                $("input[name='date']").addClass('error-border');
+                $("input[name='email_appointment']").removeClass('error-border');
+                $("input[name='name_appointment']").removeClass('error-border');
+                return false;
+            }
+            if (UserType == "" || UserType == undefined) {
+                $('#lblErrorAppointment').html('Please select  I am a');
+                return false;
+            }
+            $.ajax({
+                url: '@Url.Action("SaveAppointment", "Common")',
+                dataType: "Json",
+                type: "POST",
+                cache: false,
+                data: { FirstName: name, LastName: lastname, Email: email, PhoneNumber: phone, AppointmentDate: date, AppointmentTime: time, Notes: comment, UserType: UserType },
+                success: function (data) {
+                    debugger;
+                    alert('appointment has been saved successfully.')
+                    $("input[name='name_appointment']").val('');
+                    $("input[name='lastname_appointment']").val('');
+                    $("input[name='email_appointment']").val('');
+                    $("input[name='phone_appointment']").val('');
+                    $("input[name='date']").val('');
+                    $('#listing-time').val('');
+                    $("textarea[name='comment_appointment']").val('');
+                    $("input[name='UserType']:checked").removeAttr('checked');
+                    $('#modal-dialog').modal('toggle');
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        $(".Search").click(function () {
+            debugger;
+            var Type = $("input[name='Type']:checked").val();
+            var HomeType = $("#ddlCustomers").val();
+            var Keyword = $('#main-listing-keyword').val();
+            var Status = $('#listing-status').val();
+            var Bedroom = $('#listing-bedroom').val();
+            var Bathroom = $('#listing-bathroom').val();
+            var MinPrice = $('#min-price').val();
+            var MaxPrice = $('#max-price').val();
+            $.ajax({
+                url: '@Url.Action("Index", "Property")',
+                dataType: "html",
+                type: "POST",
+                cache: false,
+                data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom, MinPrice: MinPrice, MaxPrice: MaxPrice },
+                success: function (data) {
+                    debugger;
+                    $("#grid-list").html('');
+                    $("#grid-list").html(data);
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        //Contact us
+        $('#btnSave').click(function () {
+            debugger;
+
+            var response = grecaptcha.getResponse();
+
+            if ($("input[name=username_contact]").val() == "") {
+                $("input[name=username_contact]").addClass('error-txt');
+                $("input[name=lastname_contact]").removeClass('error-txt');
+                $("input[name=phn_contact]").removeClass('error-txt');
+                $("input[name=email_contact]").removeClass('error-txt');
+                $('#message1').html('This field is required');
+                $('#message2').html('');
+                $('#message3').html('');
+                $('#message4').html('');
+            }
+            else if ($("input[name=lastname_contact]").val() == "") {
+                $("input[name=lastname_contact]").addClass('error-txt');
+                $("input[name=username_contact]").removeClass('error-txt');
+                $("input[name=phn_contact]").removeClass('error-txt');
+                $("input[name=email_contact]").removeClass('error-txt');
+                $('#message2').html('This field is required');
+                $('#message1').html('');
+                $('#message3').html('');
+                $('#message4').html('');
+                $('#message5').html('');
+            }
+            else if ($("input[name=phn_contact]").val() == "") {
+                $("input[name=phn_contact]").addClass('error-txt');
+                $("input[name=lastname_contact]").removeClass('error-txt');
+                $("input[name=username_contact]").removeClass('error-txt');
+                $("input[name=email_contact]").removeClass('error-txt');
+                $('#message3').html('This field is required');
+                $('#message1').html('');
+                $('#message2').html('');
+                $('#message4').html('');
+                $('#message5').html('');
+            }
+            else if ($("input[name=email_contact]").val() == "") {
+                $("input[name=email_contact]").addClass('error-txt');
+                $("input[name=phn_contact]").removeClass('error-txt');
+                $("input[name=lastname_contact]").removeClass('error-txt');
+                $("input[name=username_contact]").removeClass('error-txt');
+                $('#message4').html('This field is required');
+                $('#message1').html('');
+                $('#message2').html('');
+                $('#message3').html('');
+                $('#message5').html('');
+
+            }
+            else if ($("input[name=UserType_ContactUs]:checked").val() == "" || $("input[name=UserType_ContactUs]:checked").val() == undefined) {
+                $("input[name=lastname_contact]").removeClass('error-txt');
+                $("input[name=username_contact]").removeClass('error-txt');
+                $("input[name=phn_contact]").removeClass('error-txt');
+                $("input[name=email_contact]").removeClass('error-txt');
+                $('#message5').html('This field is required');
+                $('#message2').html('');
+                $('#message1').html('');
+                $('#message3').html('');
+                $('#message4').html('');
+            }
+            else if (response.length == 0) {
+                $('#message6').html('The captcha field is required');
+                $("input[name=email_contact]").removeClass('error-txt');
+                $("input[name=phn_contact]").removeClass('error-txt');
+                $("input[name=lastname_contact]").removeClass('error-txt');
+                $("input[name=username_contact]").removeClass('error-txt');
+                $('#message4').html('');
+                $('#message1').html('');
+                $('#message2').html('');
+                $('#message3').html('');
+                $('#message5').html('');
+            }
+
+
+
+
+            if ($("input[name=username_contact]").val() != "" && $("input[name=UserType_ContactUs]:checked").val() != "" && response.length != 0 && $("input[name=lastname_contact]").val() != "" && $("input[name=email_contact]").val() != "" && $("input[name=phn_contact]").val() != "") {
+
+                $.ajax({
+
+                    url: "/Common/Contact",
+                    data: { 'username': $("input[name=username_contact]").val(), 'lastname': $("input[name=lastname_contact]").val(), 'Email': $("input[name=email_contact]").val(), 'phn': $("input[name=phn_contact]").val(), 'message': $("textarea[name=message_contact]").val(), 'UserType': $("input[name=UserType_ContactUs]:checked").val() },
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                        debugger;
+                        $('#message1').html('');
+                        $('#message3').html('');
+                        $('#message2').html('');
+                        $('#message4').html('');
+                        $('#message5').html('');
+                        $('#message6').html('');
+                        $("input[name=username_contact]").val('');
+                        $("input[name=lastname_contact]").val('');
+                        $("input[name=email_contact]").val('');
+                        $("input[name=phn_contact]").val('');
+                        $("textarea[name=message_contact]").val('');
+                        $("input[name='UserType_ContactUs']:checked").removeAttr('checked');
+                        alert('Mail has been sent to admin. You will be contacted shortly.');
+                        grecaptcha.reset();
+                        return false;
+                    },
+                    error: function () {
+
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            }
+        });
+    });
 
 
     </script>

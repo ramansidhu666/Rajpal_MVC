@@ -202,6 +202,7 @@
     <Compile Include="CommonClass.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PropertyDetailsController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\AjaxPagingContext.cs" />
@@ -484,6 +485,7 @@
     <Content Include="Views\Property\MyFavourite.cshtml" />
     <Content Include="Views\Partial\Favourite.cshtml" />
     <Content Include="Views\FavRegisterLogin.cshtml" />
+    <Content Include="Views\PropertyDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -510,7 +512,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51375</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51375/</IISUrl>
+          <IISUrl>http://localhost:51376/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,12 +1,12 @@
 ﻿
     <section class="widget">
-        <form class="contact-form contact-form--bordered contact-form--wild-sand">
+        <form class="contact-form contact-form--bordered contact-form--wild-sand bdr-chng">
            
-            <div class="contact-form__body">
-                <input type="text" class="contact-form__field" placeholder="First Name" name="name" required>
-                <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname" required>
+            <div class="contact-form__body ">
+                <input type="text" class="contact-form__field " placeholder="First Name" name="name_appointment" required>
+                <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname_appointment" required>
                 <input type="email" class="contact-form__field" placeholder="Email" name="email_appointment" required>
-                <input type="tel" class="contact-form__field phn" placeholder="Phone number" name="phone">
+                <input type="tel" class="contact-form__field phn" placeholder="Phone number" name="phone_appointment">
                 <input type="text" class="contact-form__field" placeholder="Appointment date" name="date" required id="txtdatepicker">
                 <select name="time" id="listing-time" class="ht-field main-listing__form-field">
                     <option value="" selected>--Appointment Time--</option>
@@ -17,9 +17,9 @@
                     <option value="5pm-7pm">5pm-7pm</option>
 
                 </select><!-- .main-listing__form-field -->
-                <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="comment" required></textarea>
+                <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="comment_appointment" required></textarea>
 
-                Please select  I am a
+                <span class="size-chng">Please select  I am a</span>
                 @*@Html.RadioButton("UserType", "Buyer & Seller", new { @id = "UserType1" }) Buyer & Seller
 
                 @Html.RadioButton("UserType", "Seller", new { @id = "UserType2" }) Seller

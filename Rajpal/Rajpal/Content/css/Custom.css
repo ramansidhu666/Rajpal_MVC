@@ -1,8 +1,11 @@
 ﻿body {
 }
 
+/*Mandeep*/
+
 .h5_font {
     font-family: Helvetica, Arial, sans-serif !important;
+	font-size:17px;
 }
 
 .font-size-18 {
@@ -13,7 +16,7 @@
     color: red !important;
 }
 .background-red {
-    background: red !important;
+    /*background: red !important;*/
 }
 .display-block
 {
@@ -25,10 +28,14 @@
 
 .float-right {
     float: right !important;
-	font-size:16px!important;
+	font-size:13px!important;
 	font-weight:1 !important;
- text-transform:lowercase !important;; 
- color:#428bca !important; 
+ padding:8px 20px;
+ border-radius:40px;
+ text-transform:uppercase;
+ font-weight:400;
+ background:rgba(0, 23, 71, 0.85);
+ color:#fff !important; 
 }
 
 .margin-bot-10 {
@@ -93,15 +100,21 @@
 input[type="radio"] {
 	position: relative;
 	top: 16px;
+	-moz-appearance:radio !important;
+	border:none !important;
+	outline:none!important;
 }
 
+/*mandeep*/
 
 .modal-header
 {
 	
 	text-align:center;
-	font-size:24px;
+	font-size:32px;
 	color :#1fc341;
+	padding:30px !important;
+	font-weight:400;
 }
 
 .modal-body
@@ -161,6 +174,7 @@ input[type="radio"]{
 	font-weight:bold;
 	text-align:center;
 	border-radius:3px;
+	margin-left:0px;
 	padding-top:17px;
 }
 .text span{
@@ -261,7 +275,7 @@ left:93px !important;
 	font-weight:bold; 
 	color:#fff!important;
 	
-	 margin-top:123px !important;
+	 margin-top:125px !important;
 	z-index:5 !important;
 }
 .text-hidden h3	{
@@ -284,13 +298,12 @@ left:93px !important;
 
 	width:57% !important;
 	position:absolute !important;
-	right:18px !important;
 	font-size:16px !important;
 	float:left!important;
 	font-weight:400; 
 	color:#fff!important;
-	left:560px !important;
-	margin-top:412px !important;
+	margin-left:94px !important;
+	margin-top:405px !important;
 	z-index:5 !important;
 }
 
@@ -306,7 +319,7 @@ left:93px !important;
 	font-weight:bold; 
 	color:#fff!important;
 	
-	 margin-top:339px !important;
+	 margin-top:342px !important;
 	z-index:5 !important;
 }
 
@@ -320,15 +333,16 @@ position:absolute !important;
 }
 
 
-.listing__figure span
+.listing__figure img
 {
 	
-	padding:24px 24px!important;
+	height:22px!important;
+	width:24px!important;
 }
 
 .listing__figure {
 	
-		font-size:11px !important;
+		font-size:21px !important;
 		font-weight:bold !important;
 }
 
@@ -355,4 +369,128 @@ position:absolute !important;
 {	background:#1fc341!important;
 	border-radius:4px;
 	border:2px solid #1fc341;
+}
+
+
+
+/*Mandeep*/
+
+
+.input-group{
+	margin-right:21px !important;
+	
+	
+}
+
+/*.listing__favorite i{
+	
+	
+	color:red !important;
+}*/
+
+.listing-sort__result{
+	
+	
+	font-weight:600;
+	font-size:18px;
+	color:#3F3F3F  !important;
+	
+}
+
+.chnging
+{
+	
+	background:none !important;
+}
+
+.size-chng 
+{
+	
+	
+	font-size:17px !important;
+	
+}
+.footer{
+	
+	background:#fff !important;
+	margin-top:0px!important;
+	float:left!important;
+	
+}
+
+.listing__btn{
+	background:#1fc341 !important;
+	color:#fff !important;
+}
+
+.listing__btn:hover{
+	
+		background:#fff !important;
+		color:#000!important;	
+}
+
+.bdr_style{
+	
+	border:1px solid #ddd !important;
+}
+
+.font-size-18{
+	
+	
+text-transform:uppercase !important;
+font-weight:bold;
+font-size:14px !important;;
+}
+
+.main-listing__form-field{
+	
+	border:1px solid #eee;
+	border-radius:3px !important;
+	
+}
+ .dp_setting{
+	
+	
+	border-radius:4px!important;
+	padding:6px 15px !important;
+	background:#eee!important;
+	
+}
+
+.contact-form--wild-sand{
+	
+	background:#f6f6f6 !important;
+	padding:44px 9px !important;
+}
+
+.listing__location{
+	color:rgba(0, 23, 71, 0.85) !important;
+	font-size:11px !important;
+	font-weight:800!important;
+	
+}
+ 
+@media only screen and (max-width: 600px) {
+	.listing__btn{
+		
+		position:relative !important;
+		left:110px!important;
+		
+	}
+}
+
+@media only screen and (max-width: 600px) {
+.text-hidden h3{
+	
+	left:80px !important;
+margin-top:450px!important;
+font-size:13px !important;
+right:none;
+}
+@media only screen and (max-width: 600px) {
+.text-hidden h1{
+	
+	width:90% !important;
+margin-top:383px!important;
+font-size:22px!important;
 }

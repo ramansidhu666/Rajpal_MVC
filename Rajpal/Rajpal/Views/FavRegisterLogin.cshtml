@@ -1,25 +1,45 @@
-﻿
+﻿	
 <section class="">
     <form class="contact-form contact-form--bordered contact-form--wild-sand">
         <div class="tab-content">
             <div id="fav_register" class="contact-form__body tab-pane">
                 <input type="text" class="contact-form__field" placeholder="First Name" name="name_fav" required>
                 <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname_fav">
-                <input type="email" class="contact-form__field" placeholder="Email" name="email_fav" required>
+                <input type="email" class="contact-form__field" placeholder="Email" id="email_fav" name="email_fav" required>
                 <input type="password" class="contact-form__field" placeholder="Password" name="password_fav" required>
                 <input type="tel" class="contact-form__field phn" placeholder="Phone number" name="phone_fav">
               
                
-                Please select  I am a
-                @Html.RadioButton("UserType_fav", "Buyer & Seller", new { @id = "UserType1_fav" }) Buyer & Seller
+                <span class="size-chng">Please select  I am a</span>
+                @*@Html.RadioButton("UserType_fav", "Buyer & Seller", new { @id = "UserType1_fav" }) Buyer & Seller
                 @Html.RadioButton("UserType_fav", "Seller", new { @id = "UserType2_fav" }) Seller
                 @Html.RadioButton("UserType_fav", "Buyer", new { @id = "UserType3_fav" }) Buyer
-                @Html.RadioButton("UserType_fav", "Renter", new { @id = "UserType4_fav" }) Renter
+                @Html.RadioButton("UserType_fav", "Renter", new { @id = "UserType4_fav" }) Renter*@
+                <div class="radio_sgl_btn">
+                    <div class="box">
+                        <label>
 
+                            <input type="radio" name="UserType_fav" value="Buyer & Seller">
+                            <span class="no text">Buyer & Seller</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_fav" value="Seller">
+                            <span class=" no">Seller</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_fav" value="Buyer">
+                            <span class="no">Buyer</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="UserType_fav" value="Renter">
+                            <span class="no">Renter</span>
+                        </label>
+                    </div>
+                </div>	
             
                 <label id="lblErrorFav" class="color-red"></label>
                 <div class="mdl_btnss"> <span>If you already Registered ? <a href="#fav_login" data-toggle="tab">Click here for Login</a></span></div>
-                <input type="button" id="btnRegisterFav" class="contact-form__submit col-md-4 btnRegisterFav" name="submit" value="Send Message">
+                <input type="button" id="btnRegisterFav" class="contact-form__submit col-md-4 btnRegisterFav" name="submit" value="Registration">
             </div><!-- .contact-form__body -->
 
 
@@ -27,26 +47,27 @@
             <div id="fav_login" class="contact-form__body tab-pane active">
                 <input type="email" class="contact-form__field" placeholder="Email" name="email_fav_login" required>
                 <label id="lblEmail_login_fav" class="color-red"></label>
-                <input type="password" class="contact-form__field" placeholder="Password" name="password_fav_login" required>
-                <label id="lblPassword_login_fav" class="color-red"></label>
-                <label id="lblErrorFavLogin" class="color-red"></label>
-               
+          
+                    <input type="password" class="contact-form__field" placeholder="Password" name="password_fav_login" required>
+                    <label id="lblPassword_login_fav" class="color-red"></label>
+                    <label id="lblErrorFavLogin" class="color-red"></label>
+
                     <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-sm-4">
+                        <div class="col-md-3"></div>
+                        <div class="col-sm-6">
                             <input type="button" id="btnLoginFav" class="contact-form__submit" name="submit" value="Login">
                         </div>
-                        <div class="col-md-4"></div>
+                        <div class="col-md-3"></div>
                     </div>
-                <div class="row margin-top-10">
-                    <div class="col-lg-12">
-                            <span> <a href="#fav_forgot" data-toggle="tab">Forgot Password?</a></span>
-                        <span class="float-right"> <a href="#fav_register" data-toggle="tab">Click here for Registration</a></span>
+                    <div class="row margin-top-10">
+                        <div class="col-lg-12">
+                            @*<span> <a href="#fav_forgot" data-toggle="tab">Forgot Password?</a></span>*@
+                            <span class="float-right chnging"> <a href="#fav_register" data-toggle="tab">Click here for Registration</a></span>
+                        </div>
                     </div>
-                </div>
-               
-              
-            </div><!-- .contact-form__body -->
+
+
+</div><!-- .contact-form__body -->
 
 
 

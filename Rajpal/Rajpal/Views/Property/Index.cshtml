@@ -11,86 +11,67 @@
     <div class="container">
 
         <ul class="ht-breadcrumbs ht-breadcrumbs--y-padding">
-            <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Home</span></a></li>
+            <li class="ht-breadcrumbs__item"><a href="/Home/Index" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Home</span></a></li>
             <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Listing</span></a></li>
-            <li class="ht-breadcrumbs__item"><span class="ht-breadcrumbs__page">List View V2</span></li>
+            @*<li class="ht-breadcrumbs__item"><span class="ht-breadcrumbs__page">List View V2</span></li>*@
         </ul><!-- ht-breadcrumb -->
     </div><!-- .container -->
     <div class="main-listing__main">
         <div class="container">
             <div class="row">
-                <h1 class="section__title section__title--centered section__title--b-margin-40">Open Houses</h1>
+                @*<h1 class="section__title section__title--centered section__title--b-margin-40">Open Houses</h1>*@
                 <aside class="col-md-3">
                     @{
                         Html.RenderPartial("~/Views/SearchBar_Partial.cshtml");
                     }
-                    @if (Request.RequestContext.HttpContext.Session["UserId"] != "" && Request.RequestContext.HttpContext.Session["UserId"]!=null)
+                    @if (Request.RequestContext.HttpContext.Session["UserId"] != "" && Request.RequestContext.HttpContext.Session["UserId"] != null)
                     {
-                          <section class="widget main-listing__widget widget__news">
+                        <section class="widget main-listing__widget widget__news">
                             <h3 class="widget__title">Welcome</h3>
                             <ul class="widget__news-list">
-                                <li class="widget__news-item"><a href="#">Home</a></li>
-                                <li class="widget__news-item"><a href="#">Bookmarked Properties</a></li>
+                                <li class="widget__news-item"><a href="~/Home/Index">Home</a></li>
+                                <li class="widget__news-item"><a href="~/Property/MyFavourite?ID=@Session["UserId"]">Bookmarked Properties</a></li>
                                 <li class="widget__news-item"><a href="#">Edit Account</a></li>
                                 <li class="widget__news-item"><a href="#">Saved Property Searches</a></li>
-                                <li class="widget__news-item"><a href="#">Log Out</a></li>
+                                <li class="widget__news-item"><a href="~/Account/LogOut">Log Out</a></li>
                             </ul>
                         </section><!-- .widget -->
                     }
                 </aside><!-- .col -->
-                    <main class="col-md-9">
-                        <div class="listing-sort listing-sort--main-listing">
-                            <div class="listing-sort__inner">
-                                <ul class="listing-sort__list">
-                                    <li id="List" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link listing-sort__link--active"><i class="fa fa-th-list" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                                    <li id="Grid" class="listing-sort__item ListOrGrid"><a href="#" class="listing-sort__link"><i class="fa fa-th-large" aria-hidden="true" class="listing-sort__icon"></i></a></li>
-                                </ul>
+                <main class="col-md-9">
+                  
+                    @*<div class="main-listing__tags">
+                            <span class="main-listing__result">25 items found</span>
+                            <ul class="main-listing__list">
+                                <li class="main-listing__tag">
+                                    <span class="main-listing__tag-label">Property Type:</span>House
+                                    <a href="#" class="main-listing__tag-close">&times;</a>
+                                </li><!-- .main-listing__tag -->
+                                <li class="main-listing__tag">
+                                    <span class="main-listing__tag-label">City:</span>New York
+                                    <a href="#" class="main-listing__tag-close">&times;</a>
+                                </li><!-- .main-listing__tag -->
+                            </ul><!-- .main-listing__list -->
+                            <a href="#" class="main-listing__clear">Clear All</a>
+                        </div>*@<!-- .main-listing__tags -->
 
-                                <span class="listing-sort__result">Total Record Found @ViewBag.TotalData</span>
+                    <div id="grid-list">
 
-                                <p class="listing-sort__sort">
-                                    <label for="sort-type" class="listing-sort__label"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by </label>
-                                    <select name="sort-type" id="sort-type" class="ht-field listing-sort__field">
-                                        <option value="default">Default</option>
-                                        <option value="low-price">Price (Low to High)</option>
-                                        <option value="high-price">Price (High to Low)</option>
+                        @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
+                        @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
+                    </div>
 
-                                    </select>
-                                </p><!-- .listing-sort__sort -->
-                            </div><!-- .listing-sort__inner -->
-                        </div><!-- .listing-sort -->
-                        @*<div class="main-listing__tags">
-                    <span class="main-listing__result">25 items found</span>
-                    <ul class="main-listing__list">
-                        <li class="main-listing__tag">
-                            <span class="main-listing__tag-label">Property Type:</span>House
-                            <a href="#" class="main-listing__tag-close">&times;</a>
-                        </li><!-- .main-listing__tag -->
-                        <li class="main-listing__tag">
-                            <span class="main-listing__tag-label">City:</span>New York
-                            <a href="#" class="main-listing__tag-close">&times;</a>
-                        </li><!-- .main-listing__tag -->
-                    </ul><!-- .main-listing__list -->
-                    <a href="#" class="main-listing__clear">Clear All</a>
-                </div>*@<!-- .main-listing__tags -->
-                       
-                            <div id="grid-list">
-
-                                @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
-                                @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
-                            </div>
-                       
-                        @*<ul class="pagination pagination--t-margin">
-                    <li class="pagination__item">
-                        <a href="#" class="pagination__link pagination__link_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                    </li>
-                    <li class="pagination__item"><a href="#" class="pagination__link pagination__link--selected">1</a></li>
-                    <li class="pagination__item"><a href="#" class="pagination__link">2</a></li>
-                    <li class="pagination__item"><a href="#" class="pagination__link">3</a></li>
-                    <li class="pagination__item"><a href="#" class="pagination__link pagination__link_next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                </ul>*@<!-- pagination -->
-                    </main><!-- .col -->
-</div><!-- row -->
+                    @*<ul class="pagination pagination--t-margin">
+                            <li class="pagination__item">
+                                <a href="#" class="pagination__link pagination__link_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="pagination__item"><a href="#" class="pagination__link pagination__link--selected">1</a></li>
+                            <li class="pagination__item"><a href="#" class="pagination__link">2</a></li>
+                            <li class="pagination__item"><a href="#" class="pagination__link">3</a></li>
+                            <li class="pagination__item"><a href="#" class="pagination__link pagination__link_next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                        </ul>*@<!-- pagination -->
+                </main><!-- .col -->
+            </div><!-- row -->
         </div><!-- .container -->
     </div><!-- .main-listing__main -->
 </section><!-- .main-listing -->
@@ -113,11 +94,9 @@
                     <div class="col-md-1"></div>
                     <input type="button" id="btnAppointment" class="contact-form__submit col-md-4 btnAppointment" name="submit" value="Send Message">
                     <div class="col-md-2"></div>
-                    <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
+                    <input type="button"id="btnClose_Appointment" class="contact-form__submit col-md-4" name="submit" value="Close">
                     <div class="col-md-1"></div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -131,16 +110,16 @@
 
             </div>
             <div class="modal-body">
-               ghgjhj
+                ghgjhj
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer ftr_up">
                 @*<div class="row">
-                    <div class="col-md-1"></div>
-                    <input type="button" id="btnAppointment" class="contact-form__submit col-md-4 btnAppointment" name="submit" value="Send Message">
-                    <div class="col-md-2"></div>
-                    <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
-                    <div class="col-md-1"></div>
-                </div>*@
+                        <div class="col-md-1"></div>
+                        <input type="button" id="btnAppointment" class="contact-form__submit col-md-4 btnAppointment" name="submit" value="Send Message">
+                        <div class="col-md-2"></div>
+                        <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
+                        <div class="col-md-1"></div>
+                    </div>*@
 
 
             </div>
@@ -151,17 +130,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
             </div>
             <div class="modal-body">
-             <input type="hidden" id="hdnLockedorAppointment" />
+                <input type="hidden" id="hdnLockedorAppointment" />
                 @{
                     Html.RenderPartial("~/Views/FavRegisterLogin.cshtml");
                 }
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer ">
                 @*<div class="row">
                         <div class="col-md-1"></div>
                         <input type="button" id="btnAppointment" class="contact-form__submit col-md-4 btnAppointment" name="submit" value="Send Message">

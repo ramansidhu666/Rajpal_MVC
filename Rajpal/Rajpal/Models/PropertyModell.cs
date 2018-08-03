@@ -16,7 +16,9 @@ namespace Rajpal.Models
         public string ApproxSquareFootage { get; set; }
         public string Area { get; set; }
         public string Basement1 { get; set; }
-        public string Bedrooms { get; set; }
+        private string _Bedrooms = "";
+        public string Bedrooms { get { return (_Bedrooms == null ? "" : _Bedrooms); } set { this._Bedrooms = value; } }
+
         public string Community { get; set; }
         public string DirectionsCrossStreets { get; set; }
         public List<PropertyModell> FeaturedProperties { get; set; }
@@ -45,7 +47,9 @@ namespace Rajpal.Models
         public string Rooms { get; set; }
         public string SaleLease { get; set; }
         public string serverimagepath { get; set; }
-        public string Status { get; set; }
+        private string _Status = "";
+        public string Status { get { return (_Status == null ? "" : _Status); } set { this._Status = value; } }
+       
         public string Street { get; set; }
         public string StreetAbbreviation { get; set; }
         public string StreetDirection { get; set; }
@@ -56,7 +60,9 @@ namespace Rajpal.Models
         public string UtilitiesCable { get; set; }
         public string UtilitiesGas { get; set; }
         public bool VOX { get; set; }
-        public string Washrooms { get; set; }
+        private int _Washrooms = 0;
+        public int Washrooms { get { return (_Washrooms == null ? 0 : _Washrooms); } set { this._Washrooms = value; } }
+       
         public string Water { get; set; }
         public string Zoning { get; set; }
         public string exist { get; set; }

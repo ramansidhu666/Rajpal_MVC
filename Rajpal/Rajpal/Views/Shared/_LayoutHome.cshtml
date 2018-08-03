@@ -98,9 +98,17 @@
                     success: function (data) {
                         debugger;
                         if (data == "success")
+                        {
                             $('#lblEmail').html('This email is already registered.')
+                            $('input[name=next]').prop('disabled', true);
+                        }
+                           
                         else
+                        {
                             $('#lblEmail').html('');
+                            $('input[name=next]').prop('disabled', false);
+                        }
+                          
                     },
                     error: function (xhr) {
                         alert(xhr.responseText);
@@ -142,7 +150,8 @@
                             $("input[name=email_login]").val('');
                             $("input[name=password_login]").val('');
 
-                            $('#modal-dialog-register').modal('toggle');
+                            $('#modal-dialog-login').modal('toggle');
+                            location.reload();
                         }
                        
                     },
@@ -161,7 +170,7 @@
              var City = $("input[name=City]").val();
              var State = $("input[name=State]").val();
              var country = $("input[name=country]").val();
-             var UserType_login = $('input[type=radio][name=choices]').val();
+             var UserType_login = $('input[name=choices]:checked').val();
              $.ajax({
 
                  url: "/Account/Register",

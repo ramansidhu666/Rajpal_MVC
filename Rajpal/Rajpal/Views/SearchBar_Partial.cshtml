@@ -59,9 +59,9 @@
                     <option value="10">10+</option>
                 </select><!-- .main-listing__form-field -->
             </div><!-- .main-listing__wrapper -->
-            <div class="main-listing__wrapper">
+            <div class="main-listing__wrapper ">
                 <label for="listing-bathroom" class="main-listing__form-title">Bathrooms</label>
-                <select name="bathroom" id="listing-bathroom" class="ht-field main-listing__form-field">
+                <select name="bathroom" id="listing-bathroom" class="ht-field main-listing__form-field dk-select-options ">
                     <option value="All" selected>All Baths</option>
                     <option value="1">1+</option>
                     <option value="2">2+</option>
@@ -212,26 +212,8 @@
                     </select><!-- .main-listing__form-field -->
                 </div><!-- .main-listing__form-container -->
             </div><!-- .main-listing__wrapper -->
-            <div class="main-listing__wrapper">
-                <label for="min-lot" class="main-listing__form-title">Lot Size</label>
-                <div class="main-listing__form-container">
-                    <select name="min-lot" id="min-lot" class="ht-field main-listing__form-field">
-                        <option value="0" selected>No min</option>
-                        <option value="1">100</option>
-                        <option value="2">200</option>
-                        <option value="3">300</option>
-                        <option value="4">400</option>
-                    </select><!-- .main-listing__form-field -->
-                    <select name="max-lot" id="max-lot" class="ht-field main-listing__form-field">
-                        <option value="0" selected>No max</option>
-                        <option value="1">200</option>
-                        <option value="2">300</option>
-                        <option value="3">400</option>
-                        <option value="4">500</option>
-                    </select><!-- .main-listing__form-field -->
-                </div><!-- .main-listing__form-container -->
-            </div><!-- .main-listing__wrapper -->
-            <a href="#" class="main-listing__form-more-filter">Search</a>
+           
+            @*<a href="#" class="main-listing__form-more-filter">Search</a>*@
 
             <button id="List" class="main-listing__form-reset Search" type="button">Clear Filter</button>
         </form><!-- .main-listing__form -->
@@ -243,17 +225,17 @@
             </div><!-- .contact-form__header -->
 
             <div class="contact-form__body">
-                <input type="text" class="contact-form__field" placeholder="First Name" name="username" required>
+                <input type="text" class="contact-form__field" placeholder="First Name" name="username_contact" required>
                 <label id="message1" class="error"></label>
-                <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname" required>
+                <input type="text" class="contact-form__field" placeholder="Last Name" name="lastname_contact" required>
                 <label id="message2" class="error"></label>
-                <input type="tel" class="contact-form__field" placeholder="Phone number" name="phn">
+                <input type="tel" class="contact-form__field" placeholder="Phone number" name="phn_contact">
                 <label id="message3" class="error"></label>
-                <input type="email" class="contact-form__field" placeholder="Email" name="email" required>
+                <input type="email" class="contact-form__field" placeholder="Email" name="email_contact" required>
                 <label id="message4" class="error"></label>
-                <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="message" required></textarea>
+                <textarea class="contact-form__field contact-form__comment" cols="30" rows="4" placeholder="Comment" name="message_contact" required></textarea>
               
-                Please select  I am a
+                <span class="size-chng">Please select  I am a</span>
                 @*@Html.RadioButton("UserType_ContactUs", "Buyer & Seller", new { @id = "UserType_ContactUs1" }) Buyer & Seller
                 @Html.RadioButton("UserType_ContactUs", "Seller", new { @id = "UserType_ContactUs2" }) Seller
                 @Html.RadioButton("UserType_ContactUs", "Buyer", new { @id = "UserType_ContactUs3" }) Buyer

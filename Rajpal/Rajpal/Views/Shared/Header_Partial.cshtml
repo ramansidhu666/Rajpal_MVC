@@ -15,10 +15,18 @@
                 <li><a href="#" class="topbar__link"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
             </ul><!-- .topbar__social -->
             <ul class="topbar__user">
-                <span class="ion-ios-person-outline topbar__user-icon"></span>
-                <li><a href="#" class="topbar__link">Sign In</a></li>
-                <li><button id="login" class="topbar__link login">Sign In</button></li>
+                @*<span class="ion-ios-person-outline topbar__user-icon"></span>*@
+                @*<li><a href="#" class="topbar__link">Sign In</a></li>*@
+                @if (Session["UserId"] != null)
+                {
+                     <li><a href="~/Account/LogOut" class="topbar__link">Log Out</a></li>
+                }
+                else
+                {
+                     <li><button id="login" class="topbar__link login">Sign In</button></li>
                 <li><button id="register"class="topbar__link register">Join</button></li>
+                }
+               
             </ul>
         </div><!-- .topbar -->
         <div class="header__main">
@@ -90,7 +98,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span>Appointment</span>
+                    <span></span>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
                 </div>
@@ -102,14 +110,7 @@
                   
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <input type="button" id="btnAppointment" class="contact-form__submit col-md-4" name="submit" value="Send Message">
-                        <div class="col-md-2"></div>
-                        <input type="button" data-dismiss="modal" class="contact-form__submit col-md-4" name="submit" value="Close">
-                        <div class="col-md-1"></div>
-                    </div>
-
+                  
 
                 </div>
             </div>
