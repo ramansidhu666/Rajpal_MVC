@@ -62,7 +62,7 @@
                             <ul class="listing__stats">
                                 @if (@ViewBag.Type != "Commercial")
                                 {
-                                    if (item.Bedrooms == "null")
+                                    if (item.Bedrooms == 0)
                                     {
                                         <li><span class="listing__figure"><img src="../content/images/nt.png"></span>  Beds</li>
                                     }

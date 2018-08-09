@@ -16,8 +16,8 @@ namespace Rajpal.Models
         public string ApproxSquareFootage { get; set; }
         public string Area { get; set; }
         public string Basement1 { get; set; }
-        private string _Bedrooms = "";
-        public string Bedrooms { get { return (_Bedrooms == null ? "" : _Bedrooms); } set { this._Bedrooms = value; } }
+        private int _Bedrooms = 0;
+        public int Bedrooms { get { return (_Bedrooms == null ? 0 : _Bedrooms); } set { this._Bedrooms = value; } }
 
         public string Community { get; set; }
         public string DirectionsCrossStreets { get; set; }

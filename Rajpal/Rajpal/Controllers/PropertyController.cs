@@ -124,7 +124,8 @@ namespace Rajpal.Controllers
                 {
                     TempData["MaxPrice"] = MaxPrice;
                 }
-                if (Status != "" && Status != "All")
+                //if (Status != "" && Status != "All")
+                if (Status != "")
                 {
                     TempData["Status"] = Status;
                 }
@@ -144,6 +145,37 @@ namespace Rajpal.Controllers
                     }
                     HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
                     TempData.Keep("HomeType");
+
+                    if(IsList=="Grid")
+                    {
+                        HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
+                        TempData.Keep("HomeType");
+
+                        Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
+                        TempData.Keep("Sort");
+
+
+                        MinPrice = TempData["MinPrice"] == null ? "0" : TempData["MinPrice"].ToString();
+                        TempData.Keep("MinPrice");
+
+
+                        MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
+                        TempData.Keep("MaxPrice");
+
+
+
+
+                        Status = TempData["Status"] == null ? "" : TempData["Status"].ToString();
+                        TempData.Keep("Status");
+
+
+                        Bedroom = TempData["Bedroom"] == null ? 0 : Convert.ToInt32(TempData["Bedroom"]);
+                        TempData.Keep("Bedroom");
+
+
+                        Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
+                        TempData.Keep("Bathroom");
+                    }
                 }
                 else
                 {
@@ -208,12 +240,12 @@ namespace Rajpal.Controllers
                 {
                     if (Bedroom != 0)
                     {
-                        PropertList = PropertList.Where(c => c.Bedrooms != "" && c.Bedrooms != null ).ToList();
-                        PropertList = PropertList.Where(c => Convert.ToInt32(c.Bedrooms) > Bedroom || Convert.ToInt32(c.Bedrooms) == Bedroom).ToList();
+                        PropertList = PropertList.Where(c => c.Bedrooms != null ).ToList();
+                        PropertList = PropertList.Where(c => c.Bedrooms>=Bedroom).ToList();
                     }
                     if (Bathroom != 0)
                     {
-                        PropertList = PropertList.Where(c =>  c.Washrooms != null ).OrderByDescending(c=>c.Washrooms).ToList();
+                        PropertList = PropertList.Where(c =>  c.Washrooms != null ).ToList();
                         PropertList = PropertList.Where(c =>  c.Washrooms >= Bathroom).ToList();
                     }
                 }
