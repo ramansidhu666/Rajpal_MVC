@@ -108,46 +108,34 @@ namespace Rajpal.Controllers
             var people = new PagedData<PropertyModell>();
             try
             {
-                if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                if (IsList != null)
                 {
-                    TempData["HomeType"] = HomeType;
-                }
-                if (Sort != "")
-                {
-                    TempData["Sort"] = Sort;
-                }
-                if (MinPrice != "0")
-                {
-                    TempData["MinPrice"] = MinPrice;
-                }
-                if (MaxPrice != "0")
-                {
-                    TempData["MaxPrice"] = MaxPrice;
-                }
-                //if (Status != "" && Status != "All")
-                if (Status != "")
-                {
-                    TempData["Status"] = Status;
-                }
-                if (Bedroom != 0)
-                {
-                    TempData["Bedroom"] = Bedroom;
-                }
-                if (Bathroom != 0)
-                {
-                    TempData["Bathroom"] = Bathroom;
-                }
-                if(page==null)
-                {
-                    if ( HomeType != "All Home Types")
-                    {
-                        TempData["HomeType"] = HomeType=="0"?"":HomeType;
-                    }
-                    HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
-                    TempData.Keep("HomeType");
 
-                    if(IsList=="Grid")
+                    //if (HomeType != "" && HomeType != "All Home Types" && HomeType != "0")
+                    if (IsList == "ListButton")
                     {
+                        TempData["HomeType"] = HomeType;
+                        TempData["MinPrice"] = MinPrice;
+                        TempData["MaxPrice"] = MaxPrice;
+                        TempData["Status"] = Status;
+                        TempData["Bedroom"] = Bedroom;
+                        TempData["Bathroom"] = Bathroom;
+                    }
+                    if (Sort != "")
+                    {
+                        TempData["Sort"] = Sort;
+                    }
+
+                    if (page == null)
+                    {
+                        if (HomeType != "All Home Types" && HomeType != "")
+                        {
+                            TempData["HomeType"] = HomeType == "0" ? "" : HomeType;
+                        }
+                       
+                    }
+                    
+
                         HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
                         TempData.Keep("HomeType");
 
@@ -175,40 +163,9 @@ namespace Rajpal.Controllers
 
                         Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
                         TempData.Keep("Bathroom");
-                    }
+                  
+
                 }
-                else
-                {
-                    
-                    HomeType = TempData["HomeType"] == null ? "" : TempData["HomeType"].ToString();
-                    TempData.Keep("HomeType");
-                    
-                    Sort = TempData["Sort"] == null ? "" : TempData["Sort"].ToString();
-                    TempData.Keep("Sort");
-
-                    
-                    MinPrice = TempData["MinPrice"] == null ? "0" : TempData["MinPrice"].ToString();
-                    TempData.Keep("MinPrice");
-
-                    
-                    MaxPrice = TempData["MaxPrice"] == null ? "0" : TempData["MaxPrice"].ToString();
-                    TempData.Keep("MaxPrice");
-
-
-
-                   
-                    Status = TempData["Status"] == null ? "" : TempData["Status"].ToString();
-                    TempData.Keep("Status");
-
-                   
-                    Bedroom = TempData["Bedroom"] == null ? 0 : Convert.ToInt32(TempData["Bedroom"]);
-                    TempData.Keep("Bedroom");
-
-                   
-                    Bathroom = TempData["Bathroom"] == null ? 0 : Convert.ToInt32(TempData["Bathroom"]);
-                    TempData.Keep("Bathroom");
-                }
-
                 if (Type != "" && Type != null)
                 {
                     TempData["PropertyType"] = Type;
@@ -216,11 +173,11 @@ namespace Rajpal.Controllers
                 Type = TempData["PropertyType"] == null ? StaticPropertyType : TempData["PropertyType"].ToString();
                 TempData.Keep("PropertyType");
                 Session["PropertyType"] = Type;
-               
+
 
 
                 var PropertList = HttpContext.Cache.Get(Type) as IList<PropertyModell>;
-                string userid = "11";// Session["UserId"] == null ? "" : Session["UserId"].ToString();
+                string userid =  Session["UserId"] == null ? "" : Session["UserId"].ToString();
                 var dbname = WebConfigurationManager.AppSettings["dbname"];
                 if (PropertList == null)
                 {
@@ -236,20 +193,20 @@ namespace Rajpal.Controllers
                 {
                     PropertList = PropertList.Where(c => c.SaleLease.ToLower() == Status.ToLower()).ToList();
                 }
-                if (Type!=EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
+                if (Type != EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
                 {
                     if (Bedroom != 0)
                     {
-                        PropertList = PropertList.Where(c => c.Bedrooms != null ).ToList();
-                        PropertList = PropertList.Where(c => c.Bedrooms>=Bedroom).ToList();
+                        PropertList = PropertList.Where(c => c.Bedrooms != null).ToList();
+                        PropertList = PropertList.Where(c => c.Bedrooms >= Bedroom).ToList();
                     }
                     if (Bathroom != 0)
                     {
-                        PropertList = PropertList.Where(c =>  c.Washrooms != null ).ToList();
-                        PropertList = PropertList.Where(c =>  c.Washrooms >= Bathroom).ToList();
+                        PropertList = PropertList.Where(c => c.Washrooms != null).ToList();
+                        PropertList = PropertList.Where(c => c.Washrooms >= Bathroom).ToList();
                     }
                 }
-               
+
                 if (MinPrice != "0" && MaxPrice != "0")
                 {
                     PropertList = PropertList.Where(c => decimal.Parse(c.ListPrice) >= decimal.Parse(MinPrice) && decimal.Parse(c.ListPrice) <= decimal.Parse(MaxPrice)).ToList();
@@ -296,7 +253,7 @@ namespace Rajpal.Controllers
                 ViewBag.Type = Type;
                 if (Request.IsAjaxRequest() && !Ishome)
                 {
-                    if (IsList == "List")
+                    if (IsList == "List" || IsList == "ListButton")
                     {
                         return PartialView("~/Views/Partial/PropertyList.cshtml", PropertList);
                     }
@@ -308,17 +265,17 @@ namespace Rajpal.Controllers
 
                 else
                 {
-                    if (Ishome)
-                    {
-                        TempData["PropertyType"] = null;
-                        TempData["Sort"] = null;
-                        TempData["MinPrice"] = null;
-                        TempData["MaxPrice"] = null;
-                        TempData["HomeType"] = null;
-                        TempData["Status"] = null;
-                        TempData["Bedroom"] = null;
-                        TempData["Bathroom"] = null;
-                    }
+                    //if (Ishome)
+                    //{
+                    //    TempData["PropertyType"] = null;
+                    //    TempData["Sort"] = null;
+                    //    TempData["MinPrice"] = null;
+                    //    TempData["MaxPrice"] = null;
+                    //    TempData["HomeType"] = null;
+                    //    TempData["Status"] = null;
+                    //    TempData["Bedroom"] = null;
+                    //    TempData["Bathroom"] = null;
+                    //}
                     return View(PropertList);
 
                 }

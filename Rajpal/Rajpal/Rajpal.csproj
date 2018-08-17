@@ -486,6 +486,7 @@
     <Content Include="Views\Partial\Favourite.cshtml" />
     <Content Include="Views\FavRegisterLogin.cshtml" />
     <Content Include="Views\PropertyDetails\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutpropertyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

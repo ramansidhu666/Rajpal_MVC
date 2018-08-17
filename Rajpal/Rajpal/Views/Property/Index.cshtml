@@ -58,7 +58,7 @@
                     <div id="grid-list">
 
                         @*@{ Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); }*@
-                        @if (@ViewBag.ListOrGrid == "List") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
+                        @if (@ViewBag.ListOrGrid == "List" || @ViewBag.ListOrGrid == "ListButton") { { Html.RenderPartial("~/Views/Partial/PropertyList.cshtml", Model); } } else { { Html.RenderPartial("~/Views/Partial/PropertyGrid.cshtml", Model); } }
                     </div>
 
                     @*<ul class="pagination pagination--t-margin">

@@ -36,7 +36,7 @@
 
             <div class="listing listing--v2 @(@item.VOX && Session["UserId"] == null ? "property_item_blur" : "")">
 
-
+            
 
                 <div class="item-grid__image-container item-grid__image-container--open-houses">
                     <a>
@@ -54,7 +54,7 @@
                                 <a class="appointment float-right @(@item.VOX ?"disabled":"")">Appointment</a>
                                 <h5 class="listing__title h5_font"><b>MLS:</b> #@item.MLS</h5>
                                 <p class="listing__location"><span class="ion-ios-location-outline listing__location-icon"></span> @item.Address, @item.Municipality, @item.PostalCode, @item.Province </p>
-                                <p class="listing__price listing__price--open-houses color-red">@item.ListPrice</p>
+                                <p class="listing__price listing__price--open-houses color-red">$ @item.ListPrice</p>
                             </div><!-- .listing__header-primary -->
 
                         </div><!-- .listing__header -->
@@ -64,7 +64,7 @@
                                 {
                                     if (item.Bedrooms == 0)
                                     {
-                                        <li><span class="listing__figure"><img src="../content/images/nt.png"></span>  Beds</li>
+                                        <li><span class="listing__figure">N/A</span>  Beds</li>
                                     }
                                     else
                                     {
@@ -73,7 +73,7 @@
 
                                     if (item.Washrooms == null)
                                     {
-                                        <li><span class="listing__figure"><img src="../content/images/nt.png"> Baths</li>
+                                        <li><span class="listing__figure">N/A Baths</li>
                                     }
                                     else
                                     {
@@ -84,7 +84,7 @@
                                 }
                                 @if (item.ApproxSquareFootage == "null")
                                 {
-                                    <li><span class="listing__figure"><img src="../content/images/nt.png"> </span> sq.ft</li>
+                                    <li><span class="listing__figure">N/A </span> sq.ft</li>
                                 }
                                 else
                                 {

@@ -1,8 +1,593 @@
-﻿
+﻿@model Rajpal.Models.PropertyModell
 @{
     ViewBag.Title = "Index";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutpropertyDetails.cshtml";
 }
 
-<h2>Property Details</h2>
+<section class="property">
+    <ul class="ht-breadcrumbs ht-breadcrumbs--y-padding ht-breadcrumbs--b-border">
+        <div class="container">
+            <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Home</span></a></li>
+            <li class="ht-breadcrumbs__item"><a href="#" class="ht-breadcrumbs__link"><span class="ht-breadcrumbs__title">Property</span></a></li>
+            <li class="ht-breadcrumbs__item"><span class="ht-breadcrumbs__page">Single Property V1</span></li>
+        </div><!-- .container -->
+    </ul><!-- ht-breadcrumb -->
+    <div class="property__header">
+        <div class="container">
+            <div class="property__header-container">
+                <ul class="property__main">
+                    <li class="property__title property__main-item">
+                        <div class="property__meta">
+                            <span class="property__offer">@Model.SaleLease</span>
 
+                        </div><!-- .property__meta -->
+                        <h2 class="property__name">@Model.TypeOwn1Out</h2>
+                        <span class="property__address"><i class="ion-ios-location-outline property__address-icon"></i>@Model.Address, @Model.Municipality,<br /> @Model.PostalCode, @Model.Province </span>
+                    </li>
+                    <li class="property__details property__main-item">
+                        <ul class="property__stats">
+                            @if (@ViewBag.Type != "Commercial")
+                            {
+                                if (Model.Bedrooms == 0)
+                                {
+                                    <li class="property__stat"><span class="property__figure">N/A</span>  Beds</li>
+                                }
+                                else
+                                {
+                                    <li class="property__stat"><span class="property__figure">@Model.Bedrooms<sup>&plus;</sup></span> Beds</li>
+                                }
+
+                                if (Model.Washrooms == null)
+                                {
+                                    <li class="property__stat"><span class="property__figure">N/A</span> Baths</li>
+                                }
+                                else
+                                {
+                                    <li class="property__stat"><span class="property__figure">@Model.Washrooms</span> Baths</li>
+                                }
+
+
+                            }
+
+                            @if (Model.ApproxSquareFootage == "null")
+                            {
+                                <li class="property__stat"><span class="property__figure">N/A </span> sq.ft</li>
+                            }
+                            else
+                            {
+                                <li class="property__stat"><span class="property__figure">@Model.ApproxSquareFootage</span> sq.ft</li>
+                            }
+
+                        </ul><!-- .listing__stats -->
+                    </li>
+                    <li class="property__price property__main-item">
+                        <h4 class="property__price-primary">$ @Model.ListPrice</h4>
+                        @*<span class="property__price-secondary">$4,824/sq.ft</span>*@
+                    </li>
+                </ul><!-- .property__main -->
+                <ul class="property__list">
+                    <li class="property__item">
+                        <a href="#" class="property__link">
+                            <i class="fa fa-heart-o property__icon" aria-hidden="true"></i>
+                            <span class="property__item-desc">Favorite</span>
+                        </a>
+                    </li>
+                    <li class="property__item">
+                        <a href="#" class="property__link">
+                            <i class="ion-ios-loop-strong property__icon"></i>
+                            <span class="property__item-desc">Compare</span>
+                        </a>
+                    </li>
+                    <li class="property__item">
+                        <a href="#" class="property__link">
+                            <i class="ion-android-share-alt property__icon"></i>
+                            <span class="property__item-desc">Share</span>
+                        </a>
+                    </li>
+                </ul><!-- .property__list -->
+            </div><!-- .property__header-container -->
+        </div><!-- .container -->
+    </div><!-- .property__header -->
+    <div class="property__slider">
+        <div class="container">
+            <div class="property__slider-container property__slider-container--vertical">
+                <ul class="property__slider-nav property__slider-nav--vertical">
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_1.jpeg" alt="Image 1">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_2.jpeg" alt="Image 2">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_3.jpeg" alt="Image 3">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_4.jpeg" alt="Image 4">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_5.jpeg" alt="Image 5">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_6.jpeg" alt="Image 6">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_7.jpeg" alt="Image 7">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_8.jpeg" alt="Image 8">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_9.jpeg" alt="Image 9">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_10.jpeg" alt="Image 10">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_11.jpeg" alt="Image 11">
+                    </li>
+                    <li class="property__slider-item">
+                        <img src="../Content/images/uploads/property_slider_12.jpeg" alt="Image 12">
+                    </li>
+                </ul><!-- .property__slider-nav -->
+                <div class="property__slider-main property__slider-main--vertical">
+                    <div class="property__slider-images">
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_1.jpeg" alt="Image 1">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_2.jpeg" alt="Image 2">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_3.jpeg" alt="Image 3">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_4.jpeg" alt="Image 4">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_5.jpeg" alt="Image 5">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_6.jpeg" alt="Image 6">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_7.jpeg" alt="Image 7">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_8.jpeg" alt="Image 8">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_9.jpeg" alt="Image 9">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_10.jpeg" alt="Image 10">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_11.jpeg" alt="Image 11">
+                        </div><!-- .property__slider-image -->
+                        <div class="property__slider-image">
+                            <img src="../Content/images/uploads/property_slider_12.jpeg" alt="Image 12">
+                        </div><!-- .property__slider-image -->
+                    </div><!-- .property__slider-images -->
+                    <ul class="image-navigation">
+                        <li class="image-navigation__prev">
+                            <span class="ion-ios-arrow-left"></span>
+                        </li>
+                        <li class="image-navigation__next">
+                            <span class="ion-ios-arrow-right"></span>
+                        </li>
+                    </ul>
+                    <span class="property__slider-info"><i class="ion-android-camera"></i><span class="sliderInfo"></span></span>
+                </div><!-- .property__slider-main -->
+            </div><!-- .property__slider-container -->
+        </div><!-- .container -->
+    </div><!-- .property__slider -->
+    <div class="property__container">
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-3">
+                    <div class="widget__container">
+                        <section class="widget">
+                            <form class="contact-form contact-form--white">
+                                <div class="contact-form__header">
+                                    <div class="contact-form__header-container">
+                                        <img src="../Content/images/uploads/contact_agent.png" alt="Tristina Avelon">
+                                        <div class="contact-info">
+                                            
+                                            <h3 class="contact-name"><a href="#">Raj Pal</a></h3>
+                                            <span class="contact-company">Sales Representative</span>
+                                            <span class="contact-company">Email: info@rajpal.ca</span>
+                                            <a href="tel:+4168445725" class="contact-number">Call: 416-844-5725</a>
+                                        </div><!-- .contact-info -->
+                                    </div><!-- .contact-form__header-container -->
+                                </div><!-- .contact-form__header -->
+
+                                <div class="contact-form__body">
+                                    <input type="text" class="contact-form__field" placeholder="Name" name="name" required>
+                                    <input type="email" class="contact-form__field" placeholder="Email" name="email" required>
+                                    <input type="tel" class="contact-form__field" placeholder="Phone number" name="phone number">
+                                    <textarea class="contact-form__field contact-form__comment" cols="30" rows="5" placeholder="Comment" name="comment" required>I am interested in Golden House Place 72, 1633 Newcomb Ave, San Francisco, CA 94124</textarea>
+                                </div><!-- .contact-form__body -->
+                                <div class="contact-form__footer">
+                                    <input type="submit" class="contact-form__submit" name="submit" value="Contact Agent">
+                                </div><!-- .contact-form__footer -->
+                            </form><!-- .contact-form -->
+                        </section><!-- .widget -->
+                        <section class="widget widget--white widget--padding-20">
+                            <h3 class="widget__title">Similar Homes</h3>
+                            <div class="similar-home">
+                                <a href="#">
+                                    <div class="similar-home__image">
+                                        <div class="similar-home__overlay"></div><!-- .similar-home__overlay -->
+                                        <img src="../Content/images/uploads/residia_nishi_azabu.jpg" alt="Residia Nishi Azabu">
+                                        <span class="similar-home__favorite"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                    </div><!-- .similar-home__image -->
+                                    <div class="similar-home__content">
+                                        <h3 class="similar-home__title">Residia Nishi Azabu</h3>
+                                        <span class="similar-home__price">$2,185,000</span>
+                                    </div><!-- .similar-home__content -->
+                                </a>
+                            </div><!-- .similar-home -->
+                            <div class="similar-home">
+                                <a href="#">
+                                    <div class="similar-home__image">
+                                        <div class="similar-home__overlay"></div><!-- .similar-home__overlay -->
+                                        <img src="../Content/images/uploads/dream_house_take_away.jpg" alt="Dream House Take Away">
+                                        <span class="similar-home__favorite"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                    </div><!-- .similar-home__image -->
+                                    <div class="similar-home__content">
+                                        <h3 class="similar-home__title">Dream House Take Away</h3>
+                                        <span class="similar-home__price">$2,185,000</span>
+                                    </div><!-- .similar-home__content -->
+                                </a>
+                            </div><!-- .similar-home -->
+                            <div class="similar-home">
+                                <a href="#">
+                                    <div class="similar-home__image">
+                                        <div class="similar-home__overlay"></div><!-- .similar-home__overlay -->
+                                        <img src="../Content/images/uploads/castalia_shibakoen.jpg" alt="Castalia Shibakoen">
+                                        <span class="similar-home__favorite"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                    </div><!-- .similar-home__image -->
+                                    <div class="similar-home__content">
+                                        <h3 class="similar-home__title">Castalia Shibakoen</h3>
+                                        <span class="similar-home__price">$2,185,000</span>
+                                    </div><!-- .similar-home__content -->
+                                </a>
+                            </div><!-- .similar-home -->
+                        </section><!-- .widget -->
+                        <section class="widget widget--white widget--padding-20">
+                            <h3 class="widget__title">Mortgage Calculator</h3>
+                            <form class="form-calculator">
+                                <div class="form-calculator__group">
+                                    <label for="home-price" class="form-calculator__label">Home Price</label>
+                                    <span class="form-calculator__icon form-calculator__currency">$</span>
+                                    <input id="home-price" type="text" class="form-calculator__field" required value="2,568,000">
+                                </div><!-- .form-calculator__group -->
+                                <div class="form-calculator__wrapper">
+                                    <div class="form-calculator__group form-calculator__group--larger">
+                                        <label for="down-payment" class="form-calculator__label">Down Payment</label>
+                                        <span class="form-calculator__icon form-calculator__currency">$</span>
+                                        <input id="down-payment" type="text" class="form-calculator__field" required value="317,600">
+                                    </div><!-- .form-calculator__group -->
+                                    <div class="form-calculator__group form-calculator__group--smaller">
+                                        <label for="percent" class="form-calculator__label">Percent</label>
+                                        <span class="form-calculator__icon form-calculator__percent">%</span>
+                                        <input id="txtpercent" type="text" class="form-calculator__field" required value="20">
+                                    </div><!-- .form-calculator__group -->
+                                </div><!-- .form-calculator__wrapper -->
+                                <div class="form-calculator__group">
+                                    <label for="annual-rate" class="form-calculator__label">Annual Interest Rate</label>
+                                    <span class="form-calculator__icon form-calculator__percent">%</span>
+                                    <input id="annual-rate" type="text" class="form-calculator__field" required value="3.5">
+                                </div><!-- .form-calculator__group -->
+                                <div class="form-calculator__group">
+                                    <label for="loan-term" class="form-calculator__label">Loan Term (Years)</label>
+                                    <select id="loan-term" class="ht-field" required>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10" selected>10</option>
+                                    </select>
+                                </div><!-- .form-calculator__group -->
+                                <div class="form-calculator__group">
+                                    <label for="percent" class="form-calculator__label">Payment Method</label>
+                                    <select id="percent" class="ht-field" required>
+                                        <option value="Weekly">WEEKLY</option>
+                                        <option value="Monthly" selected>MONTHLY</option>
+                                        <option value="Bi-Weekly">BI-WEEKLY</option>
+                                    </select>
+                                </div><!-- .form-calculator__group -->
+                                <input type="submit" class="form-calculator__submit" value="Calculate">
+
+                                <div class="form-calculator__result">
+                                    <h3 class="mortgage-payment">Mortgage Payments: <span>$22253.28</span></h3>
+                                </div>
+                            </form><!-- .form-calculator -->
+                        </section><!-- .widget -->
+                        <section class="widget widget--white widget--padding-20 widget__news">
+                            <h3 class="widget__title">Get to Know</h3>
+                            <ul class="widget__news-list">
+                                <li class="widget__news-item"><a href="#">Outer Sunset Real Estate: <span>San Francisco Neighborhood Guide</span></a></li>
+                                <li class="widget__news-item"><a href="#">Pacific Heights Real Estate: <span>San Francisco CA Neighborhood</span></a></li>
+                                <li class="widget__news-item"><a href="#">Mission District San Francisco: <span>Authentic Community</span></a></li>
+                                <li class="widget__news-item"><a href="#">Hayes Valley Real Estate: <span>San Francisco CA Neighborhood</span></a></li>
+                            </ul>
+                        </section><!-- .widget -->
+                    </div><!-- .widget__container -->
+                </aside>
+
+                <main class="col-md-9">
+                    <div class="property__feature-container">
+
+                       
+                        <div class="property__feature">
+                            <h3 class="property__feature-title property__feature-title--b-spacing">Property Details</h3>
+                            <ul class="property__details-list">
+                                <li class="property__details-item"><span class="property__details-item--cat">Tax:</span> @Model.Taxes</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Price:</span> @Model.ListPrice</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">House Style:</span>@Model.Style</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Property Type:</span>@Model.TypeOwn1Out</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Bathrooms:</span> @Model.Washrooms</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Bedrooms:</span> @Model.Bedrooms</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Garage Type:</span>@Model.GarageType</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Basement:</span>@Model.Basement1</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">A/C:</span>@Model.AirConditioning</li>
+                                <li class="property__details-item">@*<span class="property__details-item--cat">Fireplace:</span> @Model.FireplaceStove*@</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Community:</span> @Model.Community</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Pool:</span> @Model.Pool</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">SquareFeet:</span>@Model.ApproxSquareFootage</li>
+                                @*<li class="property__details-item"><span class="property__details-item--cat">Exterior:</span>@Model.Exterior1</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Age:</span>@Model.ApproxAge</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Water:</span>@Model.Water</li>
+                                <li class="property__details-item"><span class="property__details-item--cat">Heating:</span> @Model.HeatType</li>
+
+                                <li class="property__details-item"><span class="property__details-item--cat">Fuel:</span>@Model.HeatSource</li>*@
+                                <li class="property__details-item"><span class="property__details-item--cat">MLS ID:</span> @Model.MLS</li>
+                            </ul><!-- .property__details-list -->
+                        <span>Listing Contracted with:@Model.ListBrokerage</span>
+                        </div><!-- .property__feature -->
+                        <div class="property__feature">
+                            <table>
+                                <thead><tr><th>Rooms</th><th>Dimensions</th></tr></thead>
+                                <tr><td><b>2nd level</b></td><td></td></tr>
+                                <tr>
+
+                                    <td>4th Bedroom</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr>
+                                    <td>5th Bedroom</td>
+                                    <td>Savings</td>
+                                </tr>
+                                <tr>
+                                    <td>Master</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr>
+                                    <td>2nd Bedroom</td>
+                                    <td>Savings</td>
+                                </tr>
+                                <tr>
+                                    <td>3rd Bedroom</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr><td><b>Main level</b></td><td></td></tr>
+                                <tr>
+
+                                    <td>Family</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr>
+                                    <td>Study</td>
+                                    <td>Savings</td>
+                                </tr>
+                                <tr>
+                                    <td>Library</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr>
+                                    <td>Living</td>
+                                    <td>Savings</td>
+                                </tr>
+                                <tr>
+                                    <td>Dining</td>
+                                    <td>$100</td>
+                                </tr>
+                                <tr>
+                                    <td>Kitchen</td>
+                                    <td>Savings</td>
+                                </tr>
+                                <tr><td><b>Lower level</b></td><td></td></tr>
+                                <tr>
+                                    <td>Rec</td>
+                                    <td>$100</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="property__feature">
+                            <h3 class="property__feature-title property__feature-title--b-spacing">Remarks</h3>
+                            <p>@Model.RemarksForClients</p>
+                        </div><!-- .property__feature -->
+                        <div class="property__feature">
+                            <h3 class="property__feature-title property__feature-title--b-spacing">Extra Info</h3>
+                            @*<p>@Model.Extras</p>*@
+                        </div><!-- .property__feature -->
+                   
+                      
+                        <div class="property__feature">
+                            <div class="property__feature-header">
+                                <h3 class="property__feature-title">Near By</h3>
+                                <nav class="property__tab-list">
+                                    <a href="#property-school" class="property__tab property__tab--active">School (3)</a>
+                                    <a href="#property-market" class="property__tab">Market (2)</a>
+                                    <a href="#property-restaurant" class="property__tab">Restaurant (5)</a>
+                                    <a href="#property-cafe" class="property__tab">Cafe (1)</a>
+                                    <a href="#property-hospital" class="property__tab">Hospital (1)</a>
+                                </nav>
+                            </div><!-- .property__feature-header -->
+                            <div class="property__tab-container">
+                                <table class="property__tab-content is-visible" id="property-school">
+                                    <thead>
+                                        <tr>
+                                            <th>List number / Name</th>
+                                            <th>Distance</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-number">1</span> GuangZhu Chinese Education Center</td>
+                                            <td>1.5km</td>
+                                            <td>Language Center</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">2</span> Galileo High School</td>
+                                            <td>3km</td>
+                                            <td>High School</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">3</span> Daniel Webster Elementary School</td>
+                                            <td>5km</td>
+                                            <td>High School</td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- .property__tab-content -->
+                            </div><!-- .property__tab-container -->
+                            <div class="property__tab-container">
+                                <table class="property__tab-content" id="property-market">
+                                    <thead>
+                                        <tr>
+                                            <th>List number / Name</th>
+                                            <th>Distance</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-number">1</span> Roche Bros.</td>
+                                            <td>2km</td>
+                                            <td>Grocery</td>
+                                        </tr>
+                                    <td><span class="list-number">2</span> Mings Supermarket</td>
+                                    <td>5km</td>
+                                    <td>Grocery</td>
+                                    </tbody>
+                                </table><!-- .property__tab-content -->
+                            </div><!-- .property__tab-container -->
+                            <div class="property__tab-container">
+                                <table class="property__tab-content" id="property-restaurant">
+                                    <thead>
+                                        <tr>
+                                            <th>List number / Name</th>
+                                            <th>Distance</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-number">1</span> Ostra</td>
+                                            <td>4km</td>
+                                            <td>Seafood</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">2</span> Mistral</td>
+                                            <td>2.5km</td>
+                                            <td>French</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">3</span> The Capital Grille</td>
+                                            <td>3km</td>
+                                            <td>American</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">4</span> Davio's</td>
+                                            <td>6km</td>
+                                            <td>Italian</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-number">5</span> Sorellina</td>
+                                            <td>5km</td>
+                                            <td>Italian</td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- .property__tab-content -->
+                            </div><!-- .property__tab-container -->
+                            <div class="property__tab-container">
+                                <table class="property__tab-content" id="property-cafe">
+                                    <thead>
+                                        <tr>
+                                            <th>List number / Name</th>
+                                            <th>Distance</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-number">1</span> Thinking Cup</td>
+                                            <td>2km</td>
+                                            <td>Fast Service</td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- .property__tab-content -->
+                            </div><!-- .property__tab-container -->
+                            <div class="property__tab-container">
+                                <table class="property__tab-content" id="property-hospital">
+                                    <thead>
+                                        <tr>
+                                            <th>List number / Name</th>
+                                            <th>Distance</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-number">1</span> Mass General Hospital Back Bay</td>
+                                            <td>3km</td>
+                                            <td>Medical Clinic</td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- .property__tab-content -->
+                            </div><!-- .property__tab-container -->
+                        </div><!-- .property__feature -->
+                        <div class="property__feature">
+                            <h3 class="property__feature-title property__feature-title--b-spacing">Schedule A Visit</h3>
+                            <form class="property__form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="property__form-wrapper">
+                                            <input type="text" name="date" class="property__form-field property__form-date" placeholder="Monday" data-format="l, F d, Y" data-min-year="2017" data-max-year="2020" data-translate-mode="true" data-modal="true" data-large-mode="true" required>
+                                            <span class="ion-android-calendar property__form-icon"></span>
+                                        </div><!-- .property__form-wrapper -->
+                                    </div><!-- col -->
+                                    <div class="col-sm-6">
+                                        <div class="property__form-wrapper">
+                                            <input type="text" name="time" class="property__form-field property__form-time" placeholder="07:30 AM" required>
+                                            <span class="ion-android-alarm-clock property__form-icon"></span>
+                                        </div><!-- .property__form-wrapper -->
+                                    </div><!-- col -->
+                                    <div class="col-sm-6">
+                                        <input type="text" name="name" class="property__form-field" placeholder="Your Name" required>
+                                    </div><!-- col -->
+                                    <div class="col-sm-6">
+                                        <input type="text" name="contact" class="property__form-field" placeholder="Your Email/Phone" required>
+                                    </div><!-- col -->
+                                    <div class="col-sm-12">
+                                        <textarea rows="4" name="message" class="property__form-field" placeholder="Message" required></textarea>
+                                    </div><!-- col -->
+                                    <div class="col-sm-12">
+                                        <input name="submit" type="submit" class="property__form-submit" value="Submit"></input>
+                                    </div><!-- .col -->
+                                </div><!-- .row -->
+                            </form>
+                        </div><!-- .property__feature -->
+                    </div><!-- .property__feature-container -->
+                </main>
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .property__container -->
+</section><!-- .property -->

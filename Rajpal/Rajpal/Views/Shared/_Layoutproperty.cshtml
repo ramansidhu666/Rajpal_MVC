@@ -403,9 +403,11 @@
             if ($(this).hasClass('disabled')) {
                 return false;
             }
+           
             var URL = '';
             var value = '@Request.RequestContext.HttpContext.Session["UserId"]';
             var mlsid = $(this).attr('id');
+            var thisFav = $(this);
             var currentElement = $(this).find('i');
             // $(this).toggleClass('background-red');
             var PropertyType = '@Request.RequestContext.HttpContext.Session["PropertyType"]';
@@ -436,6 +438,9 @@
                         //location.reload();
                         currentElement.toggleClass('color-red');
                         currentElement.toggleClass('background-red');
+                        if (thisFav.hasClass('fav')) {
+                            location.reload();
+                        }
                     }
                     else {
 
@@ -452,12 +457,18 @@
         debugger;
         setTimeout(
                 function () {
-                    if (typeof (history.pushState) != "undefined") {
-                        var obj = { Title: Type, Url: 'Index' };
-                        history.pushState(obj, obj.Title, obj.Url);
-                    } else {
-                        alert("Browser does not support HTML5.");
+                    debugger;
+                    var URL=window.location.pathname ;
+                    if (URL!="/Property/MyFavourite")
+                    {
+                        if (typeof (history.pushState) != "undefined") {
+                            var obj = { Title: Type, Url: 'Index' };
+                            history.pushState(obj, obj.Title, obj.Url);
+                        } else {
+                            alert("Browser does not support HTML5.");
+                        }
                     }
+                
                 }, 5000);
         $('input[name=Type]').change(function () {
             debugger;
@@ -626,7 +637,7 @@
                 dataType: "html",
                 type: "POST",
                 cache: false,
-                data: { Type: Type, IsList: $(this).attr('id'), HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom, MinPrice: MinPrice, MaxPrice: MaxPrice },
+                data: { Type: Type, IsList: 'ListButton', HomeType: HomeType, Keyword: Keyword, Status: Status, Bedroom: Bedroom, Bathroom: Bathroom, MinPrice: MinPrice, MaxPrice: MaxPrice },
                 success: function (data) {
                     debugger;
                     $("#grid-list").html('');

@@ -68,5 +68,11 @@ namespace Rajpal.Models
         public string exist { get; set; }
     }
 
-    
+    public class RoomLevels
+    {
+        public string Room { get; set; }
+        public string Level { get; set; }
+        public string RoomDim { get; set; }
+        public string RoomDesc { get; set; }
+    }
 }

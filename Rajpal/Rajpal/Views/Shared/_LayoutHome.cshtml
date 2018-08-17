@@ -230,7 +230,7 @@
                 var Bathroom = $('#bathrooms').val();
                 var MinPrice = $('#min-price').val();
                 var MaxPrice = $('#max-price').val();
-                window.location.href = "/Property/Index?Type=" + Type + "&IsList=" + $(this).attr('id') + "&Ishome=true&HomeType=" + HomeType + "&Keyword=" + Keyword + "&Status=" + Status + "&Bedroom=" + Bedroom + "&Bathroom=" + Bathroom + "&MaxPrice=" + MaxPrice + "&MinPrice=" + MinPrice;
+                window.location.href = "/Property/Index?Type=" + Type + "&IsList=ListButton" + "&Ishome=true&HomeType=" + HomeType + "&Keyword=" + Keyword + "&Status=" + Status + "&Bedroom=" + Bedroom + "&Bathroom=" + Bathroom + "&MaxPrice=" + MaxPrice + "&MinPrice=" + MinPrice;
                 @*$.ajax({
                     url: '@Url.Action("Index", "Property")',
                     dataType: "JSON",

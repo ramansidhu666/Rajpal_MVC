@@ -964,8 +964,6 @@ body {
   line-height: 1.5;
 }
 h1,
-h2,
-h3,
 h4,
 h5,
 h6 {
@@ -973,6 +971,12 @@ h6 {
   color: #333333;
   font-weight: 700;
   line-height: 1;
+}
+h2,h3 {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif !important;
+  color: #333333 !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
 }
 h1 {
   font-size: 32px;
@@ -4626,14 +4630,14 @@ textarea {
   align-items: center;
 }
 .property__icon {
-  font-size: 18px;
+  font-size: 18px !important;
   width: 50px;
   height: 50px;
   margin-bottom: 5px;
   border-radius: 50%;
   background-color: #22355b;
   color: #ffffff;
-  line-height: 50px;
+  line-height: 50px !important;
   text-align: center;
 }
 @media only screen and (min-width: 992px) {
