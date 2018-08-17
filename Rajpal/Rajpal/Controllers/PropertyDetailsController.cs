@@ -33,7 +33,7 @@ namespace Rajpal.Controllers
         }
        
 
-        public ActionResult Index(string Type,string MLS)
+        public ActionResult Index(string Type="Residential",string MLS="W4194008")
         {
             var result = new PropertyModel();
             if(Type==EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
@@ -55,29 +55,110 @@ namespace Rajpal.Controllers
             IMapper mapper = config.CreateMapper();
             var dest = mapper.Map<PropertyModel, PropertyModell>(result);
             int NoOfRoom =Convert.ToInt32( result.Rooms);
-            DataTable dtRooms = new DataTable();
-            dtRooms.Columns.Add("Room", typeof(string));
-            dtRooms.Columns.Add("Level", typeof(string));
-            dtRooms.Columns.Add("RoomDim", typeof(string));
-            dtRooms.Columns.Add("RoomDesc", typeof(string));
+            List<RoomLevels> list = new List<RoomLevels>();
 
-            for (int i = 0; i < NoOfRoom; i++)
+            int i = 0;
+             if (NoOfRoom != i)
+             {
+            RoomLevels obj = new RoomLevels();
+            obj.Level = result.Level1;
+            obj.Room = result.Room1;
+            obj.RoomDesc = result.Room1Desc1 + result.Room1Desc2;
+            obj.RoomDim = result.Room1Length + "x" + result.Room1Width;
+            list.Add(obj);
+            i = i + 1;
+           }
+           
+            if (NoOfRoom != i)
             {
-                int RowIndex = i + 1;
-                string vRoom =CheckNullOrEmptyvalue( result.Rooms + RowIndex); //CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Room" + RowIndex + ""]));
-                string vLevel = CheckNullOrEmptyvalue(result.Level + RowIndex) != "" ? result.Level + RowIndex : "0";// CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Level" + RowIndex + ""])) != "" ? Convert.ToString(dt.Rows[0]["Level" + RowIndex + ""]) : "0";
-                string vRoomDim = (CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Length"])) != "" ? (Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Length"])) : "0") + CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Width"]) != "" ? ("x" + Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Width"])) : "");// Convert.ToString(dt.Rows[0]["Room1Length"]) + "x" + Convert.ToString(dt.Rows[0]["Room1Width"]);
-                string vRoomDesc = (CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Desc1"])) != "" ? (Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Desc1"])) : "----") + CheckNullOrEmptyvalue(Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Desc2"]) != "" ? ("," + Convert.ToString(dt.Rows[0]["Room" + RowIndex + "Desc2"])) : "");
-
-                DataRow dr = dtRooms.NewRow();
-                dr["Room"] = vRoom;
-                dr["Level"] = vLevel;
-                dr["RoomDim"] = vRoomDim;
-                dr["RoomDesc"] = vRoomDesc;
-                dtRooms.Rows.Add(dr);
-                LVroom.DataSource = dtRooms;
-                LVroom.DataBind();
+                RoomLevels obj1 = new RoomLevels();
+                obj1.Level = result.Level2;
+                obj1.Room = result.Room2;
+                obj1.RoomDesc = result.Room2Desc1 + result.Room2Desc2;
+                obj1.RoomDim = result.Room2Length + "x" + result.Room2Width;
+                list.Add(obj1);
+                i = i + 1;
             }
+           
+            if (NoOfRoom != i)
+            {
+            RoomLevels obj2 = new RoomLevels();
+            obj2.Level = result.Level3;
+            obj2.Room = result.Room3;
+            obj2.RoomDesc = result.Room3Desc1 + result.Room3Desc2;
+            obj2.RoomDim = result.Room3Length + "x" + result.Room3Width;
+            list.Add(obj2);
+            i = i + 1;
+            }
+           
+            if (NoOfRoom != i)
+            {
+            RoomLevels obj3 = new RoomLevels();
+            obj3.Level = result.Level4;
+            obj3.Room = result.Room4;
+            obj3.RoomDesc = result.Room4Desc1 + result.Room4Desc2;
+            obj3.RoomDim = result.Room4Length + "x" + result.Room4Width;
+            list.Add(obj3);
+            i = i + 1;
+             }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj4 = new RoomLevels();
+                obj4.Level = result.Level5;
+                obj4.Room = result.Room5;
+                obj4.RoomDesc = result.Room5Desc1 + result.Room5Desc2;
+                obj4.RoomDim = result.Room5Length + "x" + result.Room5Width;
+                list.Add(obj4);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj5 = new RoomLevels();
+                obj5.Level = result.Level6;
+                obj5.Room = result.Room6;
+                obj5.RoomDesc = result.Room6Desc1 + result.Room6Desc2;
+                obj5.RoomDim = result.Room6Length + "x" + result.Room6Width;
+                list.Add(obj5);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj6 = new RoomLevels();
+                obj6.Level = result.Level7;
+                obj6.Room = result.Room7;
+                obj6.RoomDesc = result.Room7Desc1 + result.Room7Desc2;
+                obj6.RoomDim = result.Room7Length + "x" + result.Room7Width;
+                list.Add(obj6);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj7 = new RoomLevels();
+                obj7.Level = result.Level8;
+                obj7.Room = result.Room8;
+                obj7.RoomDesc = result.Room8Desc1 + result.Room8Desc2;
+                obj7.RoomDim = result.Room8Length + "x" + result.Room8Width;
+                list.Add(obj7);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj8 = new RoomLevels();
+                obj8.Level = result.Level9;
+                obj8.Room = result.Room9;
+                obj8.RoomDesc = result.Room9Desc1 + result.Room9Desc2;
+                obj8.RoomDim = result.Room9Length + "x" + result.Room9Width;
+                list.Add(obj8);
+                i = i + 1;
+            }
+          var hgfh = list.GroupBy(c => c.Level)
+                 .Select(group =>
+                        new
+                        {
+                            Level = group.Key,
+                            roomlevels=group.ToList()
+                        })
+                .ToList();
             return View(dest);
         }
         private string CheckNullOrEmptyvalue(string pValue)
