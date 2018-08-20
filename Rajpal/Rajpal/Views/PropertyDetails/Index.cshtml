@@ -92,6 +92,13 @@
         <div class="container">
             <div class="property__slider-container property__slider-container--vertical">
                 <ul class="property__slider-nav property__slider-nav--vertical">
+                    @*@foreach (var item in Model.images)
+                    {
+                        <li class="property__slider-item">
+                            <img src="@item.Image">
+                        </li>
+                    }*@
+
                     <li class="property__slider-item">
                         <img src="../Content/images/uploads/property_slider_1.jpeg" alt="Image 1">
                     </li>
@@ -131,6 +138,12 @@
                 </ul><!-- .property__slider-nav -->
                 <div class="property__slider-main property__slider-main--vertical">
                     <div class="property__slider-images">
+                        @*@foreach (var item in Model.images)
+                        {
+                            <div class="property__slider-image">
+                                <img src="@item.Image" alt="Image 1">
+                            </div>
+                        }*@
                         <div class="property__slider-image">
                             <img src="../Content/images/uploads/property_slider_1.jpeg" alt="Image 1">
                         </div><!-- .property__slider-image -->
@@ -186,32 +199,7 @@
             <div class="row">
                 <aside class="col-md-3">
                     <div class="widget__container">
-                        <section class="widget">
-                            <form class="contact-form contact-form--white">
-                                <div class="contact-form__header">
-                                    <div class="contact-form__header-container">
-                                        <img src="../Content/images/uploads/contact_agent.png" alt="Tristina Avelon">
-                                        <div class="contact-info">
-                                            
-                                            <h3 class="contact-name"><a href="#">Raj Pal</a></h3>
-                                            <span class="contact-company">Sales Representative</span>
-                                            <span class="contact-company">Email: info@rajpal.ca</span>
-                                            <a href="tel:+4168445725" class="contact-number">Call: 416-844-5725</a>
-                                        </div><!-- .contact-info -->
-                                    </div><!-- .contact-form__header-container -->
-                                </div><!-- .contact-form__header -->
-
-                                <div class="contact-form__body">
-                                    <input type="text" class="contact-form__field" placeholder="Name" name="name" required>
-                                    <input type="email" class="contact-form__field" placeholder="Email" name="email" required>
-                                    <input type="tel" class="contact-form__field" placeholder="Phone number" name="phone number">
-                                    <textarea class="contact-form__field contact-form__comment" cols="30" rows="5" placeholder="Comment" name="comment" required>I am interested in Golden House Place 72, 1633 Newcomb Ave, San Francisco, CA 94124</textarea>
-                                </div><!-- .contact-form__body -->
-                                <div class="contact-form__footer">
-                                    <input type="submit" class="contact-form__submit" name="submit" value="Contact Agent">
-                                </div><!-- .contact-form__footer -->
-                            </form><!-- .contact-form -->
-                        </section><!-- .widget -->
+                      
                         <section class="widget widget--white widget--padding-20">
                             <h3 class="widget__title">Similar Homes</h3>
                             <div class="similar-home">
@@ -254,77 +242,14 @@
                                 </a>
                             </div><!-- .similar-home -->
                         </section><!-- .widget -->
-                        <section class="widget widget--white widget--padding-20">
-                            <h3 class="widget__title">Mortgage Calculator</h3>
-                            <form class="form-calculator">
-                                <div class="form-calculator__group">
-                                    <label for="home-price" class="form-calculator__label">Home Price</label>
-                                    <span class="form-calculator__icon form-calculator__currency">$</span>
-                                    <input id="home-price" type="text" class="form-calculator__field" required value="2,568,000">
-                                </div><!-- .form-calculator__group -->
-                                <div class="form-calculator__wrapper">
-                                    <div class="form-calculator__group form-calculator__group--larger">
-                                        <label for="down-payment" class="form-calculator__label">Down Payment</label>
-                                        <span class="form-calculator__icon form-calculator__currency">$</span>
-                                        <input id="down-payment" type="text" class="form-calculator__field" required value="317,600">
-                                    </div><!-- .form-calculator__group -->
-                                    <div class="form-calculator__group form-calculator__group--smaller">
-                                        <label for="percent" class="form-calculator__label">Percent</label>
-                                        <span class="form-calculator__icon form-calculator__percent">%</span>
-                                        <input id="txtpercent" type="text" class="form-calculator__field" required value="20">
-                                    </div><!-- .form-calculator__group -->
-                                </div><!-- .form-calculator__wrapper -->
-                                <div class="form-calculator__group">
-                                    <label for="annual-rate" class="form-calculator__label">Annual Interest Rate</label>
-                                    <span class="form-calculator__icon form-calculator__percent">%</span>
-                                    <input id="annual-rate" type="text" class="form-calculator__field" required value="3.5">
-                                </div><!-- .form-calculator__group -->
-                                <div class="form-calculator__group">
-                                    <label for="loan-term" class="form-calculator__label">Loan Term (Years)</label>
-                                    <select id="loan-term" class="ht-field" required>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10" selected>10</option>
-                                    </select>
-                                </div><!-- .form-calculator__group -->
-                                <div class="form-calculator__group">
-                                    <label for="percent" class="form-calculator__label">Payment Method</label>
-                                    <select id="percent" class="ht-field" required>
-                                        <option value="Weekly">WEEKLY</option>
-                                        <option value="Monthly" selected>MONTHLY</option>
-                                        <option value="Bi-Weekly">BI-WEEKLY</option>
-                                    </select>
-                                </div><!-- .form-calculator__group -->
-                                <input type="submit" class="form-calculator__submit" value="Calculate">
-
-                                <div class="form-calculator__result">
-                                    <h3 class="mortgage-payment">Mortgage Payments: <span>$22253.28</span></h3>
-                                </div>
-                            </form><!-- .form-calculator -->
-                        </section><!-- .widget -->
-                        <section class="widget widget--white widget--padding-20 widget__news">
-                            <h3 class="widget__title">Get to Know</h3>
-                            <ul class="widget__news-list">
-                                <li class="widget__news-item"><a href="#">Outer Sunset Real Estate: <span>San Francisco Neighborhood Guide</span></a></li>
-                                <li class="widget__news-item"><a href="#">Pacific Heights Real Estate: <span>San Francisco CA Neighborhood</span></a></li>
-                                <li class="widget__news-item"><a href="#">Mission District San Francisco: <span>Authentic Community</span></a></li>
-                                <li class="widget__news-item"><a href="#">Hayes Valley Real Estate: <span>San Francisco CA Neighborhood</span></a></li>
-                            </ul>
-                        </section><!-- .widget -->
+                       
                     </div><!-- .widget__container -->
                 </aside>
 
                 <main class="col-md-9">
                     <div class="property__feature-container">
 
-                       
+
                         <div class="property__feature">
                             <h3 class="property__feature-title property__feature-title--b-spacing">Property Details</h3>
                             <ul class="property__details-list">
@@ -342,71 +267,31 @@
                                 <li class="property__details-item"><span class="property__details-item--cat">Pool:</span> @Model.Pool</li>
                                 <li class="property__details-item"><span class="property__details-item--cat">SquareFeet:</span>@Model.ApproxSquareFootage</li>
                                 @*<li class="property__details-item"><span class="property__details-item--cat">Exterior:</span>@Model.Exterior1</li>
-                                <li class="property__details-item"><span class="property__details-item--cat">Age:</span>@Model.ApproxAge</li>
-                                <li class="property__details-item"><span class="property__details-item--cat">Water:</span>@Model.Water</li>
-                                <li class="property__details-item"><span class="property__details-item--cat">Heating:</span> @Model.HeatType</li>
+                                    <li class="property__details-item"><span class="property__details-item--cat">Age:</span>@Model.ApproxAge</li>
+                                    <li class="property__details-item"><span class="property__details-item--cat">Water:</span>@Model.Water</li>
+                                    <li class="property__details-item"><span class="property__details-item--cat">Heating:</span> @Model.HeatType</li>
 
-                                <li class="property__details-item"><span class="property__details-item--cat">Fuel:</span>@Model.HeatSource</li>*@
+                                    <li class="property__details-item"><span class="property__details-item--cat">Fuel:</span>@Model.HeatSource</li>*@
                                 <li class="property__details-item"><span class="property__details-item--cat">MLS ID:</span> @Model.MLS</li>
                             </ul><!-- .property__details-list -->
-                        <span>Listing Contracted with:@Model.ListBrokerage</span>
+                            <span>Listing Contracted with:@Model.ListBrokerage</span>
                         </div><!-- .property__feature -->
                         <div class="property__feature">
                             <table>
-                                <thead><tr><th>Rooms</th><th>Dimensions</th></tr></thead>
-                                <tr><td><b>2nd level</b></td><td></td></tr>
-                                <tr>
+                                <thead><tr><th>Room</th><th>Dimensions</th></tr></thead>
+                                @foreach (var level in Model.roomlevels)
+                                {
+                                    <tr><th><b>@level.Level</b></th></tr>
+                                    foreach (var item in level.roomlevel)
+                                    {
+                                        <tr>
 
-                                    <td>4th Bedroom</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr>
-                                    <td>5th Bedroom</td>
-                                    <td>Savings</td>
-                                </tr>
-                                <tr>
-                                    <td>Master</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr>
-                                    <td>2nd Bedroom</td>
-                                    <td>Savings</td>
-                                </tr>
-                                <tr>
-                                    <td>3rd Bedroom</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr><td><b>Main level</b></td><td></td></tr>
-                                <tr>
+                                            <td>@item.Room</td>
+                                            <td>@item.RoomDim</td>
+                                        </tr>
+                                    }
+                                }
 
-                                    <td>Family</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr>
-                                    <td>Study</td>
-                                    <td>Savings</td>
-                                </tr>
-                                <tr>
-                                    <td>Library</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr>
-                                    <td>Living</td>
-                                    <td>Savings</td>
-                                </tr>
-                                <tr>
-                                    <td>Dining</td>
-                                    <td>$100</td>
-                                </tr>
-                                <tr>
-                                    <td>Kitchen</td>
-                                    <td>Savings</td>
-                                </tr>
-                                <tr><td><b>Lower level</b></td><td></td></tr>
-                                <tr>
-                                    <td>Rec</td>
-                                    <td>$100</td>
-                                </tr>
                             </table>
                         </div>
                         <div class="property__feature">
@@ -415,10 +300,10 @@
                         </div><!-- .property__feature -->
                         <div class="property__feature">
                             <h3 class="property__feature-title property__feature-title--b-spacing">Extra Info</h3>
-                            @*<p>@Model.Extras</p>*@
+                            <p>@Model.Extras</p>
                         </div><!-- .property__feature -->
-                   
-                      
+
+
                         <div class="property__feature">
                             <div class="property__feature-header">
                                 <h3 class="property__feature-title">Near By</h3>
@@ -554,37 +439,7 @@
                                 </table><!-- .property__tab-content -->
                             </div><!-- .property__tab-container -->
                         </div><!-- .property__feature -->
-                        <div class="property__feature">
-                            <h3 class="property__feature-title property__feature-title--b-spacing">Schedule A Visit</h3>
-                            <form class="property__form">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="property__form-wrapper">
-                                            <input type="text" name="date" class="property__form-field property__form-date" placeholder="Monday" data-format="l, F d, Y" data-min-year="2017" data-max-year="2020" data-translate-mode="true" data-modal="true" data-large-mode="true" required>
-                                            <span class="ion-android-calendar property__form-icon"></span>
-                                        </div><!-- .property__form-wrapper -->
-                                    </div><!-- col -->
-                                    <div class="col-sm-6">
-                                        <div class="property__form-wrapper">
-                                            <input type="text" name="time" class="property__form-field property__form-time" placeholder="07:30 AM" required>
-                                            <span class="ion-android-alarm-clock property__form-icon"></span>
-                                        </div><!-- .property__form-wrapper -->
-                                    </div><!-- col -->
-                                    <div class="col-sm-6">
-                                        <input type="text" name="name" class="property__form-field" placeholder="Your Name" required>
-                                    </div><!-- col -->
-                                    <div class="col-sm-6">
-                                        <input type="text" name="contact" class="property__form-field" placeholder="Your Email/Phone" required>
-                                    </div><!-- col -->
-                                    <div class="col-sm-12">
-                                        <textarea rows="4" name="message" class="property__form-field" placeholder="Message" required></textarea>
-                                    </div><!-- col -->
-                                    <div class="col-sm-12">
-                                        <input name="submit" type="submit" class="property__form-submit" value="Submit"></input>
-                                    </div><!-- .col -->
-                                </div><!-- .row -->
-                            </form>
-                        </div><!-- .property__feature -->
+                      
                     </div><!-- .property__feature-container -->
                 </main>
             </div><!-- .row -->

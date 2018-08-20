@@ -54,6 +54,18 @@ namespace Rajpal.Controllers
             });
             IMapper mapper = config.CreateMapper();
             var dest = mapper.Map<PropertyModel, PropertyModell>(result);
+            if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Residential))
+            {
+               dest.images= _ResidentialService.GetImageByMLSID(MLS);
+            }
+            else if (Type == EnumValue.GetEnumDescription(EnumValue.PropertyType.Commercial))
+            {
+                dest.images = _CommercialService.GetImageByMLSID(MLS);
+            }
+            else
+            {
+                dest.images = _CondoService.GetImageByMLSID(MLS);
+            }
             int NoOfRoom =Convert.ToInt32( result.Rooms);
             List<RoomLevels> list = new List<RoomLevels>();
 
@@ -147,16 +159,47 @@ namespace Rajpal.Controllers
                 obj8.Level = result.Level9;
                 obj8.Room = result.Room9;
                 obj8.RoomDesc = result.Room9Desc1 + result.Room9Desc2;
-                obj8.RoomDim = result.Room9Length + "x" + result.Room9Width;
+                obj8.RoomDim = result.Room9Length + "m x " + result.Room9Width+"m";
                 list.Add(obj8);
                 i = i + 1;
             }
-          var hgfh = list.GroupBy(c => c.Level)
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj9 = new RoomLevels();
+                obj9.Level = result.Level10;
+                obj9.Room = result.Room10;
+                obj9.RoomDesc = result.Room10Desc1 + result.Room10Desc2;
+                obj9.RoomDim = result.Room10Length + "m x " + result.Room10Width + "m";
+                list.Add(obj9);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj10 = new RoomLevels();
+                obj10.Level = result.Level11;
+                obj10.Room = result.Room11;
+                obj10.RoomDesc = result.Room11Desc1 + result.Room11Desc2;
+                obj10.RoomDim = result.Room11Length + "m x " + result.Room11Width + "m";
+                list.Add(obj10);
+                i = i + 1;
+            }
+            if (NoOfRoom != i)
+            {
+                RoomLevels obj11 = new RoomLevels();
+                obj11.Level = result.Level12;
+                obj11.Room = result.Room12;
+                obj11.RoomDesc = result.Room12Desc1 + result.Room12Desc2;
+                obj11.RoomDim = result.Room12Length + "m x " + result.Room12Width + "m";
+                list.Add(obj11);
+                i = i + 1;
+            }
+           
+          dest.roomlevels = list.GroupBy(c => c.Level)
                  .Select(group =>
-                        new
+                        new RoomLevelList
                         {
                             Level = group.Key,
-                            roomlevels=group.ToList()
+                            roomlevel = group.ToList()
                         })
                 .ToList();
             return View(dest);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Property.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -143,12 +144,15 @@ namespace Rajpal.Models
         public string Level9 { get; set; }
         public string Level10 { get; set; }
         public string Level11 { get; set; }
+        public string Level12 { get; set; }
+        public string Extras { get; set; }
+        public List<RoomLevelList> roomlevels { get; set; }
 
-        public RoomLevelList roomlevels { get; set; }
+        public List<PropertyImages> images { get; set; }
     }
     public class RoomLevelList{
         public string Level { get; set; }
-        public RoomLevels roomlevel { get; set; }
+        public List<RoomLevels> roomlevel { get; set; }
 }
     public class RoomLevels
     {
@@ -157,4 +161,5 @@ namespace Rajpal.Models
         public string RoomDim { get; set; }
         public string RoomDesc { get; set; }
     }
+  
 }
